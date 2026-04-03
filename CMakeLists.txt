@@ -7,5 +7,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(student_program 
     main.cpp
     functions.cpp
-    mylib.cpp
 )

@@ -28,7 +28,7 @@ cmake --build .
 ./bin/student_program
 
 # Paleisti (Windows OS)
-# .\bin\Debug\student_program.ex
+# .\bin\Debug\student_program.exe
 
 
 
