@@ -286,9 +286,9 @@ void test1_splitting(int nStud) {
 	std::string filename = "studentai" + std::to_string(nStud) + ".txt";
 
 	int suma = 0;
-	//read
+	//read and sort by galutinisVid
 	StudentaiContainer studentai = read_file_testing<StudentaiContainer>(filename, suma);
-	//sort
+
 	student_sort_testing(studentai);
 
 	cout << "\n----STRATEGIJA 0 (PIRMINE)----\n\n";
@@ -302,12 +302,6 @@ void test1_splitting(int nStud) {
 
 	cout << "\n----STRATEGIJA 1----\n\n";
 
-	suma = 0;
-	//read
-	studentai = read_file_testing<StudentaiContainer>(filename, suma);
-	//sort
-	student_sort_testing(studentai);
-
 	//split students and time
 	Timer t1;
 	student_split_strategy1(studentai);
@@ -317,11 +311,6 @@ void test1_splitting(int nStud) {
 
 	cout << "\n----STRATEGIJA 2----\n\n";
 
-	//read
-	studentai = read_file_testing<StudentaiContainer>(filename, suma);
-	//sort
-	student_sort_testing(studentai);
-
 	//split students and time
 	Timer t2;
 	student_split_strategy2(studentai);
@@ -330,11 +319,6 @@ void test1_splitting(int nStud) {
 	system("pause");
 
 	cout << "\n----STRATEGIJA 3----\n\n";
-
-	//read
-	studentai = read_file_testing<StudentaiContainer>(filename, suma);
-	//sort
-	student_sort_testing(studentai);
 
 	//split students and time
 	Timer t3;

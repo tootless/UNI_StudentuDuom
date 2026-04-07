@@ -23,7 +23,6 @@ void menu(int& choiceMenu) {
 	} while (choiceMenu < 1 || choiceMenu > choices);
 }
 
-//can make bool!
 void number_input_validation(int& choice, int lowEnd, int highEnd, std::string optionalPrompt) { //if highEnd = -1, no highEnd used
 	std::string input;
 
@@ -72,7 +71,6 @@ void number_input_validation(int& choice, int lowEnd, int highEnd, std::string o
 	}
 }
 
-//can make bool!
 void string_input_validation(std::string& input, std::string optionalPrompt) {
 	while (true) {
 		try {
@@ -316,6 +314,7 @@ std::vector<Studentas> read_file(std::string& filename, int& suma) {
 			//paskutinis pazymys paz vector yra egzamino balas
 			A.egzaminas = A.paz.back();
 			A.paz.pop_back();
+			suma -= A.egzaminas;
 
 			//apskaiciuoti galutinius rezultatus, kadangi isvedami abu
 			double vidurkis = (double)suma / (double)A.paz.size();
