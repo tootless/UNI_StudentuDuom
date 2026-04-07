@@ -255,7 +255,7 @@ void test1_containers(int nStud) {
 
 	//split students
 	Timer t2;
-	student_split_strategyold(filename, studentai);
+	student_split_strategyold(studentai);
 	double split_t = t2.elapsed();
 	cout << "\nStudentu paskirstymas i 'gerus' ir 'blogus' " << filename << " uztruko: " << split_t << " s\n\n";
 	system("pause");
