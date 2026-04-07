@@ -286,39 +286,53 @@ void test1_splitting(int nStud) {
 	std::string filename = "studentai" + std::to_string(nStud) + ".txt";
 
 	int suma = 0;
-	//read and sort by galutinisVid
-	StudentaiContainer studentai = read_file_testing<StudentaiContainer>(filename, suma);
-
-	student_sort_testing(studentai);
+	//read
+	StudentaiContainer studentai_original = read_file_testing<StudentaiContainer>(filename, suma);
 
 	cout << "\n----STRATEGIJA 0 (PIRMINE)----\n\n";
+	
+	//copy and sort
+	StudentaiContainer studentai0 = studentai_original;
+	student_sort_testing(studentai0);
 
 	//split students and time
 	Timer t;
-	student_split_strategyold(studentai);
+	student_split_strategyold(studentai0);
 	double split_t = t.elapsed();
 	cout << "\nStudentu paskirstymas i 'gerus' ir 'blogus' " << filename << " uztruko: " << split_t << " s\n\n";
 	system("pause");
 
 	cout << "\n----STRATEGIJA 1----\n\n";
 
+	//copy and sort
+	StudentaiContainer studentai1 = studentai_original;
+	student_sort_testing(studentai1);
+
 	//split students and time
 	Timer t1;
-	student_split_strategy1(studentai);
+	student_split_strategy1(studentai1);
 	double split_t1 = t1.elapsed();
 	cout << "\nStudentu paskirstymas i 'gerus' ir 'blogus' " << filename << " uztruko: " << split_t1 << " s\n\n";
 	system("pause");
 
 	cout << "\n----STRATEGIJA 2----\n\n";
 
+	//copy and sort
+	StudentaiContainer studentai2 = studentai_original;
+	student_sort_testing(studentai2);
+
 	//split students and time
 	Timer t2;
-	student_split_strategy2(studentai);
+	student_split_strategy2(studentai2);
 	double split_t2 = t2.elapsed();
 	cout << "\nStudentu paskirstymas i 'gerus' ir 'blogus' " << filename << " uztruko: " << split_t2 << " s\n\n";
 	system("pause");
 
 	cout << "\n----STRATEGIJA 3----\n\n";
+
+	//copy and sort
+	StudentaiContainer studentai3 = studentai_original;
+	student_sort_testing(studentai3);
 
 	//split students and time
 	Timer t3;
