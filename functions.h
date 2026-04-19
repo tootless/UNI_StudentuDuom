@@ -342,6 +342,7 @@ void test1_splitting(int nStud) {
 	system("pause");
 	system("cls");
 }
+
 template <typename StudentaiContainer>
 void run_test_splitting() {
 	test1_splitting<StudentaiContainer>(1000);

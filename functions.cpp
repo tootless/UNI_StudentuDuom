@@ -1,6 +1,4 @@
-﻿//function implementations file
-
-#include "functions.h"
+﻿#include "functions.h"
 
 //GLOBALIOS FUNKCIJOS
 //
@@ -264,91 +262,6 @@ void Studentas::rand_varpav()
 
 //DARBAS SU FAILAIS
 //
-
-//Perskaityti egzistuojanti studentu duomenu faila (su std::vector)
-std::vector<Studentas> read_file(std::string& filename, int& suma) {
-
-	std::vector<Studentas> tempStudentai;
-
-	fs::path filePath = filename;
-
-	try {
-		//CHECK IMPORTANT EXCEPTIONS
-
-		if (filePath.extension() != ".txt") {
-			throw std::runtime_error("\n---KLAIDA: Failas " + filename + " turi baigtis '.txt'---\n");
-		}
-
-		if (!fs::exists(filename)) {
-			throw std::runtime_error("\n---KLAIDA: Failas " + filename + " neegzistuoja---\n");
-		}
-
-		//Open file
-		std::fstream fin(filename, std::ios::in);
-
-		if (!fin.is_open()) {
-			throw std::runtime_error("\n---KLAIDA: Failo " + filename + " nepavyko atidaryti---\n");
-		}
-
-		if (fs::file_size(filename) == 0) {
-			throw std::runtime_error("\n---KLAIDA: Failas " + filename + " yra tuscias---\n");
-		}
-
-		//Read file
-		std::string curr_eil; //current eilute
-
-		fin.ignore(INT32_MAX, '\n');
-
-		while (std::getline(fin, curr_eil)) {
-			Studentas A; //temp Studentas
-			int tempPaz;
-
-			std::istringstream iss(curr_eil);
-			iss >> A.vardas >> A.pav;
-
-			//read visus pazymius
-			while (iss >> tempPaz) {
-				A.paz.push_back(tempPaz);
-				suma += tempPaz;
-			}
-			//paskutinis pazymys paz vector yra egzamino balas
-			A.egzaminas = A.paz.back();
-			A.paz.pop_back();
-			suma -= A.egzaminas;
-
-			//apskaiciuoti galutinius rezultatus, kadangi isvedami abu
-			double vidurkis = (double)suma / (double)A.paz.size();
-			A.galutinisVid = 0.4 * vidurkis + 0.6 * A.egzaminas;
-
-			int a = A.paz.size();
-			double mediana;
-			sort(A.paz.begin(), A.paz.end());
-			if (a % 2 == 0) {
-				int midLeftElem = a / 2 - 1;
-				mediana = (A.paz[midLeftElem] + A.paz[a / 2]) / 2;
-			}
-			else
-				mediana = A.paz[a / 2];
-
-			A.galutinisMed = 0.4 * mediana + 0.6 * A.egzaminas;
-
-
-
-			tempStudentai.push_back(A);
-
-			suma = 0;
-		}
-
-		fin.close();
-	}
-	catch (const std::exception& e) {
-		std::cerr << e.what() << "\n";
-
-		return tempStudentai; //Empty
-	}
-
-	return tempStudentai;
-}
 
 //Generuoti faila su randomizuotais studentu duomenimis
 void student_file_generator(int nStud, int nPaz) {
