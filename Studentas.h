@@ -1,4 +1,6 @@
+#pragma once
 #include "mylib.h"
+#include "functions.h"
 
 class Studentas {
 
@@ -18,10 +20,24 @@ public:
 	double getGalutinis(double (*)(const std::vector<double>&) = calc_mediana) const;
 	std::istream& readStudentas(std::istream& input);
 
+	void setVardas(const std::string& vardas) { vardas_ = vardas; };
+	void setPavarde(const std::string& pavarde) { pavarde_ = pavarde; };
+	void addPazymys(const double);
+	void setEgzaminas(const double);
+
+	void setRandVarPav();
+	void setRandEgzaminas();
+	void setRandPazymiai();
+
 };
 
 double calc_vidurkis(const std::vector<double>&); //Calculate vidurkis
 double calc_mediana(const std::vector<double>&); //Calculate mediana
+
+//Input funkcijos
+
+void paz_input();
+
 
 void read_file(std::string&, std::vector<Studentas>&);
 
@@ -41,4 +57,6 @@ void write_studentai(const std::string filename, StudentaiContainer& studentai) 
 }
 
 void choice_sort(std::vector<Studentas>&);
+
+
 

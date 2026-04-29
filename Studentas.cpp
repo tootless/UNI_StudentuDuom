@@ -1,5 +1,4 @@
 #include "Studentas.h";
-#include "functions.h"
 
 Studentas::Studentas(std::istream& is) {
 	readStudentas(is);
@@ -22,6 +21,27 @@ std::istream& Studentas::readStudentas(std::istream& input) {
 	paz_.pop_back();
 
 	return input;
+}
+
+void Studentas::addPazymys(const double p)
+{
+	paz_.push_back(p);
+}
+
+void Studentas::setEgzaminas()
+{
+}
+
+void Studentas::setRandVarPav()
+{
+}
+
+void Studentas::setRandEgzaminas()
+{
+}
+
+void Studentas::setRandPazymiai()
+{
 }
 
 double calc_vidurkis(const std::vector<double>& pazymiai) {

@@ -1,3 +1,4 @@
+#pragma once
 #include "mylib.h"
 
 //Perskaityti egzistuojanti studentu duomenu faila
