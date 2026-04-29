@@ -1,20 +1,4 @@
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <vector>
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-#include <stdlib.h>
-#include <filesystem>
-#include <list>
-#include "timer.h"
-//#include "functions.h"
-
-namespace fs = std::filesystem;
-
-double calc_vidurkis(const std::vector<double>&); //Calculate vidurkis
-double calc_mediana(const std::vector<double>&); //Calculate mediana
+#include "mylib.h"
 
 class Studentas {
 
@@ -25,10 +9,9 @@ class Studentas {
 	double galutinis_ = 0;
 
 public:
-	// Member funkcijos
 
 	Studentas() = default;
-	Studentas(const std::string& vardas, const std::string& pavarde);
+	Studentas(std::istream& is);
 
 	inline std::string getVardas() const { return vardas_; }
 	inline std::string getPavarde() const { return pavarde_; }
@@ -37,4 +20,25 @@ public:
 
 };
 
+double calc_vidurkis(const std::vector<double>&); //Calculate vidurkis
+double calc_mediana(const std::vector<double>&); //Calculate mediana
+
 void read_file(std::string&, std::vector<Studentas>&);
+
+//Irasyti studentu duomenis i faila / sukurti nauja faila su duomenimis
+template<typename StudentaiContainer>
+void write_studentai(const std::string filename, StudentaiContainer& studentai) {
+	//write to file
+	std::ofstream fout(filename);
+
+	fout << "\n" << std::setw(15) << std::left << "Pavarde" << std::setw(15) << std::left << "Vardas" << std::setw(15) << std::left << "Galutinis (Vid.)   Galutinis (Med.)" << "\n";
+	fout << "----------------------------------------------------\n";
+	for (const auto& s : studentai) {
+		fout << std::setw(15) << std::left << s.getPavarde() << std::setw(15) << std::left << s.getVardas()<< std::setw(15) << std::left << std::fixed << std::setprecision(2) << s.getGalutinis(calc_vidurkis) << "   " << std::fixed << std::setprecision(2) << s.getGalutinis() << "\n";
+	}
+
+	fout.close();
+}
+
+void choice_sort(std::vector<Studentas>&);
+

@@ -101,35 +101,6 @@ void string_input_validation(std::string& input, std::string optionalPrompt) {
 	}
 }
 
-//Studentu vektoriaus rusiavimas pagal pasirinkima
-void student_sort(std::vector<Studentas>& studentai) {
-	int choiceSort;
-	do {
-		number_input_validation(choiceSort, 1, 4, "\nKaip norite surusiuoti studentus? \n1 - Pagal vardus,\n2 - Pagal pavardes,\n3 - Pagal galutini (vid.),\n4- Pagal galutini (med.)\n");
-
-	} while (choiceSort < 1 || choiceSort > 4);
-
-	sort(studentai.begin(), studentai.end(),
-		[choiceSort](const Studentas& a, const Studentas& b) -> bool {
-			if (choiceSort == 1) {
-				if (a.vardas != b.vardas) return a.vardas < b.vardas;
-			}
-			else if (choiceSort == 2) {
-				if (a.pav != b.pav) return a.pav < b.pav;
-			}
-			else if (choiceSort == 3) {
-				return a.galutinisVid > b.galutinisVid;
-			}
-			else {
-				return a.galutinisMed > b.galutinisMed;
-			}
-		});
-}
-
-void calculate_galutinis() {
-	return;
-}
-
 //DARBAS SU EKRANU
 // 
 //Vardo, pavardes ivestis

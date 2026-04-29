@@ -1,7 +1,8 @@
 #include "Studentas.h";
+#include "functions.h"
 
-Studentas::Studentas(const std::string& vardas, const std::string& pavarde) {
-
+Studentas::Studentas(std::istream& is) {
+	readStudentas(is);
 }
 
 double Studentas::getGalutinis(double (*calc_funk)(const std::vector<double>&)) const {
@@ -74,4 +75,34 @@ void read_file(const std::string& filename, std::vector<Studentas>& Studentai) {
 	catch (const std::exception& e) {
 		std::cerr << e.what() << "\n";
 	}
+}
+
+
+void write_file(std::vector<Studentas>&) {
+
+}
+
+//Studentu vektoriaus rusiavimas pagal pasirinkima
+void choice_sort(std::vector<Studentas>& studentai) {
+	int choiceSort;
+	do {
+		number_input_validation(choiceSort, 1, 4, "\nKaip norite surusiuoti studentus? \n1 - Pagal vardus,\n2 - Pagal pavardes,\n3 - Pagal galutini (vid.),\n4- Pagal galutini (med.)\n");
+
+	} while (choiceSort < 1 || choiceSort > 4);
+
+	sort(studentai.begin(), studentai.end(),
+		[choiceSort](const Studentas& a, const Studentas& b) -> bool {
+			if (choiceSort == 1) {
+				if ( a.getVardas() != b.getVardas()) return a.getVardas() < b.getVardas();
+			}
+			else if (choiceSort == 2) {
+				if (a.getPavarde() != b.getPavarde()) return a.getPavarde() < b.getPavarde();
+			}
+			else if (choiceSort == 3) {
+				return a.getGalutinis(calc_vidurkis) > b.getGalutinis(calc_vidurkis);
+			}
+			else {
+				return a.getGalutinis() > b.getGalutinis();
+			}
+		});
 }

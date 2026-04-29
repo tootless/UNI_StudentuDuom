@@ -1,40 +1,4 @@
-//function declarations file
-
-#pragma once
-
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <vector>
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-#include <stdlib.h>
-#include <filesystem>
-#include <list>
-#include "timer.h";
-
-namespace fs = std::filesystem;
-
-using std::cout;
-using std::cin;
-
-struct Studentas {
-	std::string vardas, pav;
-	std::vector<int> paz;
-	int egzaminas = 0;
-	double galutinisVid = 0;
-	double galutinisMed = 0;
-
-	void varpav_input();
-	void paz_input(int& suma);
-	void egz_input();
-	void rand_paz(int& suma);
-	void rand_egz();
-	void rand_varpav();
-};
-
-std::vector<Studentas> read_file(std::string& filename, int& suma);
+#include "mylib.h"
 
 //Perskaityti egzistuojanti studentu duomenu faila
 template<typename StudentaiContainer>
