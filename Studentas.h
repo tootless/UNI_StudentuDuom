@@ -8,32 +8,33 @@
 #include <stdlib.h>
 #include <filesystem>
 #include <list>
-#include "timer.h";
+#include "timer.h"
+//#include "functions.h"
 
 namespace fs = std::filesystem;
+
+double calc_vidurkis(const std::vector<double>&); //Calculate vidurkis
+double calc_mediana(const std::vector<double>&); //Calculate mediana
 
 class Studentas {
 
 	std::string vardas_;
 	std::string pavarde_;
-	std::vector<double> paz_; //nd pazymiai
+	std::vector<double> paz_; // nd pazymiai
 	double egzaminas_ = 0;
 	double galutinis_ = 0;
 
 public:
+	// Member funkcijos
+
 	Studentas() = default;
 	Studentas(const std::string& vardas, const std::string& pavarde);
 
 	inline std::string getVardas() const { return vardas_; }
 	inline std::string getPavarde() const { return pavarde_; }
-	double getGalutinis(const double (*) (const std::vector<double>&) = mediana) const;
-	std::istream& readStudentas(std::istream&);
-	
-
+	double getGalutinis(double (*)(const std::vector<double>&) = calc_mediana) const;
+	std::istream& readStudentas(std::istream& input);
 
 };
 
-const double vidurkis(const std::vector<double>&); //Calculate vidurkis
-const double mediana(const std::vector<double>&); //Calculate mediana
-
-void read_file(std::string& filename, std::vector<Studentas>& Studentai);
+void read_file(std::string&, std::vector<Studentas>&);

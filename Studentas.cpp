@@ -1,5 +1,14 @@
 #include "Studentas.h";
 
+Studentas::Studentas(const std::string& vardas, const std::string& pavarde) {
+
+}
+
+double Studentas::getGalutinis(double (*calc_funk)(const std::vector<double>&)) const {
+	double galutinis_rez = calc_funk(paz_);
+	return galutinis_rez;
+}
+
 std::istream& Studentas::readStudentas(std::istream& input) {
 	input >> vardas_ >> pavarde_;
 
@@ -14,7 +23,15 @@ std::istream& Studentas::readStudentas(std::istream& input) {
 	return input;
 }
 
-//Perskaityti egzistuojanti studentu duomenu faila (su std::vector)
+double calc_vidurkis(const std::vector<double>& pazymiai) {
+	return 0;
+}
+
+double calc_mediana(const std::vector<double>& pazymiai) {
+	return 0.0;
+}
+
+//Perskaityti egzistuojanti studentu duomenu faila
 void read_file(const std::string& filename, std::vector<Studentas>& Studentai) {
 	fs::path filePath = filename;
 
