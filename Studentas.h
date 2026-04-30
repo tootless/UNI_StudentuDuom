@@ -22,10 +22,11 @@ public:
 
 	void setVardas(const std::string& vardas) { vardas_ = vardas; };
 	void setPavarde(const std::string& pavarde) { pavarde_ = pavarde; };
-	void addPazymys(const double);
-	void setEgzaminas(const double);
+	void addPazymys(const double& pazymys) { paz_.push_back(pazymys); };
+	void setEgzaminas(const double& egzaminas) { egzaminas_ = egzaminas;};
 
-	void setRandVarPav();
+	void setRandVardas();
+	void setRandPavarde(std::string& vardas);
 	void setRandEgzaminas();
 	void setRandPazymiai();
 
