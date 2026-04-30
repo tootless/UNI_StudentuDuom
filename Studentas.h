@@ -17,6 +17,7 @@ public:
 
 	inline std::string getVardas() const { return vardas_; }
 	inline std::string getPavarde() const { return pavarde_; }
+	std::vector<double> getPazymiai() const { return paz_; };
 	double getGalutinis(double (*)(const std::vector<double>&) = calc_mediana) const;
 	std::istream& readStudentas(std::istream& input);
 

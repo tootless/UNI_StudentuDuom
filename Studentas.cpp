@@ -4,7 +4,8 @@ Studentas::Studentas(std::istream& is) {
 	readStudentas(is);
 }
 
-double Studentas::getGalutinis(double (*calc_funk)(const std::vector<double>&)) const {
+double Studentas::getGalutinis(double(*calc_funk)(const std::vector<double>&)) const
+{
 	double galutinis_rez = calc_funk(paz_);
 	return galutinis_rez;
 }
@@ -113,7 +114,7 @@ double calc_mediana(const std::vector<double>& pazymiai) {
 }
 
 //Perskaityti egzistuojanti studentu duomenu faila
-void read_file(const std::string& filename, std::vector<Studentas>& Studentai) {
+void read_file(const std::string& filename, std::vector<Studentas>& studentai) {
 	fs::path filePath = filename;
 
 	try {
@@ -140,14 +141,17 @@ void read_file(const std::string& filename, std::vector<Studentas>& Studentai) {
 		fin.ignore(INT32_MAX, '\n');
 
 		while (std::getline(fin, curr_eil)) {
-			Studentas temp_Studentas;
+			Studentas temp_studentas;
 			std::istringstream iss(curr_eil);
 
-			temp_Studentas.readStudentas(iss);
+			temp_studentas.readStudentas(iss);
 
 			//apskaiciuoti galutinius rezultatus, kadangi isvedami abu
 
-			Studentai.push_back(temp_Studentas);
+			calc_mediana(temp_studentas.getPazymiai());
+			calc_vidurkis(temp_studentas.getPazymiai());
+
+			studentai.push_back(temp_studentas);
 		}
 
 		fin.close();
