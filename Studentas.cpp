@@ -6,7 +6,7 @@ Studentas::Studentas(std::istream& is) {
 
 double Studentas::getGalutinis(double(*calc_funk)(const std::vector<double>&)) const
 {
-	double galutinis_rez = calc_funk(paz_);
+	double galutinis_rez = 0.4 * calc_funk(paz_) + 0.6 * egzaminas_;
 	return galutinis_rez;
 }
 
@@ -106,11 +106,20 @@ void Studentas::setRandPazymiai()
 }
 
 double calc_vidurkis(const std::vector<double>& pazymiai) {
-	return 0;
+	double suma = 0;
+	for (auto& p : pazymiai) suma += p;
+
+	return suma / (double)pazymiai.size();
 }
 
 double calc_mediana(const std::vector<double>& pazymiai) {
-	return 0.0;
+		sort(pazymiai.begin(), pazymiai.end());
+		if (pazymiai.size() % 2 == 0) {
+			int midLeftElem = pazymiai.size() / 2 - 1;
+			double mediana = (pazymiai[midLeftElem] + pazymiai[pazymiai.size() / 2]) / 2;
+		}
+		else
+			double mediana = pazymiai[pazymiai.size() / 2];
 }
 
 //Perskaityti egzistuojanti studentu duomenu faila
