@@ -1,4 +1,6 @@
-#include "Studentas.h";
+#include "mylib.h"
+#include "Studentas.h"
+#include "functions.h"
 
 Studentas::Studentas(std::istream& is) {
 	readStudentas(is);
@@ -93,10 +95,7 @@ void Studentas::setRandEgzaminas()
 void Studentas::setRandPazymiai()
 {
 	int pazKiekis;
-	do {
-		integer_input_validation(pazKiekis, 1, -1, "Iveskite norima namu darbu pazymiu skaiciu:\n");
-
-	} while (pazKiekis < 1);
+	pazKiekis = integer_input_validation(1, -1, "Iveskite norima namu darbu pazymiu skaiciu:\n");
 
 	for (int i = 0; i < pazKiekis; i++) {
 		int randPaz = rand() % 10 + 1;
@@ -112,24 +111,25 @@ double calc_vidurkis(const std::vector<double>& pazymiai) {
 }
 
 double calc_mediana(const std::vector<double>& pazymiai) {
-	sort(pazymiai.begin(), pazymiai.end());
-	if (pazymiai.size() % 2 == 0) {
-		int midLeftElem = pazymiai.size() / 2 - 1;
-		double mediana = (pazymiai[midLeftElem] + pazymiai[pazymiai.size() / 2]) / 2;
+	std::vector<double> sortedPaz = pazymiai;
+	sort(sortedPaz.begin(), sortedPaz.end());
+	if (sortedPaz.size() % 2 == 0) {
+		int midLeftElem = sortedPaz.size() / 2 - 1;
+		return (sortedPaz[midLeftElem] + sortedPaz[sortedPaz.size() / 2]) / 2.0;
 	}
 	else
-		double mediana = pazymiai[pazymiai.size() / 2];
+		return sortedPaz[sortedPaz.size() / 2];
 }
 
 void Studentas::vardas_input() {
-	string_input_validation(vardas_, "Iveskite studento varda:\n");
+	vardas_ = string_input_validation("Iveskite studento varda:\n");
 }
 
-void Studentas::pavarde_input(){
-	string_input_validation(pavarde_, "Iveskite studento pavarde:\n");
+void Studentas::pavarde_input() {
+	pavarde_ = string_input_validation("Iveskite studento pavarde:\n");
 }
 
-void Studentas::paz_input(){
+void Studentas::paz_input() {
 	int tempPaz;
 	int choiceEndPaz = 0;
 
@@ -149,72 +149,155 @@ void Studentas::egz_input()
 	egzaminas_ = egz;
 }
 
-//Perskaityti egzistuojanti studentu duomenu faila
-template<typename StudentaiContainer>
-void read_file(const std::string& filename, StudentaiContainer& studentai) {
-	fs::path filePath = filename;
+void split_file_generator(std::string& filename, std::vector<Studentas>& studentai) {
+	std::ofstream fout(filename);
+	int max_pazSize = studentai[0].getPazymiaiSize(); //didziausias pazymiu skaicius, header'iui, !!siuo metu toks pats visiems studentams
 
-	try {
-		//CHECK IMPORTANT EXCEPTIONS
+	//file header
 
-		if (filePath.extension() != ".txt") {
-			throw std::runtime_error("\n---KLAIDA: Failas " + filename + " turi baigtis '.txt'---\n");
-		}
+	fout << std::setw(24) << std::left << "Vardas" << std::setw(27) << std::left << "Pavarde";
 
-		if (!fs::exists(filename)) {
-			throw std::runtime_error("\n---KLAIDA: Failas " + filename + " neegzistuoja---\n");
-		}
-
-		//Open file
-		std::fstream fin(filename, std::ios::in);
-
-		if (!fin.is_open()) {
-			throw std::runtime_error("\n---KLAIDA: Failo " + filename + " nepavyko atidaryti---\n");
-		}
-
-		//Read file
-		std::string curr_eil;
-
-		fin.ignore(INT32_MAX, '\n');
-
-		while (std::getline(fin, curr_eil)) {
-			Studentas temp_studentas;
-			std::istringstream iss(curr_eil);
-
-			temp_studentas.readStudentas(iss);
-
-			//apskaiciuoti galutinius rezultatus, kadangi isvedami abu
-
-			calc_mediana(temp_studentas.getPazymiai());
-			calc_vidurkis(temp_studentas.getPazymiai());
-
-			studentai.push_back(temp_studentas);
-		}
-
-		fin.close();
+	for (int i = 0; i < max_pazSize; i++) {
+		std::string nd = "ND";
+		fout << std::setw(10) << std::left << nd.append(std::to_string(i + 1));
 	}
-	catch (const std::exception& e) {
-		std::cerr << e.what() << "\n";
+
+	fout << std::left << "Egz.\n";
+
+	//write to file
+	bool firstEil = true;
+	for (const auto& s : studentai) {
+
+		if (!firstEil) fout << "\n"; //po paskutinio entry netureti buti dar vieno \n
+		firstEil = false;
+
+		//varpav output
+		fout << std::setw(24) << std::left << s.getVardas();
+		fout << std::setw(27) << std::left << s.getPavarde();
+
+		//paz output
+		for (const auto& p : s.getPazymiai()) {
+			fout << std::right << p << std::setw(10);
+		}
+		fout << std::right << s.getEgzaminas() << std::setw(10);
 	}
+
+	fout.close();
 }
 
-//Studentu vektoriaus rusiavimas pagal pasirinkima
-void choice_sort(std::vector<Studentas>& studentai, int choice) {
-	choice = integer_input_validation(1, 4, "\nKaip norite surusiuoti studentus? \n1 - Pagal vardus,\n2 - Pagal pavardes,\n3 - Pagal galutini (vid.),\n4- Pagal galutini (med.)\n");
+void student_split(std::string filename, std::vector<Studentas>& studentai) {
+	//filename input prompt + filename validation;
 
+	//sorting prompt
+	int choiceSort = integer_input_validation(1, 4, "\nKaip norite surusiuoti studentus? \n1 - Pagal vardus,\n2 - Pagal pavardes,\n3 - Pagal galutini (vid.),\n4- Pagal galutini (med.)\n");
+
+	//sort by choice
+	choice_sort(studentai, choiceSort);
+
+	//move students to new vectors
+	std::vector<Studentas> studGeri, studBlogi;
+
+	for (auto& s : studentai) {
+		if (s.getGalutinis(calc_vidurkis) < 5.0) {
+			studBlogi.push_back(std::move(s));
+		}
+		else
+			studGeri.push_back(std::move(s));
+	}
+	studentai.clear();
+
+	//create files
+
+	//construct two new filenames
+	std::string fileGeri = "geri", fileBlogi = "blogi"; //geri: galutinisVid >= 5.0; blogi: galutinisVid < 5.0
+
+	fileGeri.append(filename); fileBlogi.append(filename);
+
+	split_file_generator(fileGeri, studGeri);
+	split_file_generator(fileBlogi, studBlogi);
+}
+
+//Sort vector
+void vidurkis_sort(std::vector<Studentas>& studentai) { //didejimo tvarka
 	sort(studentai.begin(), studentai.end(),
-		[choice](const Studentas& a, const Studentas& b) -> bool {
-			if (choice == 1) {
-				if (a.getVardas() != b.getVardas()) return a.getVardas() < b.getVardas();
-			}
-			else if (choice == 2) {
-				if (a.getPavarde() != b.getPavarde()) return a.getPavarde() < b.getPavarde();
-			}
-			else if (choice == 3) {
-				return a.getGalutinis(calc_vidurkis) > b.getGalutinis(calc_vidurkis);
-			}
-			else {
-				return a.getGalutinis() > b.getGalutinis();
-			}
+		[](const Studentas& a, const Studentas& b) -> bool {
+			return a.getGalutinis(calc_vidurkis) < b.getGalutinis(calc_vidurkis);
 		});
 }
+
+//Sort deque
+void vidurkis_sort(std::deque<Studentas>& studentai) { //didejimo tvarka
+	sort(studentai.begin(), studentai.end(),
+		[](const Studentas& a, const Studentas& b) -> bool {
+			return a.getGalutinis(calc_vidurkis) < b.getGalutinis(calc_vidurkis);
+		});
+}
+
+//Sort list
+void vidurkis_sort(std::list<Studentas>& studentai) {
+	studentai.sort([](const Studentas& a, const Studentas& b) {
+		return a.getGalutinis(calc_vidurkis) < b.getGalutinis(calc_vidurkis); //didejimo tvarka
+		});
+}
+
+
+//Testavimas: nauju failu sukurimas ir ofstream uzdarymas
+void testing_v04_1(int nStud) {
+	Timer timer;
+	student_file_generator(nStud, 15);
+	double time = timer.elapsed();
+
+	cout << "Faila is " << nStud << " studentu ivesciu sukurti uztruko : " << time << "s.\n\n";
+}
+
+//Testavimas: egzistuojanciu failu skaitymas ir pavertimas i du atskirus failus
+void testing_v04_2(std::string filename) {
+	//read file
+	Timer timer_full;
+	Timer timer;
+	std::vector<Studentas> studentai;
+
+	read_file(filename, studentai);
+
+	cout << "Faila '" << filename << "' perskaityti uztruko : " << timer.elapsed() << "s.\n";
+
+	//split file into two new ones
+
+	//sort file by galutinisVid decreasing
+	sort(studentai.begin(), studentai.end(),
+		[](Studentas& a, Studentas& b)-> bool {
+			return a.getGalutinis(calc_vidurkis) > b.getGalutinis(calc_vidurkis);
+		});
+
+	//move students to new vectors
+	std::vector<Studentas> studGeri, studBlogi;
+
+	Timer timer1;
+	for (auto& s : studentai) {
+		if (s.getGalutinis(calc_vidurkis) < 5.0) {
+			studBlogi.push_back(std::move(s));
+		}
+		else
+			studGeri.push_back(std::move(s));
+	}
+	studentai.clear();
+
+	cout << "Failo '" << filename << "' studentu duomenis isrusiuoti i 'gerus' ir 'blogus' uztruko : " << timer1.elapsed() << "s.\n";
+
+	//create files
+
+	//construct two new filenames
+	std::string fileGeri = "geri", fileBlogi = "blogi"; //geri: galutinisVid >= 5.0; blogi: galutinisVid < 5.0
+
+	fileGeri.append(filename); fileBlogi.append(filename);
+
+	Timer timer2;
+	split_file_generator(fileGeri, studGeri);
+	split_file_generator(fileBlogi, studBlogi);
+
+	cout << "Is failo '" << filename << "' sukurti du failus is isrusiuotu duomenu uztruko : " << timer2.elapsed() << "s.\n";
+
+	//final timer
+	cout << "Failo '" << filename << "' testavimas uztruko : " << timer_full.elapsed() << "s.\n\n";
+}
+

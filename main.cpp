@@ -1,17 +1,13 @@
 ﻿#pragma once
 #include "mylib.h"
 #include "functions.h"
+#include "Studentas.h"
 
 //Visi duomenu rinkiniai su std::vector
 
 int main()
 {
-	Studentas A; //Temp studentas su realiais duomenimis
 	std::vector<Studentas> Studentai; //Galutiniai studentu duomenys
-	int m = 0; //Studentu skaicius
-	int suma = 0; //Pazymiu suma (Vidurkiui apskaiciuoti)
-	double vidurkis = 0, mediana = 0;
-	int choiceRez = 0; //Galutinio rez. isvedimo pasirinkimas
 	int choiceEndStud = 0; //Studentu duomenu ivesties baigties pasirinkimas
 	int choiceMenu = 0; //Programos eigos pasirinkimas
 
@@ -23,49 +19,57 @@ int main()
 
 		//RANKA
 		if (choiceMenu == 1) {
-			cout << "---STUDENTO DUOMENU IVEDIMAS---\n\n";
+			Studentas A;
 
-			A.varpav_input();
+			cout << "---STUDENTO DUOMENU IVEDIMAS---\n\n";
+			A.vardas_input();
+			A.pavarde_input();
 
 			cout << "---STUDENTO PAZYMIU IVEDIMAS---\n\n";
-
 			A.egz_input();
+			A.paz_input();
 
-			A.paz_input(suma);
+			Studentai.push_back(A);
 		}
 
 		//RND PAZYMIAI IR EGZAMINO BALAS
 		else if (choiceMenu == 2) {
-			cout << "---STUDENTO DUOMENU IVEDIMAS---\n\n";
+			Studentas A;
 
-			A.varpav_input();
+			cout << "---STUDENTO DUOMENU IVEDIMAS---\n\n";
+			A.vardas_input();
+			A.pavarde_input();
 
 			cout << "\n---RANDOMIZUOTAS EGZAMINO BALAS---\n\n";
-
-			A.rand_egz();
+			A.setRandEgzaminas();
 
 			cout << "\n---RANDOMIZUOTI NAMU DARBU PAZYMIAI---\n\n";
+			A.setRandPazymiai();
 
-			A.rand_paz(suma);
+			Studentai.push_back(A);
 		}
 
 		//RND VISKAS
 		else if (choiceMenu == 3) {
+			Studentas A;
+
 			cout << "\n---RANDOMIZUOTAS STUDENTO VARDAS IR PAVARDE---\n";
-			A.rand_varpav();
+			A.setRandVardas();
+
+			std::string vardas = A.getVardas();
+			A.setRandPavarde(vardas);
 
 			cout << "\n---RANDOMIZUOTAS EGZAMINO BALAS---\n\n";
-
-			A.rand_egz();
+			A.setRandEgzaminas();
 
 			cout << "\n---RANDOMIZUOTI NAMU DARBU PAZYMIAI---\n\n";
+			A.setRandPazymiai();
 
-			A.rand_paz(suma);
+			Studentai.push_back(A);
 		}
 
 		//BAIGTI DARBA (Isvesti galutini rez jei yra)
 		else if (choiceMenu == 4) {
-			//Eiti i isvedima
 			choiceEndStud = 1;
 		}
 
@@ -73,65 +77,71 @@ int main()
 		else if (choiceMenu == 5) {
 			std::string filename_input;
 			int choiceOutput, choiceSort;
+
 			cout << "\n---STUDENTO DUOMENU NUSKAITYMAS IS FAILO---\n\n";
 
 			//Skaitymas
 			bool read_success = true;
 			do {
+				//perhaps filename_input() someday
 				cout << "\nIveskite failo pavadinima, is kurio norite nuskaityti:\n";
 				getline(cin, filename_input);
 
-				Studentai = read_file(filename_input, suma);
+				read_file(filename_input, Studentai);
 				if (Studentai.empty()) {
 					read_success = 0;
+					cout << "Nepavyko nuskaityti failo. Bandykite dar karta.\n";
 				}
 				else {
 					read_success = 1;
 				}
 			} while (read_success == 0);
 
-			cout << "\n---STUDENTO DUOMENU ISANKSTINIS SURUSIAVIMAS/ISRIKIAVIMAS---\n\n";
+			cout << "\n---STUDENTU DUOMENU ISANKSTINIS SURUSIAVIMAS/ISRIKIAVIMAS---\n\n";
 
 			//Rūšiavimas
 			choiceSort = integer_input_validation(1, 4, "\nKaip norite surusiuoti studentus? \n1 - Pagal vardus,\n2 - Pagal pavardes,\n3 - Pagal galutini (vid.),\n4- Pagal galutini (med.)\n");
-
-			//sort here
+			
+			choice_sort(Studentai, choiceSort);
 
 			//Isvedimas
-			do {
-				integer_input_validation(choiceOutput, 1, 2, "\nKur norite isvesti studentu galutinius rezultatus? (1 - Faile, 2 - Ekrane)\n");
-
-			} while (choiceOutput < 1 || choiceOutput > 2);
+			choiceOutput = integer_input_validation(1, 2, "\nKur norite isvesti studentu galutinius rezultatus? (1 - Faile, 2 - Ekrane)\n");
 
 			if (choiceOutput == 1) {
 				std::string answer2;
 				cout << "\nIveskite failo pavadinima, i kuri norite irasyti duomenis (arba sukurti nauja, jeigu failo su tokiu pav. nera):\n";
-				cin >> answer2;
+				getline(cin, answer2);
 
 				write_studentai(answer2, Studentai);
 			}
 			else if (choiceOutput == 2) {
+				cout << "\n" << std::setw(15) << std::left << "Pavarde"
+					<< std::setw(15) << std::left << "Vardas"
+					<< std::setw(15) << std::left << "Galutinis (Vid.)"
+					<< std::setw(15) << std::left << "Galutinis (Med.)" << "\n";
+				cout << "--------------------------------------------------------------\n";
 
-				cout << "\n" << std::setw(15) << std::left << "Pavarde" << std::setw(15) << std::left << "Vardas" << std::setw(15) << std::left << "Galutinis (Vid.)   Galutinis (Med.)" << "\n";
-				cout << "----------------------------------------------------\n";
-				for (int i = 0; i < Studentai.size(); i++) {
-					cout << std::setw(15) << std::left << Studentai[i].pav << std::setw(15) << std::left << Studentai[i].vardas << std::setw(15) << std::left << std::fixed << std::setprecision(2) << Studentai[i].galutinisVid << "   " << std::fixed << std::setprecision(2) << Studentai[i].galutinisMed << "\n";
+				for (const auto& studentas : Studentai) {
+					cout << std::setw(15) << std::left << studentas.getPavarde()
+						<< std::setw(15) << std::left << studentas.getVardas()
+						<< std::setw(15) << std::left << std::fixed << std::setprecision(2)
+						<< studentas.getGalutinis(calc_vidurkis)
+						<< std::setw(15) << std::left << std::fixed << std::setprecision(2)
+						<< studentas.getGalutinis() << "\n";
 				}
-				choiceOutput = 0;
 			}
 
-			//Iseiti is while loop
 			choiceEndStud = 1;
 		}
-		
+
 		//Randomizuotu stud. duomenu failo generavimas
 		else if (choiceMenu == 6) {
 			//prompt
 			int studNum;
-			integer_input_validation(studNum, 0, -1, "\nIveskite su kiek randomizuotu studentu duomenu norite uzpildyti faila: \n");
+			studNum = integer_input_validation(0, -1, "\nIveskite su kiek randomizuotu studentu duomenu norite uzpildyti faila: \n");
 
-			//generate file
 			student_file_generator(studNum, 15);
+			cout << "Sugeneruotas failas su " << studNum << " studentu duomenimis.\n";
 		}
 
 		//Spartos analize
@@ -155,20 +165,19 @@ int main()
 
 			cout << "\n---EGZISTUOJANCIU FAILU SKAITYMO SPARTOS ANALIZE---\n\n";
 
-			testing_v04_2(Studentai,"studentai1000.txt",suma);
+			testing_v04_2("studentai1000.txt");
 			system("pause");
 
-			testing_v04_2(Studentai, "studentai10000.txt", suma);
+			testing_v04_2("studentai10000.txt");
 			system("pause");
 
-			testing_v04_2(Studentai, "studentai100000.txt", suma);
+			testing_v04_2("studentai100000.txt");
 			system("pause");
 
-			testing_v04_2(Studentai, "studentai1000000.txt", suma);
+			testing_v04_2("studentai1000000.txt");
 			system("pause");
 
-			testing_v04_2(Studentai, "studentai10000000.txt", suma);
-
+			testing_v04_2("studentai10000000.txt");
 
 			choiceEndStud = 1;
 		}
@@ -212,90 +221,63 @@ int main()
 			system("pause");
 			system("cls");
 
-			
+
 		}
 
-		//Perkeliam vieno studento duomenis
-		Studentai.push_back(A);
-		if (!Studentai.empty()) {
-			//Apskaiciuojame galutini rezultata kiekvienam studentui
-			vidurkis = (double)suma / ((double)Studentai[m].paz.size());
-			Studentai[m].galutinisVid = 0.4 * vidurkis + 0.6 * Studentai[m].egzaminas;
-
-			for (int i = 0; i < m; i++) {
-				int a = Studentai[i].paz.size();
-				sort(Studentai[i].paz.begin(), Studentai[i].paz.end());
-				if (a % 2 == 0) {
-					int midLeftElem = a / 2 - 1;
-					mediana = (Studentai[i].paz[midLeftElem] + Studentai[i].paz[a / 2]) / 2;
-				}
-				else
-					mediana = Studentai[i].paz[a / 2];
-
-				Studentai[i].galutinisMed = 0.4 * mediana + 0.6 * Studentai[i].egzaminas;
-			}
-		}
-
-		//Testi studentu duom ivedima
-		if (choiceEndStud != 1) {
-			m++; //Skaiciuojame studentu skaiciu / saugome indeksa
-			do {
-				integer_input_validation(choiceEndStud, 0, 1, "\nAr vesite dar vieno studento duomenis? (0 - Taip, 1 - Ne, einame prie galutiniu rezultatu)\n");
-
-			} while (choiceEndStud < 0 || choiceEndStud > 1);
-
+		if (choiceMenu >= 1 && choiceMenu <= 3) {
+			choiceEndStud = integer_input_validation(0, 1, "\nAr vesite dar vieno studento duomenis? (0 - Taip, 1 - Ne, einame prie galutiniu rezultatu)\n");
 			system("cls");
 		}
-		else Studentai.clear();
 
 		//Reset
-		if (choiceMenu == 5 || choiceMenu == 6) Studentai.clear();
-		vidurkis = 0;
-		suma = 0;
+		if (choiceMenu >= 5 && choiceMenu <= 8) {
+			Studentai.clear();
+			choiceEndStud = 0;
+		}
+
 	} while (choiceEndStud != 1);
 
 	///GALUTINIS REZULTATAS
 	if (!Studentai.empty()) {
-
-		do {
-			integer_input_validation(choiceRez, 1, 2, "Kaip norite isvesti studentu galutinius rezultatus? (1 - Vidurkis, 2 - Mediana)\n");
-
-		} while (choiceRez < 1 || choiceRez > 2);
-
+		int choiceRez = integer_input_validation(1, 2, "Kaip norite isvesti studentu galutinius rezultatus? (1 - Vidurkis, 2 - Mediana)\n");
 		system("cls");
+		int choiceSort = integer_input_validation(1, 4, "\nKaip norite surusiuoti studentus? \n1 - Pagal vardus,\n2 - Pagal pavardes,\n3 - Pagal galutini (vid.),\n4- Pagal galutini (med.)\n");
+		system("cls");
+
+		choice_sort(Studentai, choiceSort);
 
 		//VIDURKIS
 		if (choiceRez == 1) {
-			//Rūšiavimas
-			student_sort(Studentai);
 
-			cout << "\n" << std::setw(15) << std::left << "Pavarde" << std::setw(15) << std::left << "Vardas" << std::setw(15) << std::left << "Galutinis (Vid.)" << "\n";
-			cout << "----------------------------------------------------\n";
+			cout << "\n" << std::setw(15) << std::left << "Pavarde"
+				<< std::setw(15) << std::left << "Vardas"
+				<< std::setw(15) << std::left << "Galutinis (Vid.)" << "\n";
+			cout << "------------------------------------------\n";
+
 			for (const auto& s : Studentai) {
-				cout << std::setw(15) << std::left << s.pav << std::setw(15) << std::left << s.vardas << std::setw(15) << std::left << std::fixed << std::setprecision(2) << s.galutinisVid << "   " << "\n";
+				cout << std::setw(15) << std::left << s.getPavarde()
+					<< std::setw(15) << std::left << s.getVardas()
+					<< std::setw(15) << std::left << std::fixed << std::setprecision(2)
+					<< s.getGalutinis(calc_vidurkis) << "\n";
 			}
-			choiceRez = 0;
 		}
 		//MEDIANA
 		else if (choiceRez == 2) {
-			//Rūšiavimas
-			student_sort(Studentai);
-
-			//Output
-			cout << "\n" << std::setw(15) << std::left << "Pavarde" << std::setw(15) << std::left << "Vardas" << std::setw(15) << std::left << "Galutinis (Med.)" << "\n";
+			cout << "\n" << std::setw(15) << std::left << "Pavarde"
+				<< std::setw(15) << std::left << "Vardas"
+				<< std::setw(15) << std::left << "Galutinis (Med.)" << "\n";
 			cout << "------------------------------------------\n";
+
 			for (const auto& s : Studentai) {
-				cout << std::setw(15) << std::left << s.pav << std::setw(15) << std::left << s.vardas << std::setw(15) << std::left << std::fixed << std::setprecision(2) << s.galutinisMed << "   " << "\n";
+				cout << std::setw(15) << std::left << s.getPavarde()
+					<< std::setw(15) << std::left << s.getVardas()
+					<< std::setw(15) << std::left << std::fixed << std::setprecision(2)
+					<< s.getGalutinis() << "\n";
 			}
-
-			choiceRez = 0;
 		}
-
-		//Restart()
 	}
-	else if (Studentai.empty() && (choiceMenu != 5 && choiceMenu != 6 && choiceMenu != 7)) {
+	else if (Studentai.empty() && (choiceMenu != 5 && choiceMenu != 6 && choiceMenu != 7 && choiceMenu != 8)) {
 		cout << "Studentu duomenu nera.\n\n";
-		//Restart();
 	}
 
 	return 0;
