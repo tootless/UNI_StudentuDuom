@@ -18,6 +18,7 @@ public:
 	inline std::string getVardas() const { return vardas_; }
 	inline std::string getPavarde() const { return pavarde_; }
 	std::vector<double> getPazymiai() const { return paz_; };
+	double getEgzaminas() const { return egzaminas_; };
 	double getGalutinis(double (*)(const std::vector<double>&) = calc_mediana) const; //returns apdorotas galutinis
 	std::istream& readStudentas(std::istream& input);
 
@@ -31,15 +32,16 @@ public:
 	void setRandEgzaminas();
 	void setRandPazymiai();
 
+	//Input funkcijos
+	void paz_input();
+	void egz_input();
+	void vardas_input();
+	void pavarde_input();
+
 };
 
 double calc_vidurkis(const std::vector<double>&); //Calculate vidurkis
 double calc_mediana(const std::vector<double>&); //Calculate mediana
-
-//Input funkcijos
-
-void paz_input();
-
 
 void read_file(std::string&, std::vector<Studentas>&);
 
@@ -59,6 +61,10 @@ void write_studentai(const std::string filename, StudentaiContainer& studentai) 
 }
 
 void choice_sort(std::vector<Studentas>&);
+
+void split_file_generator(std::string& filename, std::vector<Studentas>& studentai);
+
+void student_split(std::string filename, std::vector<Studentas>& studentai);
 
 
 

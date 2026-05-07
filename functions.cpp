@@ -14,14 +14,14 @@ void menu(int& choiceMenu) {
 			<< "\n7 - Vykdyti spartos analize su std::vector." << "\n8 - Vykdyti spartos analize tarp skirtingu STL konteineriu";
 		cout << "\n--------\n";
 
-		number_input_validation(choiceMenu, 1, choices);
+		choiceMenu = integer_input_validation(1, choices);
 
 		system("cls");
 
 	} while (choiceMenu < 1 || choiceMenu > choices);
 }
 
-void number_input_validation(int& choice, int lowEnd, int highEnd, std::string optionalPrompt) { //if highEnd = -1, no highEnd used
+int integer_input_validation(int lowEnd, int highEnd, std::string optionalPrompt) { //if highEnd = -1, no highEnd used
 	std::string input;
 
 	while (true) {
@@ -46,9 +46,9 @@ void number_input_validation(int& choice, int lowEnd, int highEnd, std::string o
 			}
 
 			//string to int
-			choice = stoi(input);
+			int choice = stoi(input);
 
-			//check range
+			//if cout of range
 			if (choice < lowEnd || (choice > highEnd && highEnd != -1)) {
 				std::string errorMsg = "\n---KLAIDA: Iveskite realuji skaiciu";
 				if (highEnd != -1) {
@@ -61,7 +61,7 @@ void number_input_validation(int& choice, int lowEnd, int highEnd, std::string o
 			}
 
 			//valid input
-			break;
+			return choice;
 		}
 		catch (const std::exception& e) {
 			std::cerr << e.what();
@@ -69,7 +69,9 @@ void number_input_validation(int& choice, int lowEnd, int highEnd, std::string o
 	}
 }
 
-void string_input_validation(std::string& input, std::string optionalPrompt) {
+std::string string_input_validation(std::string optionalPrompt) {
+	std::string input;
+
 	while (true) {
 		try {
 			cout << optionalPrompt;
@@ -93,51 +95,12 @@ void string_input_validation(std::string& input, std::string optionalPrompt) {
 				throw std::runtime_error("\n---KLAIDA: Iveskite tik raides---\n");
 			}
 			//valid input
-			break;
+			return input;
 		}
 		catch (const std::exception& e) {
 			std::cerr << e.what();
 		}
 	}
-}
-
-//DARBAS SU EKRANU
-// 
-//Vardo, pavardes ivestis
-void Studentas::varpav_input()
-{
-	string_input_validation(vardas, "Iveskite studento varda:\nVardas: ");
-
-	string_input_validation(pav, "Iveskite studento pavarde:\nPavarde: ");
-	cout << "\n";
-}
-
-//Nd pazymiu ivestis
-void Studentas::paz_input(int& suma)
-{
-	cout << "Iveskite studento pazymius:\n";
-
-	int tempPaz;
-	int choiceEndPaz = 0;
-
-	do {
-		number_input_validation(tempPaz, 1, 10, "Pazymys:\n");
-
-		suma += tempPaz;
-		paz.push_back(tempPaz);
-
-		do {
-			number_input_validation(choiceEndPaz, 0, 1, "\nAr vesite dar viena pazymi? (0 - Taip, 1 - Ne, eikime prie kito studento):\n");
-
-		} while (choiceEndPaz < 0 || choiceEndPaz > 1);
-	} while (choiceEndPaz != 1);
-}
-
-//Egzamino balo ivestis
-void Studentas::egz_input()
-{
-
-	number_input_validation(egzaminas, 1, 10, "Iveskite studento egzamino bala:\n");
 }
 
 //DARBAS SU FAILAIS

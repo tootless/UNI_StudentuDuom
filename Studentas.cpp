@@ -4,8 +4,7 @@ Studentas::Studentas(std::istream& is) {
 	readStudentas(is);
 }
 
-double Studentas::getGalutinis(double(*calc_funk)(const std::vector<double>&)) const
-{
+double Studentas::getGalutinis(double(*calc_funk)(const std::vector<double>&)) const {
 	double galutinis_rez = 0.4 * calc_funk(paz_) + 0.6 * egzaminas_;
 	return galutinis_rez;
 }
@@ -95,7 +94,7 @@ void Studentas::setRandPazymiai()
 {
 	int pazKiekis;
 	do {
-		number_input_validation(pazKiekis, 1, -1, "Iveskite norima namu darbu pazymiu skaiciu:\n");
+		integer_input_validation(pazKiekis, 1, -1, "Iveskite norima namu darbu pazymiu skaiciu:\n");
 
 	} while (pazKiekis < 1);
 
@@ -113,17 +112,46 @@ double calc_vidurkis(const std::vector<double>& pazymiai) {
 }
 
 double calc_mediana(const std::vector<double>& pazymiai) {
-		sort(pazymiai.begin(), pazymiai.end());
-		if (pazymiai.size() % 2 == 0) {
-			int midLeftElem = pazymiai.size() / 2 - 1;
-			double mediana = (pazymiai[midLeftElem] + pazymiai[pazymiai.size() / 2]) / 2;
-		}
-		else
-			double mediana = pazymiai[pazymiai.size() / 2];
+	sort(pazymiai.begin(), pazymiai.end());
+	if (pazymiai.size() % 2 == 0) {
+		int midLeftElem = pazymiai.size() / 2 - 1;
+		double mediana = (pazymiai[midLeftElem] + pazymiai[pazymiai.size() / 2]) / 2;
+	}
+	else
+		double mediana = pazymiai[pazymiai.size() / 2];
+}
+
+void Studentas::vardas_input() {
+	string_input_validation(vardas_, "Iveskite studento varda:\n");
+}
+
+void Studentas::pavarde_input(){
+	string_input_validation(pavarde_, "Iveskite studento pavarde:\n");
+}
+
+void Studentas::paz_input(){
+	int tempPaz;
+	int choiceEndPaz = 0;
+
+	do {
+		tempPaz = integer_input_validation(1, 10, "Pazymys:\n");
+
+		addPazymys(tempPaz);
+
+		choiceEndPaz = integer_input_validation(0, 1, "\nAr vesite dar viena pazymi? (0 - Taip, 1 - Ne, eikime prie kito studento):\n");
+	} while (choiceEndPaz != 1);
+}
+
+void Studentas::egz_input()
+{
+	int egz = egzaminas_;
+	egz = integer_input_validation(1, 10, "Iveskite studento egzamino bala:\n");
+	egzaminas_ = egz;
 }
 
 //Perskaityti egzistuojanti studentu duomenu faila
-void read_file(const std::string& filename, std::vector<Studentas>& studentai) {
+template<typename StudentaiContainer>
+void read_file(const std::string& filename, StudentaiContainer& studentai) {
 	fs::path filePath = filename;
 
 	try {
@@ -170,28 +198,19 @@ void read_file(const std::string& filename, std::vector<Studentas>& studentai) {
 	}
 }
 
-
-void write_file(std::vector<Studentas>&) {
-
-}
-
 //Studentu vektoriaus rusiavimas pagal pasirinkima
-void choice_sort(std::vector<Studentas>& studentai) {
-	int choiceSort;
-	do {
-		number_input_validation(choiceSort, 1, 4, "\nKaip norite surusiuoti studentus? \n1 - Pagal vardus,\n2 - Pagal pavardes,\n3 - Pagal galutini (vid.),\n4- Pagal galutini (med.)\n");
-
-	} while (choiceSort < 1 || choiceSort > 4);
+void choice_sort(std::vector<Studentas>& studentai, int choice) {
+	choice = integer_input_validation(1, 4, "\nKaip norite surusiuoti studentus? \n1 - Pagal vardus,\n2 - Pagal pavardes,\n3 - Pagal galutini (vid.),\n4- Pagal galutini (med.)\n");
 
 	sort(studentai.begin(), studentai.end(),
-		[choiceSort](const Studentas& a, const Studentas& b) -> bool {
-			if (choiceSort == 1) {
+		[choice](const Studentas& a, const Studentas& b) -> bool {
+			if (choice == 1) {
 				if (a.getVardas() != b.getVardas()) return a.getVardas() < b.getVardas();
 			}
-			else if (choiceSort == 2) {
+			else if (choice == 2) {
 				if (a.getPavarde() != b.getPavarde()) return a.getPavarde() < b.getPavarde();
 			}
-			else if (choiceSort == 3) {
+			else if (choice == 3) {
 				return a.getGalutinis(calc_vidurkis) > b.getGalutinis(calc_vidurkis);
 			}
 			else {

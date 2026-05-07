@@ -1,4 +1,5 @@
-﻿#include "mylib.h"
+﻿#pragma once
+#include "mylib.h"
 #include "functions.h"
 
 //Visi duomenu rinkiniai su std::vector
@@ -92,30 +93,13 @@ int main()
 			cout << "\n---STUDENTO DUOMENU ISANKSTINIS SURUSIAVIMAS/ISRIKIAVIMAS---\n\n";
 
 			//Rūšiavimas
-			do {
-				number_input_validation(choiceSort, 1, 4, "\nKaip norite surusiuoti studentus? \n1 - Pagal vardus,\n2 - Pagal pavardes,\n3 - Pagal galutini (vid.),\n4- Pagal galutini (med.)\n");
+			choiceSort = integer_input_validation(1, 4, "\nKaip norite surusiuoti studentus? \n1 - Pagal vardus,\n2 - Pagal pavardes,\n3 - Pagal galutini (vid.),\n4- Pagal galutini (med.)\n");
 
-			} while (choiceSort < 1 || choiceSort > 4);
-
-			sort(Studentai.begin(), Studentai.end(),
-				[choiceSort](const Studentas& a, const Studentas& b) -> bool {
-					if (choiceSort == 1) {
-						if (a.vardas != b.vardas) return a.vardas < b.vardas;
-					}
-					else if (choiceSort == 2) {
-						if (a.pav != b.pav) return a.pav < b.pav;
-					}
-					else if (choiceSort == 3) {
-						return a.galutinisVid > b.galutinisVid;
-					}
-					else {
-						return a.galutinisMed > b.galutinisMed;
-					}
-				});
+			//sort here
 
 			//Isvedimas
 			do {
-				number_input_validation(choiceOutput, 1, 2, "\nKur norite isvesti studentu galutinius rezultatus? (1 - Faile, 2 - Ekrane)\n");
+				integer_input_validation(choiceOutput, 1, 2, "\nKur norite isvesti studentu galutinius rezultatus? (1 - Faile, 2 - Ekrane)\n");
 
 			} while (choiceOutput < 1 || choiceOutput > 2);
 
@@ -144,7 +128,7 @@ int main()
 		else if (choiceMenu == 6) {
 			//prompt
 			int studNum;
-			number_input_validation(studNum, 0, -1, "\nIveskite su kiek randomizuotu studentu duomenu norite uzpildyti faila: \n");
+			integer_input_validation(studNum, 0, -1, "\nIveskite su kiek randomizuotu studentu duomenu norite uzpildyti faila: \n");
 
 			//generate file
 			student_file_generator(studNum, 15);
@@ -256,7 +240,7 @@ int main()
 		if (choiceEndStud != 1) {
 			m++; //Skaiciuojame studentu skaiciu / saugome indeksa
 			do {
-				number_input_validation(choiceEndStud, 0, 1, "\nAr vesite dar vieno studento duomenis? (0 - Taip, 1 - Ne, einame prie galutiniu rezultatu)\n");
+				integer_input_validation(choiceEndStud, 0, 1, "\nAr vesite dar vieno studento duomenis? (0 - Taip, 1 - Ne, einame prie galutiniu rezultatu)\n");
 
 			} while (choiceEndStud < 0 || choiceEndStud > 1);
 
@@ -274,7 +258,7 @@ int main()
 	if (!Studentai.empty()) {
 
 		do {
-			number_input_validation(choiceRez, 1, 2, "Kaip norite isvesti studentu galutinius rezultatus? (1 - Vidurkis, 2 - Mediana)\n");
+			integer_input_validation(choiceRez, 1, 2, "Kaip norite isvesti studentu galutinius rezultatus? (1 - Vidurkis, 2 - Mediana)\n");
 
 		} while (choiceRez < 1 || choiceRez > 2);
 
