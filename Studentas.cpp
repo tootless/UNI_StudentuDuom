@@ -54,9 +54,9 @@ std::istream& operator>>(std::istream& in, Studentas& studentas) {
 std::ostream& operator<<(std::ostream& out, const Studentas& studentas) {
 
 	out << std::setw(15) << std::left << studentas.vardas_
-		<< std::setw(15) << std::left << studentas.pavarde_
-		<< std::setw(15) << std::left << std::fixed << std::setprecision(2) << studentas.getGalutinis(calc_vidurkis)
-		<< std::fixed << std::setprecision(2) << studentas.getGalutinis();
+		<< std::setw(15) << std::left << studentas.pavarde_;
+		/*<< std::setw(15) << std::left << std::fixed << std::setprecision(2) << studentas.getGalutinis(calc_vidurkis)
+		<< std::fixed << std::setprecision(2) << studentas.getGalutinis();*/
 
 	return out;
 }
@@ -223,7 +223,7 @@ void split_file_generator(std::string& filename, std::vector<Studentas>& student
 	bool firstEil = true;
 	for (const auto& s : studentai) {
 
-		if (!firstEil) fout << "\n"; //po paskutinio entry netureti buti dar vieno \n
+		if (!firstEil) fout << '\n'; //po paskutinio entry netureti buti dar vieno \n
 		firstEil = false;
 
 		//varpav output
@@ -295,7 +295,6 @@ void vidurkis_sort(std::list<Studentas>& studentai) {
 		});
 }
 
-
 //Testavimas: nauju failu sukurimas ir ofstream uzdarymas
 void testing_v04_1(int nStud) {
 	Timer timer;
@@ -356,6 +355,7 @@ void testing_v04_2(std::string filename) {
 	cout << "Failo '" << filename << "' testavimas uztruko : " << timer_full.elapsed() << "s.\n\n";
 }
 
+//Testavimas: rule of five + I/O operatoriu overloads
 void testROF() {
 	Studentas s1;
 	s1.setVardas("Algis");
@@ -363,21 +363,41 @@ void testROF() {
 	s1.addPazymys(1);
 	s1.setEgzaminas(1);
 
+	cout << "Original data: " << s1 << '\n';
+
 	//copy
 	Studentas s2(s1);
 
+	cout << "Copy constructor: " << s2 << '\n';
+
 	//move
 	Studentas s3(std::move(s2));
+
+	cout << "Move constructor: " << s3 << '\n';
 
 	//assign copy
 	Studentas s4;
 	s4 = s1;
 
+	cout << "Copy assignment: " << s4 << '\n';
+
 	//assign move
 	Studentas s5;
 	s5 = std::move(s4);
 
-	std::cout << s1 << std::endl;
-	std::cout << s3 << std::endl;
-	std::cout << s5 << std::endl;
+	cout << "Move assignment: " << s5 << '\n';
+
+	//input output
+
+	std::istringstream in;
+
+	in >> s1;
+
+	cout << "Input operator, from original data: " << in << '\n';
+
+	std::ostringstream out;
+	out << s1;
+	std::string res = out.str();
+
+	cout << "Output operator, from original data: " << res << '\n';
 }

@@ -134,7 +134,7 @@ void student_file_generator(int nStud, int nPaz) {
 
 	for (int i = 0; i < nStud; i++) {
 
-		if (i != 0) fout << "\n";
+		if (i != 0) fout << '\n';
 
 		std::string studVar = "Vardas";
 		std::string studPav = "Pavarde";

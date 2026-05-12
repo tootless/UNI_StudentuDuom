@@ -98,7 +98,7 @@ void read_file(const std::string& filename, StudentaiContainer& studentai) {
 		fin.close();
 	}
 	catch (const std::exception& e) {
-		std::cerr << e.what() << "\n";
+		std::cerr << e.what() << '\n';
 	}
 }
 
@@ -108,10 +108,10 @@ void write_studentai(const std::string filename, StudentaiContainer& studentai) 
 	//write to file
 	std::ofstream fout(filename);
 
-	fout << "\n" << std::setw(15) << std::left << "Pavarde" << std::setw(15) << std::left << "Vardas" << std::setw(15) << std::left << "Galutinis (Vid.)   Galutinis (Med.)" << "\n";
+	fout << '\n' << std::setw(15) << std::left << "Pavarde" << std::setw(15) << std::left << "Vardas" << std::setw(15) << std::left << "Galutinis (Vid.)   Galutinis (Med.)" << '\n';
 	fout << "----------------------------------------------------\n";
 	for (const auto& s : studentai) {
-		fout << s << "\n";
+		fout << s << '\n';
 	}
 
 	fout.close();

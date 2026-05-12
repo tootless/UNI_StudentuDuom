@@ -117,10 +117,10 @@ int main()
 	//			write_studentai(answer2, Studentai);
 	//		}
 	//		else if (choiceOutput == 2) {
-	//			cout << "\n" << std::setw(15) << std::left << "Pavarde"
+	//			cout << '\n' << std::setw(15) << std::left << "Pavarde"
 	//				<< std::setw(15) << std::left << "Vardas"
 	//				<< std::setw(15) << std::left << "Galutinis (Vid.)"
-	//				<< std::setw(15) << std::left << "Galutinis (Med.)" << "\n";
+	//				<< std::setw(15) << std::left << "Galutinis (Med.)" << '\n';
 	//			cout << "--------------------------------------------------------------\n";
 
 	//			for (const auto& studentas : Studentai) {
@@ -129,7 +129,7 @@ int main()
 	//					<< std::setw(15) << std::left << std::fixed << std::setprecision(2)
 	//					<< studentas.getGalutinis(calc_vidurkis)
 	//					<< std::setw(15) << std::left << std::fixed << std::setprecision(2)
-	//					<< studentas.getGalutinis() << "\n";
+	//					<< studentas.getGalutinis() << '\n';
 	//			}
 	//		}
 
@@ -251,30 +251,28 @@ int main()
 	//	//VIDURKIS
 	//	if (choiceRez == 1) {
 
-	//		cout << "\n" << std::setw(15) << std::left << "Pavarde"
+	//		cout << '\n' << std::setw(15) << std::left << "Pavarde"
 	//			<< std::setw(15) << std::left << "Vardas"
-	//			<< std::setw(15) << std::left << "Galutinis (Vid.)" << "\n";
+	//			<< std::setw(15) << std::left << "Galutinis (Vid.)" << '\n';
 	//		cout << "------------------------------------------\n";
 
 	//		for (const auto& s : Studentai) {
 	//			cout << std::setw(15) << std::left << s.getPavarde()
 	//				<< std::setw(15) << std::left << s.getVardas()
-	//				<< std::setw(15) << std::left << std::fixed << std::setprecision(2)
-	//				<< s.getGalutinis(calc_vidurkis) << "\n";
+	//				<< std::setw(15) << std::left << std::fixed << std::setprecision(2) << s.getGalutinis(calc_vidurkis) << '\n';
 	//		}
 	//	}
 	//	//MEDIANA
 	//	else if (choiceRez == 2) {
-	//		cout << "\n" << std::setw(15) << std::left << "Pavarde"
+	//		cout << '\n' << std::setw(15) << std::left << "Pavarde"
 	//			<< std::setw(15) << std::left << "Vardas"
-	//			<< std::setw(15) << std::left << "Galutinis (Med.)" << "\n";
+	//			<< std::setw(15) << std::left << "Galutinis (Med.)" << '\n';
 	//		cout << "------------------------------------------\n";
 
 	//		for (const auto& s : Studentai) {
 	//			cout << std::setw(15) << std::left << s.getPavarde()
 	//				<< std::setw(15) << std::left << s.getVardas()
-	//				<< std::setw(15) << std::left << std::fixed << std::setprecision(2)
-	//				<< s.getGalutinis() << "\n";
+	//				<< std::setw(15) << std::left << std::fixed << std::setprecision(2) << s.getGalutinis() << '\n';
 	//		}
 	//	}
 	//}
