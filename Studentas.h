@@ -84,7 +84,8 @@ void read_file(const std::string& filename, StudentaiContainer& studentai) {
 		while (std::getline(fin, curr_eil)) {
 			std::istringstream iss(curr_eil);
 
-			Studentas temp_studentas(iss(curr_eil);
+			//read student
+			Studentas temp_studentas(iss);
 
 			//apskaiciuoti galutinius rezultatus, kadangi isvedami abu
 
@@ -110,7 +111,7 @@ void write_studentai(const std::string filename, StudentaiContainer& studentai) 
 	fout << "\n" << std::setw(15) << std::left << "Pavarde" << std::setw(15) << std::left << "Vardas" << std::setw(15) << std::left << "Galutinis (Vid.)   Galutinis (Med.)" << "\n";
 	fout << "----------------------------------------------------\n";
 	for (const auto& s : studentai) {
-		fout << std::setw(15) << std::left << s.getPavarde() << std::setw(15) << std::left << s.getVardas() << std::setw(15) << std::left << std::fixed << std::setprecision(2) << s.getGalutinis(calc_vidurkis) << "   " << std::fixed << std::setprecision(2) << s.getGalutinis() << "\n";
+		fout << s << "\n";
 	}
 
 	fout.close();
@@ -334,3 +335,5 @@ void run_test_splitting() {
 	test1_splitting<StudentaiContainer>(1000000);
 	test1_splitting<StudentaiContainer>(10000000);
 }
+
+void testROF();

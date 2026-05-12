@@ -52,10 +52,11 @@ std::istream& operator>>(std::istream& in, Studentas& studentas) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Studentas& studentas) {
-	out << studentas.vardas_ << " "
-		<< studentas.pavarde_ << " "
-		<< studentas.getGalutinis() << " "
-		<< studentas.getGalutinis(calc_vidurkis);
+
+	out << std::setw(15) << std::left << studentas.vardas_
+		<< std::setw(15) << std::left << studentas.pavarde_
+		<< std::setw(15) << std::left << std::fixed << std::setprecision(2) << studentas.getGalutinis(calc_vidurkis)
+		<< std::fixed << std::setprecision(2) << studentas.getGalutinis();
 
 	return out;
 }
@@ -355,3 +356,28 @@ void testing_v04_2(std::string filename) {
 	cout << "Failo '" << filename << "' testavimas uztruko : " << timer_full.elapsed() << "s.\n\n";
 }
 
+void testROF() {
+	Studentas s1;
+	s1.setVardas("Algis");
+	s1.setPavarde("Dovydaitis");
+	s1.addPazymys(1);
+	s1.setEgzaminas(1);
+
+	//copy
+	Studentas s2(s1);
+
+	//move
+	Studentas s3(std::move(s2));
+
+	//assign copy
+	Studentas s4;
+	s4 = s1;
+
+	//assign move
+	Studentas s5;
+	s5 = std::move(s4);
+
+	std::cout << s1 << std::endl;
+	std::cout << s3 << std::endl;
+	std::cout << s5 << std::endl;
+}
