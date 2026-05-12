@@ -6,6 +6,22 @@ Studentas::Studentas(std::istream& is) {
 	readStudentas(is);
 }
 
+Studentas::Studentas(const Studentas& other) {
+	vardas_ = other.vardas_;
+	pavarde_ = other.pavarde_;
+	paz_ = other.paz_;
+	egzaminas_ = other.egzaminas_;
+	galutinis_ = other.galutinis_;
+}
+
+Studentas::Studentas(Studentas&& other) noexcept {
+	vardas_ = std::move(other.vardas_);
+	pavarde_ = std::move(other.pavarde_);
+	paz_ = std::move(other.paz_);
+	egzaminas_ = std::move(other.egzaminas_);
+	galutinis_ = std::move(other.galutinis_);
+}
+
 double Studentas::getGalutinis(double(*calc_funk)(const std::vector<double>&)) const {
 	double galutinis_rez = 0.4 * calc_funk(paz_) + 0.6 * egzaminas_;
 	return galutinis_rez;

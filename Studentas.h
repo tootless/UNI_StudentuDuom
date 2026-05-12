@@ -18,9 +18,18 @@ public:
 	Studentas(std::istream& is);
 	~Studentas() = default;
 
+	Studentas(const Studentas& other); //copy
+	Studentas(Studentas&& other) noexcept; //move
+
+	Studentas& operator=(const Studentas& other); //copy assign
+	Studentas& operator=(Studentas&& other) noexcept; //move assign
+
+	friend std::istream& operator>>(std::istream& in, Studentas& s); //input
+	friend std::ostream& operator<<(std::ostream& out, const Studentas& s); //output
+
 	inline std::string getVardas() const { return vardas_; }
 	inline std::string getPavarde() const { return pavarde_; }
-	std::vector<double> getPazymiai() const { return paz_; };
+	const std::vector<double>& getPazymiai() const { return paz_; };
 	int getPazymiaiSize() const { return paz_.size(); };
 	double getEgzaminas() const { return egzaminas_; };
 	double getGalutinis(double (*)(const std::vector<double>&) = calc_mediana) const; //returns apdorotas galutinis
