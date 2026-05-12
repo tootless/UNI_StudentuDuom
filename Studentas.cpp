@@ -71,11 +71,19 @@ std::istream& Studentas::readStudentas(std::istream& input) {
 
 	double temp_paz;
 
-	while (input >> temp_paz) {
-		paz_.push_back(temp_paz);
+	std::vector<double> temp_vec;
+
+	while (input >> temp_paz)
+	{
+		temp_vec.push_back(temp_paz);
 	}
-	egzaminas_ = paz_.back();
-	paz_.pop_back();
+
+	if (!temp_vec.empty())
+	{
+		egzaminas_ = temp_vec.back();
+		temp_vec.pop_back();
+		paz_ = temp_vec;
+	}
 
 	return input;
 }
@@ -360,10 +368,23 @@ void testROF() {
 	Studentas s1;
 	s1.setVardas("Algis");
 	s1.setPavarde("Dovydaitis");
-	s1.addPazymys(1);
-	s1.setEgzaminas(1);
 
 	cout << "Original data: " << s1 << '\n';
+
+	//input output
+
+	std::istringstream in("Algis Dovydaitis");
+
+	Studentas sin;
+	in >> sin;
+
+	cout << "Input operator: " << sin << '\n';
+
+	std::ostringstream out;
+	out << s1;
+	std::string res = out.str();
+
+	cout << "Output operator, from original data: " << res << '\n';
 
 	//copy
 	Studentas s2(s1);
@@ -386,18 +407,4 @@ void testROF() {
 	s5 = std::move(s4);
 
 	cout << "Move assignment: " << s5 << '\n';
-
-	//input output
-
-	std::istringstream in;
-
-	in >> s1;
-
-	cout << "Input operator, from original data: " << in << '\n';
-
-	std::ostringstream out;
-	out << s1;
-	std::string res = out.str();
-
-	cout << "Output operator, from original data: " << res << '\n';
 }
