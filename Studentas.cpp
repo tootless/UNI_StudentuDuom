@@ -22,6 +22,44 @@ Studentas::Studentas(Studentas&& other) noexcept {
 	galutinis_ = std::move(other.galutinis_);
 }
 
+Studentas& Studentas::operator=(const Studentas& other) {
+	if (this == &other) return *this;
+
+	vardas_ = other.vardas_;
+	pavarde_ = other.pavarde_;
+	paz_ = other.paz_;
+	egzaminas_ = other.egzaminas_;
+	galutinis_ = other.galutinis_;
+
+	return *this;
+}
+
+Studentas& Studentas::operator=(Studentas&& other) noexcept {
+	if (this == &other) return *this;
+
+	vardas_ = std::move(other.vardas_);
+	pavarde_ = std::move(other.pavarde_);
+	paz_ = std::move(other.paz_);
+	egzaminas_ = other.egzaminas_;
+	galutinis_ = other.galutinis_;
+
+	return *this;
+}
+
+std::istream& operator>>(std::istream& in, Studentas& studentas) {
+	studentas.readStudentas(in);
+	return in;
+}
+
+std::ostream& operator<<(std::ostream& out, const Studentas& studentas) {
+	out << studentas.vardas_ << " "
+		<< studentas.pavarde_ << " "
+		<< studentas.getGalutinis() << " "
+		<< studentas.getGalutinis(calc_vidurkis);
+
+	return out;
+}
+
 double Studentas::getGalutinis(double(*calc_funk)(const std::vector<double>&)) const {
 	double galutinis_rez = 0.4 * calc_funk(paz_) + 0.6 * egzaminas_;
 	return galutinis_rez;
