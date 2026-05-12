@@ -73,10 +73,9 @@ void read_file(const std::string& filename, StudentaiContainer& studentai) {
 		fin.ignore(INT32_MAX, '\n');
 
 		while (std::getline(fin, curr_eil)) {
-			Studentas temp_studentas;
 			std::istringstream iss(curr_eil);
 
-			temp_studentas.readStudentas(iss);
+			Studentas temp_studentas(iss(curr_eil);
 
 			//apskaiciuoti galutinius rezultatus, kadangi isvedami abu
 
