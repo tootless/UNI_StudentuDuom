@@ -11,11 +11,11 @@ protected:
 public:
 	Zmogus() = default;
 	Zmogus(std::string v, std::string p) : vardas_(v), pavarde_(p) {}
-	Zmogus(std::istream& in){ in >> vardas_ >> pavarde_; }
+	Zmogus(std::istream& in) { in >> vardas_ >> pavarde_; }
 	virtual ~Zmogus() = default;
 
-	inline std::string getVardas() { return vardas_; }
-	inline std::string getPavarde() { return pavarde_; }
+	inline std::string getVardas() const { return vardas_; }
+	inline std::string getPavarde() const { return pavarde_; }
 
 	void setVardas(std::string v) { vardas_ = v; }
 	void setPavarde(std::string p) { pavarde_ = p; }
@@ -34,7 +34,7 @@ private:
 
 public:
 	Studentas() = default;
-	Studentas(std::string v, std::string p) : Zmogus(v,p) {}
+	Studentas(std::string v, std::string p) : Zmogus(v, p) {}
 	Studentas(std::istream& in);
 	~Studentas() override = default;
 
@@ -54,6 +54,7 @@ public:
 	std::istream& read(std::istream& input);
 
 	void addPazymys(const double& pazymys) { paz_.push_back(pazymys); };
+	void setGalutinis(const double& galutinis) { galutinis_ = galutinis; }
 	void setEgzaminas(const double& egzaminas) { egzaminas_ = egzaminas; };
 
 	void setRandVardas();
@@ -67,7 +68,7 @@ public:
 
 };
 
-//Perskaityti egzistuojanti studentu duomenu faila
+//Perskaityti egzistuojanti studentu duomenu faila ir irasyti i stl konteineri
 template<typename StudentaiContainer>
 void read_file(const std::string& filename, StudentaiContainer& studentai) {
 	fs::path filePath = filename;
@@ -101,11 +102,6 @@ void read_file(const std::string& filename, StudentaiContainer& studentai) {
 			//read student
 			Studentas temp_studentas(iss);
 
-			//apskaiciuoti galutinius rezultatus, kadangi isvedami abu
-
-			calc_mediana(temp_studentas.getPazymiai());
-			calc_vidurkis(temp_studentas.getPazymiai());
-
 			studentai.push_back(temp_studentas);
 		}
 
@@ -118,11 +114,13 @@ void read_file(const std::string& filename, StudentaiContainer& studentai) {
 
 //Irasyti studentu duomenis i faila / sukurti nauja faila su duomenimis
 template<typename StudentaiContainer>
-void write_studentai(const std::string filename, StudentaiContainer& studentai) {
+void write_studentai(const std::string& filename, StudentaiContainer& studentai) {
 	//write to file
 	std::ofstream fout(filename);
 
-	fout << '\n' << std::setw(15) << std::left << "Pavarde" << std::setw(15) << std::left << "Vardas" << std::setw(15) << std::left << "Galutinis (Vid.)   Galutinis (Med.)" << '\n';
+	fout << '\n' << std::setw(15) << std::left << "Vardas" << std::setw(15) << std::left << "Pavarde" 
+		<< std::setw(15) << std::left << "Galutinis (Vid.)" << std::setw(15) << std::left << "Galutinis(Med.)" 
+		<< std::setw(15) << std::left << "Egz." << '\n';
 	fout << "----------------------------------------------------\n";
 	for (const auto& s : studentai) {
 		fout << s << '\n';
@@ -159,7 +157,7 @@ void vidurkis_sort(std::deque<Studentas>& studentai);
 //Sort list
 void vidurkis_sort(std::list<Studentas>& studentai);
 
-void split_file_generator(std::string& filename, std::vector<Studentas>& studentai);
+void split_file_generator(const std::string& filename, std::vector<Studentas>& studentai);
 
 void student_split(std::string filename, std::vector<Studentas>& studentai);
 

@@ -51,12 +51,12 @@ std::istream& operator>>(std::istream& in, Studentas& studentas) {
 	return in;
 }
 
+//Outputs all data
 std::ostream& operator<<(std::ostream& out, const Studentas& studentas) {
-
-	out << std::setw(15) << std::left << studentas.vardas_
-		<< std::setw(15) << std::left << studentas.pavarde_;
-		/*<< std::setw(15) << std::left << std::fixed << std::setprecision(2) << studentas.getGalutinis(calc_vidurkis)
-		<< std::fixed << std::setprecision(2) << studentas.getGalutinis();*/
+	out << std::setw(15) << std::left << studentas.getVardas()
+		<< std::setw(15) << std::left << studentas.getPavarde()
+		<< std::setw(15) << std::left << std::fixed << std::setprecision(2) << studentas.getGalutinis(calc_vidurkis)
+		<< std::fixed << std::setprecision(2) << studentas.getGalutinis();
 
 	return out;
 }
@@ -212,7 +212,7 @@ void Studentas::egz_input()
 	egzaminas_ = egz;
 }
 
-void split_file_generator(std::string& filename, std::vector<Studentas>& studentai) {
+void split_file_generator(const std::string& filename, std::vector<Studentas>& studentai) {
 	std::ofstream fout(filename);
 	int max_pazSize = studentai[0].getPazymiaiSize(); //didziausias pazymiu skaicius, header'iui, !!siuo metu toks pats visiems studentams
 

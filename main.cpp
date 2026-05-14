@@ -255,6 +255,7 @@ int main()
 			cout << "------------------------------------------\n";
 
 			for (const auto& s : Studentai) {
+
 				cout << std::setw(15) << std::left << s.getPavarde()
 					<< std::setw(15) << std::left << s.getVardas()
 					<< std::setw(15) << std::left << std::fixed << std::setprecision(2) << s.getGalutinis(calc_vidurkis) << '\n';
