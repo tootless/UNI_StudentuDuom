@@ -4,19 +4,28 @@
 double calc_vidurkis(const std::vector<double>&); //Calculate vidurkis
 double calc_mediana(const std::vector<double>&); //Calculate mediana
 
-class Studentas {
+class Zmogus {
+protected:
+	std::string vardas;
+	std::string pavarde;
+public:
+	Zmogus(std::string v, std::string p) : vardas(v), pavarde(p) {}
+	virtual ~Zmogus() = default;
 
-	std::string vardas_;
-	std::string pavarde_;
+	virtual std::string getVardas() const = 0;
+	virtual std::string getPavarde() const = 0;
+};
+
+class Studentas : public Zmogus{
 	std::vector<double> paz_; // nd pazymiai
 	double egzaminas_ = 0;
 	double galutinis_ = 0;
 
 public:
 
-	Studentas() = default;
+	Studentas(std::string v, std::string p) : Zmogus(v,p) {}
 	Studentas(std::istream& is);
-	~Studentas() = default;
+	~Studentas() override = default;
 
 	Studentas(const Studentas& other); //copy
 	Studentas(Studentas&& other) noexcept; //move
@@ -27,8 +36,8 @@ public:
 	friend std::istream& operator>>(std::istream& in, Studentas& s); //input
 	friend std::ostream& operator<<(std::ostream& out, const Studentas& s); //output
 
-	inline std::string getVardas() const { return vardas_; }
-	inline std::string getPavarde() const { return pavarde_; }
+	//inline std::string getVardas() const { return vardas_; }
+	//inline std::string getPavarde() const { return pavarde_; }
 	const std::vector<double>& getPazymiai() const { return paz_; };
 	int getPazymiaiSize() const { return paz_.size(); };
 	double getEgzaminas() const { return egzaminas_; };
