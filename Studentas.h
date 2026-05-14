@@ -6,14 +6,17 @@ double calc_mediana(const std::vector<double>&); //Calculate mediana
 
 class Zmogus {
 protected:
-	std::string vardas;
-	std::string pavarde;
+	std::string vardas_;
+	std::string pavarde_;
 public:
-	Zmogus(std::string v, std::string p) : vardas(v), pavarde(p) {}
+	Zmogus(std::string v, std::string p) : vardas_(v), pavarde_(p) {}
 	virtual ~Zmogus() = default;
 
 	virtual std::string getVardas() const = 0;
 	virtual std::string getPavarde() const = 0;
+
+	virtual void setVardas() = 0;
+	virtual void setPavarde() = 0;
 };
 
 class Studentas : public Zmogus{
@@ -36,8 +39,8 @@ public:
 	friend std::istream& operator>>(std::istream& in, Studentas& s); //input
 	friend std::ostream& operator<<(std::ostream& out, const Studentas& s); //output
 
-	//inline std::string getVardas() const { return vardas_; }
-	//inline std::string getPavarde() const { return pavarde_; }
+	inline std::string getVardas() const { return vardas_; }
+	inline std::string getPavarde() const { return pavarde_; }
 	const std::vector<double>& getPazymiai() const { return paz_; };
 	int getPazymiaiSize() const { return paz_.size(); };
 	double getEgzaminas() const { return egzaminas_; };
