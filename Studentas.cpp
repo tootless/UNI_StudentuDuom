@@ -2,8 +2,8 @@
 #include "Studentas.h"
 #include "functions.h"
 
-Studentas::Studentas(std::istream& is) {
-	Studentas::read(is); //Studentas:: for clarity
+Studentas::Studentas(std::istream& in) {
+	read(in);
 }
 
 Studentas::Studentas(const Studentas& other) {
@@ -184,11 +184,11 @@ double calc_mediana(const std::vector<double>& pazymiai) {
 		return sortedPaz[sortedPaz.size() / 2];
 }
 
-void Studentas::vardas_input() {
+void Zmogus::vardas_input() {
 	vardas_ = string_input_validation("Iveskite studento varda:\n");
 }
 
-void Studentas::pavarde_input() {
+void Zmogus::pavarde_input() {
 	pavarde_ = string_input_validation("Iveskite studento pavarde:\n");
 }
 

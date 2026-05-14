@@ -9,16 +9,21 @@ protected:
 	std::string vardas_;
 	std::string pavarde_;
 public:
+	Zmogus() = default;
 	Zmogus(std::string v, std::string p) : vardas_(v), pavarde_(p) {}
+	Zmogus(std::istream& in){ in >> vardas_ >> pavarde_; }
 	virtual ~Zmogus() = default;
 
-	virtual std::string getVardas() const = 0;
-	virtual std::string getPavarde() const = 0;
+	inline std::string getVardas() { return vardas_; }
+	inline std::string getPavarde() { return pavarde_; }
 
-	virtual void setVardas() = 0;
-	virtual void setPavarde() = 0;
+	void setVardas(std::string v) { vardas_ = v; }
+	void setPavarde(std::string p) { pavarde_ = p; }
 
-	virtual std::istream& read() = 0;
+	virtual std::istream& read(std::istream& in) = 0;
+
+	void vardas_input();
+	void pavarde_input();
 };
 
 class Studentas : public Zmogus {
@@ -28,9 +33,9 @@ private:
 	double galutinis_ = 0;
 
 public:
-
+	Studentas() = default;
 	Studentas(std::string v, std::string p) : Zmogus(v,p) {}
-	Studentas(std::istream& is);
+	Studentas(std::istream& in);
 	~Studentas() override = default;
 
 	Studentas(const Studentas& other); //copy
@@ -42,16 +47,12 @@ public:
 	friend std::istream& operator>>(std::istream& in, Studentas& s); //input
 	friend std::ostream& operator<<(std::ostream& out, const Studentas& s); //output
 
-	inline std::string getVardas() const { return vardas_; }
-	inline std::string getPavarde() const { return pavarde_; }
 	const std::vector<double>& getPazymiai() const { return paz_; };
 	int getPazymiaiSize() const { return paz_.size(); };
 	double getEgzaminas() const { return egzaminas_; };
 	double getGalutinis(double (*)(const std::vector<double>&) = calc_mediana) const; //returns apdorotas galutinis
 	std::istream& read(std::istream& input);
 
-	void setVardas(const std::string& vardas) { vardas_ = vardas; };
-	void setPavarde(const std::string& pavarde) { pavarde_ = pavarde; };
 	void addPazymys(const double& pazymys) { paz_.push_back(pazymys); };
 	void setEgzaminas(const double& egzaminas) { egzaminas_ = egzaminas; };
 
@@ -63,8 +64,6 @@ public:
 	//Input funkcijos
 	void paz_input();
 	void egz_input();
-	void vardas_input();
-	void pavarde_input();
 
 };
 
