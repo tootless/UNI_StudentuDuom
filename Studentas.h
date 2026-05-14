@@ -17,9 +17,12 @@ public:
 
 	virtual void setVardas() = 0;
 	virtual void setPavarde() = 0;
+
+	virtual std::istream& read() = 0;
 };
 
-class Studentas : public Zmogus{
+class Studentas : public Zmogus {
+private:
 	std::vector<double> paz_; // nd pazymiai
 	double egzaminas_ = 0;
 	double galutinis_ = 0;
@@ -45,7 +48,7 @@ public:
 	int getPazymiaiSize() const { return paz_.size(); };
 	double getEgzaminas() const { return egzaminas_; };
 	double getGalutinis(double (*)(const std::vector<double>&) = calc_mediana) const; //returns apdorotas galutinis
-	std::istream& readStudentas(std::istream& input);
+	std::istream& read(std::istream& input);
 
 	void setVardas(const std::string& vardas) { vardas_ = vardas; };
 	void setPavarde(const std::string& pavarde) { pavarde_ = pavarde; };

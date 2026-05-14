@@ -3,7 +3,7 @@
 #include "functions.h"
 
 Studentas::Studentas(std::istream& is) {
-	readStudentas(is);
+	Studentas::read(is); //Studentas:: for clarity
 }
 
 Studentas::Studentas(const Studentas& other) {
@@ -47,7 +47,7 @@ Studentas& Studentas::operator=(Studentas&& other) noexcept {
 }
 
 std::istream& operator>>(std::istream& in, Studentas& studentas) {
-	studentas.readStudentas(in);
+	studentas.read(in);
 	return in;
 }
 
@@ -66,7 +66,7 @@ double Studentas::getGalutinis(double(*calc_funk)(const std::vector<double>&)) c
 	return galutinis_rez;
 }
 
-std::istream& Studentas::readStudentas(std::istream& input) {
+std::istream& Studentas::read(std::istream& input) {
 	input >> vardas_ >> pavarde_;
 
 	double temp_paz;
