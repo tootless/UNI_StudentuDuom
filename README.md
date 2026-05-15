@@ -5,40 +5,47 @@
 
 # Instaliavimas / paleidimas 
 
-## Programos Kompiliavimas
-
 ### Reikalavimai
 - CMake (versija 3.10 arba naujesne)
 - C++17 palaikantis kompiliatorius (g++, clang++ arba MSVC)
 
 ### Kompiliavimo zingsniai
 
-# Sukuriame build folder
+### Sukuriame build folder
 mkdir build
 
 cd build
 
-# Konfiguruoti
+### Konfiguruoti
 cmake ..
 
-# Kompiliuoti
+### Kompiliuoti
 cmake --build .
 
-# Paleisti (Linux/macOS)
+### Paleisti (Linux/macOS)
 ./bin/student_program
 
-# Paleisti (Windows OS)
-# .\bin\Debug\student_program.exe
+### Paleisti (Windows OS)
+.\bin\Debug\student_program.exe
 
 
 # Versija v1.5
 
 ## Pakeitimai
 
-- Klase Studentas pakeista i Studentas::Zmogus, prideta klase Zmogus  
-- - Klasiu hierarchija aprasyta UML diagramoje zemiau.  
--  
+- Klase Studentas pakeista i Studentas::Zmogus, prideta abstrakti klase Zmogus.  
+    - Klasiu hierarchija aprasyta UML diagramoje zemiau.  
+- Atliktas rankinis testavimas, vos neidentiskas i v1.2, su skirtumu, kad iliustruota, jog Zmogus yra abstrakti klase.  
+    - Demonstracija pateikta nuotraukoje zemiau.  
+- v1.2 logika ir veikimo principai islike.
 
+## UML klasiu hierarchijos diagrama
+
+!["Class Structure UML"](/Assets/v1.5/UML_class_structure.png)  
+
+## Zmogus - abstrakti klase
+
+!["Abstract.png"](/Assets/v1.5/Abstract.png)
 
 # Testavimas - v0.2
 
