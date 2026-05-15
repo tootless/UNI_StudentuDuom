@@ -76,6 +76,7 @@ std::istream& Studentas::read(std::istream& input) {
 	while (input >> temp_paz)
 	{
 		temp_vec.push_back(temp_paz);
+		if (input.peek() == '\n' || input.peek() == EOF) break;
 	}
 
 	if (!temp_vec.empty())
@@ -365,6 +366,9 @@ void testing_v04_2(std::string filename) {
 
 //Testavimas: rule of five + I/O operatoriu overloads
 void testROF() {
+
+	//Zmogus z; Error: object of abstract class not allowed
+
 	Studentas s1;
 	s1.setVardas("Algis");
 	s1.setPavarde("Dovydaitis");
