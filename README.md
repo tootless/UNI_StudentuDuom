@@ -43,9 +43,11 @@ cmake --build .
 
 !["Class Structure UML"](/Assets/v1.5/UML_class_structure.png)  
 
-## Zmogus - abstrakti klase
+## Zmogus - abstrakti klase + rankinis v1.2 pagristas testas
 
 !["Abstract.png"](/Assets/v1.5/Abstract.png)
+
+!["Test.png](/Assets/v1.5/Test.png)
 
 # Testavimas - v0.2
 
