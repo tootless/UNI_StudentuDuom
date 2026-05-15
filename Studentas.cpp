@@ -168,6 +168,8 @@ void Studentas::setRandPazymiai()
 }
 
 double calc_vidurkis(const std::vector<double>& pazymiai) {
+	if (pazymiai.empty()) return 0.0;
+
 	double suma = 0;
 	for (auto& p : pazymiai) suma += p;
 
@@ -175,6 +177,8 @@ double calc_vidurkis(const std::vector<double>& pazymiai) {
 }
 
 double calc_mediana(const std::vector<double>& pazymiai) {
+	if (pazymiai.empty()) return 0.0;
+
 	std::vector<double> sortedPaz = pazymiai;
 	sort(sortedPaz.begin(), sortedPaz.end());
 	if (sortedPaz.size() % 2 == 0) {
@@ -372,6 +376,10 @@ void testROF() {
 	Studentas s1;
 	s1.setVardas("Algis");
 	s1.setPavarde("Dovydaitis");
+	s1.addPazymys(8);
+	s1.addPazymys(9);
+	s1.addPazymys(7);
+	s1.setEgzaminas(9);
 
 	cout << "Original data: " << s1 << '\n';
 
