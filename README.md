@@ -31,6 +31,14 @@ cmake --build .
 # .\bin\Debug\student_program.exe
 
 
+# Versija v1.5
+
+## Pakeitimai
+
+- Klase Studentas pakeista i Studentas::Zmogus, prideta klase Zmogus  
+- - Klasiu hierarchija aprasyta UML diagramoje zemiau.  
+-  
+
 
 # Testavimas - v0.2
 
