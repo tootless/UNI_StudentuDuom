@@ -1,0 +1,129 @@
+\doxysection{Studentas Klasė}
+\hypertarget{class_studentas}{}\label{class_studentas}\index{Studentas@{Studentas}}
+
+
+Paveldimumo diagrama Studentas:\+
+% FIG 0
+
+
+Bendradarbiavimo diagrama Studentas:\+
+% FIG 1
+\doxysubsubsection*{Vieši Metodai}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_studentas_a03cbff16bd9ef24866f706ddb7e2636a}\label{class_studentas_a03cbff16bd9ef24866f706ddb7e2636a} 
+{\bfseries Studentas} (std::\+string v, std::\+string p)
+\item 
+\Hypertarget{class_studentas_a8b7f7341d8a2bd37e1a9e876adcf87fb}\label{class_studentas_a8b7f7341d8a2bd37e1a9e876adcf87fb} 
+{\bfseries Studentas} (std::\+istream \&in)
+\item 
+\Hypertarget{class_studentas_aef0484fe46cf05746f8ffc0d083fcf3e}\label{class_studentas_aef0484fe46cf05746f8ffc0d083fcf3e} 
+{\bfseries Studentas} (const \doxymbox{\hyperlink{class_studentas}{Studentas}} \&other)
+\item 
+\Hypertarget{class_studentas_a732b15e3745fa8e35ff0002cfc4b73b5}\label{class_studentas_a732b15e3745fa8e35ff0002cfc4b73b5} 
+{\bfseries Studentas} (\doxymbox{\hyperlink{class_studentas}{Studentas}} \&\&other) noexcept
+\item 
+\Hypertarget{class_studentas_a25bcc531503d3bc490dab4a656e3b8e9}\label{class_studentas_a25bcc531503d3bc490dab4a656e3b8e9} 
+\doxymbox{\hyperlink{class_studentas}{Studentas}} \& {\bfseries operator=} (const \doxymbox{\hyperlink{class_studentas}{Studentas}} \&other)
+\item 
+\Hypertarget{class_studentas_a6379482d741209e9a2d902023676fb45}\label{class_studentas_a6379482d741209e9a2d902023676fb45} 
+\doxymbox{\hyperlink{class_studentas}{Studentas}} \& {\bfseries operator=} (\doxymbox{\hyperlink{class_studentas}{Studentas}} \&\&other) noexcept
+\item 
+\Hypertarget{class_studentas_aecdba1ea6e74d48083ebfd8cb9babbc4}\label{class_studentas_aecdba1ea6e74d48083ebfd8cb9babbc4} 
+const std::\+vector$<$ double $>$ \& {\bfseries get\+Pazymiai} () const
+\item 
+\Hypertarget{class_studentas_ad7fb5bd85ac66305e53337a72fd089fa}\label{class_studentas_ad7fb5bd85ac66305e53337a72fd089fa} 
+int {\bfseries get\+Pazymiai\+Size} () const
+\item 
+\Hypertarget{class_studentas_a513d2d40da9692be76d4763ec79294d1}\label{class_studentas_a513d2d40da9692be76d4763ec79294d1} 
+double {\bfseries get\+Egzaminas} () const
+\item 
+\Hypertarget{class_studentas_a0696d2c2ea6017d264e37646b91d1c99}\label{class_studentas_a0696d2c2ea6017d264e37646b91d1c99} 
+double {\bfseries get\+Galutinis} (double(\texorpdfstring{$\ast$}{*})(const std::\+vector$<$ double $>$ \&)=calc\+\_\+mediana) const
+\item 
+std::\+istream \& \doxymbox{\hyperlink{class_studentas_a60a1b521ef3a142c6b96dfec1e693711}{read}} (std::\+istream \&input)
+\item 
+\Hypertarget{class_studentas_abdd6f8907c76b4c3f237f4ed820a14d2}\label{class_studentas_abdd6f8907c76b4c3f237f4ed820a14d2} 
+void {\bfseries add\+Pazymys} (const double \&pazymys)
+\item 
+\Hypertarget{class_studentas_a742be7a12c10edb4e546934b03044615}\label{class_studentas_a742be7a12c10edb4e546934b03044615} 
+void {\bfseries set\+Galutinis} (const double \&galutinis)
+\item 
+\Hypertarget{class_studentas_a27ede461e53c965f0e2341d5b6ff34a7}\label{class_studentas_a27ede461e53c965f0e2341d5b6ff34a7} 
+void {\bfseries set\+Egzaminas} (const double \&egzaminas)
+\item 
+\Hypertarget{class_studentas_af09ef0e0c7d11eed8e8a242e41bf5308}\label{class_studentas_af09ef0e0c7d11eed8e8a242e41bf5308} 
+void {\bfseries set\+Rand\+Vardas} ()
+\item 
+\Hypertarget{class_studentas_ac27bc1a78084b332ff5a86c2a9093d0f}\label{class_studentas_ac27bc1a78084b332ff5a86c2a9093d0f} 
+void {\bfseries set\+Rand\+Pavarde} (std::\+string \&vardas)
+\item 
+\Hypertarget{class_studentas_a785f24f83612fdf8de5e37fb464a1046}\label{class_studentas_a785f24f83612fdf8de5e37fb464a1046} 
+void {\bfseries set\+Rand\+Egzaminas} ()
+\item 
+\Hypertarget{class_studentas_a30732d84b50f97b75715ac06271caff5}\label{class_studentas_a30732d84b50f97b75715ac06271caff5} 
+void {\bfseries set\+Rand\+Pazymiai} ()
+\item 
+\Hypertarget{class_studentas_a679ac93f5c0c1fc571a7009cc0ba94f1}\label{class_studentas_a679ac93f5c0c1fc571a7009cc0ba94f1} 
+void {\bfseries paz\+\_\+input} ()
+\item 
+\Hypertarget{class_studentas_aa3e6f2ef4aa906a1f38155bdee2a087b}\label{class_studentas_aa3e6f2ef4aa906a1f38155bdee2a087b} 
+void {\bfseries egz\+\_\+input} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Vieši Metodai inherited from \doxymbox{\hyperlink{class_zmogus}{Zmogus}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Zmogus} (std::\+string v, std::\+string p)
+\item 
+{\bfseries Zmogus} (std::\+istream \&in)
+\item 
+std::\+string {\bfseries get\+Vardas} () const
+\item 
+std::\+string {\bfseries get\+Pavarde} () const
+\item 
+void {\bfseries set\+Vardas} (std::\+string v)
+\item 
+void {\bfseries set\+Pavarde} (std::\+string p)
+\item 
+void {\bfseries vardas\+\_\+input} ()
+\item 
+void {\bfseries pavarde\+\_\+input} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Draugai}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_studentas_af8f35a3ee68335b1adb35ac85edf1c03}\label{class_studentas_af8f35a3ee68335b1adb35ac85edf1c03} 
+std::\+istream \& {\bfseries operator$>$$>$} (std::\+istream \&in, \doxymbox{\hyperlink{class_studentas}{Studentas}} \&s)
+\item 
+\Hypertarget{class_studentas_a8ef0139ac1bd9eb75f994ab35393cdad}\label{class_studentas_a8ef0139ac1bd9eb75f994ab35393cdad} 
+std::\+ostream \& {\bfseries operator$<$$<$} (std::\+ostream \&out, const \doxymbox{\hyperlink{class_studentas}{Studentas}} \&s)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Apsaugoti Atributai inherited from \doxymbox{\hyperlink{class_zmogus}{Zmogus}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+string {\bfseries vardas\+\_\+}
+\item 
+std::\+string {\bfseries pavarde\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\label{class_studentas_doc-func-members}
+\Hypertarget{class_studentas_doc-func-members}
+\doxysubsection{Metodų Dokumentacija}
+\Hypertarget{class_studentas_a60a1b521ef3a142c6b96dfec1e693711}\index{Studentas@{Studentas}!read@{read}}
+\index{read@{read}!Studentas@{Studentas}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily \label{class_studentas_a60a1b521ef3a142c6b96dfec1e693711} 
+std::\+istream \& Studentas::\+read (\begin{DoxyParamCaption}\item[{std::\+istream \&}]{input}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Realizuoja \doxymbox{\hyperlink{class_zmogus}{Zmogus}}.
+
+
+
+Dokumentacija šiai klasei sugeneruota iš šių failų:\+\begin{DoxyCompactItemize}
+\item 
+Studentas.\+h\item 
+Studentas.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,19 @@
+\doxysection{timer.\+h}
+\hypertarget{timer_8h_source}{}\label{timer_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00003\ \textcolor{keyword}{class\ }Timer\ \{}
+\DoxyCodeLine{00004\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00005\ \ \ \ \ std::chrono::time\_point<std::chrono::high\_resolution\_clock>\ start;}
+\DoxyCodeLine{00006\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00007\ \ \ \ \ Timer()\ :\ start\{\ std::chrono::high\_resolution\_clock::now()\ \}\ \{\}}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{void}\ reset()\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ start\ =\ std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{00010\ \ \ \ \ \}}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{double}\ elapsed()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::chrono::duration<double>(std::chrono::high\_resolution\_clock::now()\ -\/\ start).count();}
+\DoxyCodeLine{00013\ \ \ \ \ \}}
+\DoxyCodeLine{00014\ \};}
+
+\end{DoxyCode}
