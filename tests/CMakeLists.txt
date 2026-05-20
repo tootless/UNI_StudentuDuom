@@ -1,20 +1,34 @@
-find_package(GTest REQUIRED)
+include(FetchContent)
 
-add_executable(run_tests 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG v1.14.0
+)
+
+FetchContent_MakeAvailable(googletest)
+
+add_executable(run_tests
     main.cpp
     test_studentas.cpp
     ../Studentas.cpp
+    ../functions.cpp
 )
 
-target_include_directories(run_tests PRIVATE 
+target_include_directories(run_tests PRIVATE
     ${CMAKE_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
-target_link_libraries(run_tests 
-    GTest::gtest 
-    GTest::gtest_main
-    ${CMAKE_THREAD_LIBS_INIT}
+target_link_libraries(run_tests
+    gtest
+    gtest_main
 )
+
+enable_testing()
 
 add_test(NAME StudentasTest COMMAND run_tests)
