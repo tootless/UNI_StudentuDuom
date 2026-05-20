@@ -45,7 +45,7 @@ TEST(StudentasTests, GalutinisVidurkisTest) {
 
     double rez = s.getGalutinis(calc_vidurkis);
 
-    EXPECT_DOUBLE_EQ(rez, 8.8);
+    EXPECT_DOUBLE_EQ(rez, 9.0); //(8+10)/2 = 9, rez turetu buti = 0.4 * 9 + 0.6 * 9 = 9.0
 }
 
 TEST(StudentasTests, OutputOperatorTest) {
