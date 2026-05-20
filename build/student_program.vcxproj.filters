@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\chewi\Desktop\obj_clone\StudentuDuom\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chewi\Desktop\obj_clone\StudentuDuom\functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\chewi\Desktop\obj_clone\StudentuDuom\Studentas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\chewi\Desktop\obj_clone\StudentuDuom\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1235CC0D-D0EF-31D4-9225-2F2F128EA1C0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

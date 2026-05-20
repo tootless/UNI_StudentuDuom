@@ -1,0 +1,3 @@
+C:/Users/chewi/Desktop/obj_clone/StudentuDuom/build/CMakeFiles/student_program.dir
+C:/Users/chewi/Desktop/obj_clone/StudentuDuom/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/chewi/Desktop/obj_clone/StudentuDuom/build/CMakeFiles/ZERO_CHECK.dir
