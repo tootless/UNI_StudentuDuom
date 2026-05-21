@@ -3,30 +3,156 @@
 
 # Aprasas
 
-# Instaliavimas / paleidimas 
+Programa skirta studentu duomenu ivedimui, apzvalgai, isvedimui, palyginimui tarpusavy.  
+Programa naudoja C++17.
 
-### Reikalavimai
-- CMake (versija 3.10 arba naujesne)
+Programa kurta VU ISI I kurso studento su tikslu ismokti daugiau apie OOP.  
+
+# Instaliavimas / paleidimas
+
+## Reikalavimai
+- CMake v3.10 arba naujesne
 - C++17 palaikantis kompiliatorius (g++, clang++ arba MSVC)
+- Interneto rysys pirmam paleidimui (GoogleTest parsisiuntimui)
 
-### Kompiliavimo zingsniai
+---
 
-### Sukuriame build folder
+## Projekto kompiliavimas
+
+### 1. Sukurti build kataloga
+
+```bash
 mkdir build
-
 cd build
+```
 
-### Konfiguruoti
+### 2. Sugeneruoti projekta
+
+```bash
 cmake ..
+```
 
-### Kompiliuoti
+### 3. Sukompiliuoti projekta
+
+```bash
 cmake --build .
+```
 
-### Paleisti (Linux/macOS)
-./bin/student_program
+---
 
-### Paleisti (Windows OS)
-.\bin\Debug\student_program.exe
+## Programos paleidimas
+
+### Linux / macOS
+
+```bash
+./student_program
+```
+
+### Windows
+
+```bash
+.\Debug\student_program.exe
+```
+
+---
+
+# Versija v2.0
+
+## Pakeitimai
+
+- Doxygen automatiskai sugeneruota dokumentacija (html bei LaTeX)  
+    - .pdf failas sugeneruotas pasinaudojus Overleaf  
+- Realizuoti Unit testai naudojant GoogleTest framework'a  
+    - Aprasyta naudojimosi instrukcija, pakeisti programos veikimo reikalavimai  
+- Aprasyti praleisti release'ai siame README.md faile, sukurtas trumpas aprasas  
+
+---
+
+# Unit testai
+
+Projektui realizuoti Unit Testai naudojant **GoogleTest** framework'a.
+
+Testai skirti patikrinti:
+- skaiciavimo funkcijas  
+- studento duomenu nuskaityma  
+- operatoriu overloads  
+- Rule of Five realizacija  
+
+## Realizuoti testai
+
+### Skaiciavimo testai (`CalcTests`)
+
+| Testas | Tikslas |
+|---|---|
+| `VidurkisTest` | Patikrina `calc_vidurkis()` |
+| `MedianaOddTest` | Patikrina mediana nelyginiu pazymiu kiekiu |
+| `MedianaEvenTest` | Patikrina mediana su lyginiu pazymiu kiekiu |
+
+---
+
+### Studento klases testai (StudentasTests)
+
+| Testas | Tikslas |
+|---|---|
+| `ReadStudentTest` | Patikrina konstruktoriu su istream (kuris nuskaito duomenis is srauto) |
+| `GalutinisVidurkisTest` | Patikrina galutini bala su vidurkiu |
+| `OutputOperatorTest` | Patikrina `operator<<` |
+
+---
+
+### Rule of Five testai (RuleOfFiveTests)
+
+| Testas | Tikslas |
+|---|---|
+| `CopyConstructorTest` | Patikrina Copy C-tor |
+| `MoveConstructorTest` | Patikrina Move C-tor |
+| `CopyAssignmentTest` | Patikrina Copy Assignment operator |
+| `MoveAssignmentTest` | Patikrina Move Assignment operator |
+
+---
+
+## Testu paleidimas
+
+### Paleisti visus testus
+
+Windows:
+
+```bash
+.\tests\Debug\run_tests.exe
+```
+
+arba:
+
+```bash
+ctest
+```
+
+Linux / macOS:
+
+```bash
+./tests/run_tests
+```
+
+arba:
+
+```bash
+ctest
+```
+
+---
+
+## Tiketinas rezultatas
+
+```text
+[==========] Running 10 tests from 3 test suites.
+[----------] 3 tests from CalcTests
+[----------] 3 tests from StudentasTests
+[----------] 4 tests from RuleOfFiveTests
+
+[  PASSED  ] 10 tests.
+```
+
+---
 
 
 # Versija v1.5
@@ -49,7 +175,34 @@ cmake --build .
 
 !["Test.png](/Assets/v1.5/Test.png)
 
-# Testavimas - v0.2
+---
+
+# Versija v1.2
+
+## Pakeitimai
+
+- Sukurti Rule of Five metodai Studentas klasei
+    - Copy Assignment, Move Assignment, Copy C-tor, Move C-tor, Destruktorius
+    - Destruktorius paliktas kaip `default`, del to kad visoje programoje naudojami STL konteineriai, taciau ateityje gali reiketi
+- Sukurti I/O operatoriu overload'ai Studentas klasei
+- Refactor'intos kai kurios funkcijos, kad naudotu siuos pakeitimus
+
+---
+
+# Versija v1.1
+
+## Pakeitimai
+
+- Klonuota repozitorija senosios pagrindu
+- Pereita nuo Studentas struct i Studentas class
+
+---
+
+# Testavimas
+
+- Testavimo rezultatu nuotraukos yra ikeltos [Assets](/Assets) aplanke
+
+## v0.2
 
 Tyrimas buvo atliktas su Visual Studio 2022 /O2 optimizacijos nustatymais.  
 Tyrimo 1 failai buvo istrinti pries kiekviena bandyma.  
@@ -68,7 +221,7 @@ Testavimo metu testavimo sistemoje nebuvo ijungtos jokios kitos programos.
 | 5. | 0.0498s | 0.640s |  2.966s|
 | Vid. | 0.04844s | 0.623s |  2.9574s |
 
-# Testavimas - v0.4
+## v0.4
 
 Tyrimai buvo atlikti su Visual Studio 2022 /O2 optimizacijos nustatymais.  
 Tyrimo 1 ir tyrimo 2 failai buvo istrinti pries kiekviena bandyma, isskyrus tyrimo 2 failus, su kuriais buvo testuojamas skaitymo greitis (Tyrimas 2.1).  
@@ -141,7 +294,7 @@ Kitas nuotraukas galima rasti repozitorijos assets aplanke (v0.4/Assets/...).
 Kitas nuotraukas galima rasti repozitorijos assets aplanke (v0.4/Assets/...).
 
 
-# Testavimas - v1.0 subrelease
+## v1.0 (subrelease)
 
 Tyrimai buvo atlikti su Visual Studio 2022 /O2 optimizacijos nustatymais.  
 Tyrimo 1 failai buvo sukurti viena karta pries bandymu pradzia.  
@@ -258,12 +411,7 @@ Rezultatai pateikiami sekundemis, suapvalinti (stengiamasi nevirsyti 3 skaitmenu
 | | Skirstymas | 3.309 | 3.179 | 3.211 | 3.233 |
 | | **Viskas** | **50.983** | **50.902** | **53.027** | **51.637** |
 
-## Tyrimo 1 rezultatu interpretacija
-
-
-
-
-# Testavimas - v1.0 optimizacija
+## v1.0 (optimizuota)
 
 Tyrimai buvo atlikti su Visual Studio 2022 /O2 optimizacijos nustatymais.  
 Tyrimo 2 failai buvo sukurti viena karta pries bandymu pradzia.  
@@ -280,15 +428,6 @@ Siame tyrime buvo ismatuota minetu konteineriu sparta, programai skirstant duome
 2. Studentu konteinerio duomenu isvedimas i du naujus konteinerius naudojant push_back();  
 3. Studentu konteinerio duomenu isvedimas i viena nauja ('blogu' studentu) konteineri naudojant std::move() ir tuo pat metu istrinimas is originalaus konteinerio, naudojant iteratorius;
 4. 3 strategija, optimizuota naudojant std::stable_partition() ir std::move().
-
-
-## Tyrimas 2 - Rezultatai
-
-
-
-
-## Tyrimo 2 rezultatu interpretacija
-
 
 
 

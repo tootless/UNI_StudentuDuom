@@ -68,7 +68,6 @@ TEST(StudentasTests, OutputOperatorTest) {
     EXPECT_NE(result.find("Jonaitis"), std::string::npos);
 }
 
-//
 // RULE OF FIVE TESTAI
 //
 

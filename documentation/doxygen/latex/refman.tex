@@ -12,7 +12,7 @@
     \pdfminorversion=7
   \fi
   % Set document class depending on configuration
-  \documentclass[twoside]{book}
+  \documentclass[twoside]{article}
   % Packages required by doxygen
   \makeatletter
   \providecommand\IfFormatAtLeastTF{\@ifl@t@r\fmtversion}
@@ -121,9 +121,6 @@
     \renewcommand{\headrulewidth}{0pt}
   }
   \pagestyle{fancyplain}
-  \renewcommand{\chaptermark}[1]{%
-    \markboth{#1}{}%
-  }
   \renewcommand{\sectionmark}[1]{%
     \markright{\thesection\ #1}%
   }
@@ -219,37 +216,34 @@
   {\large Sugeneruota Doxygen 1.17.0}\\
   \end{center}
   \end{titlepage}
-  \clearemptydoublepage
   \pagenumbering{roman}
   \tableofcontents
-  \clearemptydoublepage
   \pagenumbering{arabic}
   % re-enable anchors again
   \hypersetup{pageanchor=true}
 %--- Begin generated contents ---
 \input{md__r_e_a_d_m_e}
-\chapter{Hierarchijos Indeksas}
+\doxysection{Hierarchijos Indeksas}
 \input{hierarchy}
-\chapter{Klasės Indeksas}
+\doxysection{Klasės Indeksas}
 \input{annotated}
-\chapter{Failo Indeksas}
+\doxysection{Failo Indeksas}
 \input{files}
-\chapter{Klasės Dokumentacija}
+\doxysection{Klasės Dokumentacija}
 \input{class_studentas}
 \input{class_timer}
 \input{class_zmogus}
-\chapter{Failo Dokumentacija}
+\doxysection{Failo Dokumentacija}
 \input{functions_8h_source}
 \input{mylib_8h_source}
 \input{_studentas_8h_source}
 \input{timer_8h_source}
 %--- End generated contents ---
 % Index
-  \backmatter
   \newpage
   \phantomsection
   \clearemptydoublepage
-  \addcontentsline{toc}{chapter}{\indexname}
+  \addcontentsline{toc}{section}{\indexname}
   \printindex
 % Required for some languages (in combination with latexdocumentpre from the header)
 \end{document}

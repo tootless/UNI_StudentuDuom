@@ -1,24 +1,185 @@
-\chapter{Studentu\+Duom -\/ studentu duomenu apdorojimo aplikacija }
+\doxysection{Studentu\+Duom -\/ studentu duomenu apdorojimo aplikacija }
 \hypertarget{md__r_e_a_d_m_e}{}\label{md__r_e_a_d_m_e}\index{StudentuDuom -\/ studentu duomenu apdorojimo aplikacija@{StudentuDuom -\/ studentu duomenu apdorojimo aplikacija}}
 \label{md__r_e_a_d_m_e_autotoc_md0}%
 \Hypertarget{md__r_e_a_d_m_e_autotoc_md0}%
-\hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysection{\texorpdfstring{Aprasas}{Aprasas}}\label{md__r_e_a_d_m_e_autotoc_md1}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysection{\texorpdfstring{Instaliavimas /\+ paleidimas}{Instaliavimas /\+ paleidimas}}\label{md__r_e_a_d_m_e_autotoc_md2}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysubsection{\texorpdfstring{Aprasas}{Aprasas}}\label{md__r_e_a_d_m_e_autotoc_md1}
+Programa skirta studentu duomenu ivedimui, apzvalgai, isvedimui, palyginimui tarpusavy. ~\newline
+ Programa naudoja C++17.
+
+Programa kurta VU ISI I kurso studento su tikslu ismokti daugiau apie OOP. ~\newline
+\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysubsection{\texorpdfstring{Instaliavimas /\+ paleidimas}{Instaliavimas /\+ paleidimas}}\label{md__r_e_a_d_m_e_autotoc_md2}
 \hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxysubsubsection{\texorpdfstring{Reikalavimai}{Reikalavimai}}\label{md__r_e_a_d_m_e_autotoc_md3}
 
 \begin{DoxyItemize}
-\item CMake (versija 3.\+10 arba naujesne)
+\item CMake v3.\+10 arba naujesne
 \item C++17 palaikantis kompiliatorius (g++, clang++ arba MSVC)
-\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md4}{}\doxysubsubsection{\texorpdfstring{Kompiliavimo zingsniai}{Kompiliavimo zingsniai}}\label{md__r_e_a_d_m_e_autotoc_md4}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md5}{}\doxysubsubsection{\texorpdfstring{Sukuriame build folder}{Sukuriame build folder}}\label{md__r_e_a_d_m_e_autotoc_md5}
-mkdir build
+\item Interneto rysys pirmam paleidimui (Google\+Test parsisiuntimui)
+\end{DoxyItemize}
 
-cd build\hypertarget{md__r_e_a_d_m_e_autotoc_md6}{}\doxysubsubsection{\texorpdfstring{Konfiguruoti}{Konfiguruoti}}\label{md__r_e_a_d_m_e_autotoc_md6}
-cmake ..\hypertarget{md__r_e_a_d_m_e_autotoc_md7}{}\doxysubsubsection{\texorpdfstring{Kompiliuoti}{Kompiliuoti}}\label{md__r_e_a_d_m_e_autotoc_md7}
-cmake --build .\hypertarget{md__r_e_a_d_m_e_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{Paleisti (Linux/\+mac\+OS)}{Paleisti (Linux/\+mac\+OS)}}\label{md__r_e_a_d_m_e_autotoc_md8}
-./\+bin/\+student\+\_\+program\hypertarget{md__r_e_a_d_m_e_autotoc_md9}{}\doxysubsubsection{\texorpdfstring{Paleisti (Windows OS)}{Paleisti (Windows OS)}}\label{md__r_e_a_d_m_e_autotoc_md9}
-.\textbackslash{}bin\textbackslash{}\+Debug\textbackslash{}student\+\_\+program.exe\hypertarget{md__r_e_a_d_m_e_autotoc_md10}{}\doxysection{\texorpdfstring{Versija v1.\+5}{Versija v1.\+5}}\label{md__r_e_a_d_m_e_autotoc_md10}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md11}{}\doxysubsection{\texorpdfstring{Pakeitimai}{Pakeitimai}}\label{md__r_e_a_d_m_e_autotoc_md11}
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md5}{}\doxysubsubsection{\texorpdfstring{Projekto kompiliavimas}{Projekto kompiliavimas}}\label{md__r_e_a_d_m_e_autotoc_md5}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md6}{}\doxysubsubsubsection{\texorpdfstring{1. Sukurti build kataloga}{1. Sukurti build kataloga}}\label{md__r_e_a_d_m_e_autotoc_md6}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mkdir\ build}
+\DoxyCodeLine{cd\ build}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md7}{}\doxysubsubsubsection{\texorpdfstring{2. Sugeneruoti projekta}{2. Sugeneruoti projekta}}\label{md__r_e_a_d_m_e_autotoc_md7}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\ ..}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md8}{}\doxysubsubsubsection{\texorpdfstring{3. Sukompiliuoti projekta}{3. Sukompiliuoti projekta}}\label{md__r_e_a_d_m_e_autotoc_md8}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\ -\/-\/build\ .}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md10}{}\doxysubsubsection{\texorpdfstring{Programos paleidimas}{Programos paleidimas}}\label{md__r_e_a_d_m_e_autotoc_md10}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md11}{}\doxysubsubsubsection{\texorpdfstring{Linux /\+ mac\+OS}{Linux /\+ mac\+OS}}\label{md__r_e_a_d_m_e_autotoc_md11}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./student\_program}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md12}{}\doxysubsubsubsection{\texorpdfstring{Windows}{Windows}}\label{md__r_e_a_d_m_e_autotoc_md12}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{.\(\backslash\)Debug\(\backslash\)student\_program.exe}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md14}{}\doxysubsection{\texorpdfstring{Versija v2.\+0}{Versija v2.\+0}}\label{md__r_e_a_d_m_e_autotoc_md14}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md15}{}\doxysubsubsection{\texorpdfstring{Pakeitimai}{Pakeitimai}}\label{md__r_e_a_d_m_e_autotoc_md15}
+
+\begin{DoxyItemize}
+\item Doxygen automatiskai sugeneruota dokumentacija (html bei La\+TeX) ~\newline
+
+\begin{DoxyItemize}
+\item .pdf failas sugeneruotas pasinaudojus Overleaf ~\newline
+
+\end{DoxyItemize}
+\item Realizuoti Unit testai naudojant Google\+Test framework\textquotesingle{}a ~\newline
+
+\begin{DoxyItemize}
+\item Aprasyta naudojimosi instrukcija, pakeisti programos veikimo reikalavimai ~\newline
+
+\end{DoxyItemize}
+\item Aprasyti praleisti release\textquotesingle{}ai siame README.\+md faile, sukurtas trumpas aprasas ~\newline
+
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md17}{}\doxysubsection{\texorpdfstring{Unit testai}{Unit testai}}\label{md__r_e_a_d_m_e_autotoc_md17}
+Projektui realizuoti Unit Testai naudojant {\bfseries{Google\+Test}} framework\textquotesingle{}a.
+
+Testai skirti patikrinti:\+
+\begin{DoxyItemize}
+\item skaiciavimo funkcijas ~\newline
+
+\item studento duomenu nuskaityma ~\newline
+
+\item operatoriu overloads ~\newline
+
+\item Rule of Five realizacija ~\newline
+
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md18}{}\doxysubsubsection{\texorpdfstring{Realizuoti testai}{Realizuoti testai}}\label{md__r_e_a_d_m_e_autotoc_md18}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md19}{}\doxysubsubsubsection{\texorpdfstring{Skaiciavimo testai ({\ttfamily Calc\+Tests})}{Skaiciavimo testai ({\ttfamily Calc\+Tests})}}\label{md__r_e_a_d_m_e_autotoc_md19}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Testas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Tikslas  \\
+{\ttfamily Vidurkis\+Test}  &Patikrina {\ttfamily calc\+\_\+vidurkis()}  \\
+{\ttfamily Mediana\+Odd\+Test}  &Patikrina mediana nelyginiu pazymiu kiekiu  \\
+{\ttfamily Mediana\+Even\+Test}  &Patikrina mediana su lyginiu pazymiu kiekiu  \\
+\end{DoxyTable}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md21}{}\doxysubsubsubsection{\texorpdfstring{Studento klases testai (Studentas\+Tests)}{Studento klases testai (Studentas\+Tests)}}\label{md__r_e_a_d_m_e_autotoc_md21}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Testas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Tikslas  \\
+{\ttfamily Read\+Student\+Test}  &Patikrina konstruktoriu su istream (kuris nuskaito duomenis is srauto)  \\
+{\ttfamily Galutinis\+Vidurkis\+Test}  &Patikrina galutini bala su vidurkiu  \\
+{\ttfamily Output\+Operator\+Test}  &Patikrina {\ttfamily operator\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}}  \\
+\end{DoxyTable}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md23}{}\doxysubsubsubsection{\texorpdfstring{Rule of Five testai (Rule\+Of\+Five\+Tests)}{Rule of Five testai (Rule\+Of\+Five\+Tests)}}\label{md__r_e_a_d_m_e_autotoc_md23}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Testas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Tikslas  \\
+{\ttfamily Copy\+Constructor\+Test}  &Patikrina Copy C-\/tor  \\
+{\ttfamily Move\+Constructor\+Test}  &Patikrina Move C-\/tor  \\
+{\ttfamily Copy\+Assignment\+Test}  &Patikrina Copy Assignment operator  \\
+{\ttfamily Move\+Assignment\+Test}  &Patikrina Move Assignment operator  \\
+\end{DoxyTable}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md25}{}\doxysubsubsection{\texorpdfstring{Testu paleidimas}{Testu paleidimas}}\label{md__r_e_a_d_m_e_autotoc_md25}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md26}{}\doxysubsubsubsection{\texorpdfstring{Paleisti visus testus}{Paleisti visus testus}}\label{md__r_e_a_d_m_e_autotoc_md26}
+Windows:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{.\(\backslash\)tests\(\backslash\)Debug\(\backslash\)run\_tests.exe}
+
+\end{DoxyCode}
+
+
+arba:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ctest}
+
+\end{DoxyCode}
+
+
+Linux /\+ mac\+OS:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./tests/run\_tests}
+
+\end{DoxyCode}
+
+
+arba:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ctest}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md28}{}\doxysubsubsection{\texorpdfstring{Tiketinas rezultatas}{Tiketinas rezultatas}}\label{md__r_e_a_d_m_e_autotoc_md28}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[==========]\ Running\ 10\ tests\ from\ 3\ test\ suites.}
+\DoxyCodeLine{[-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/]\ 3\ tests\ from\ CalcTests}
+\DoxyCodeLine{[-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/]\ 3\ tests\ from\ StudentasTests}
+\DoxyCodeLine{[-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/]\ 4\ tests\ from\ RuleOfFiveTests}
+\DoxyCodeLine{}
+\DoxyCodeLine{[\ \ PASSED\ \ ]\ 10\ tests.}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md30}{}\doxysubsection{\texorpdfstring{Versija v1.\+5}{Versija v1.\+5}}\label{md__r_e_a_d_m_e_autotoc_md30}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md31}{}\doxysubsubsection{\texorpdfstring{Pakeitimai}{Pakeitimai}}\label{md__r_e_a_d_m_e_autotoc_md31}
 
 \begin{DoxyItemize}
 \item Klase \doxylink{class_studentas}{Studentas} pakeista i Studentas::\+\+Zmogus, prideta abstrakti klase \doxylink{class_zmogus}{Zmogus}. ~\newline
@@ -34,16 +195,16 @@ cmake --build .\hypertarget{md__r_e_a_d_m_e_autotoc_md8}{}\doxysubsubsection{\te
 
 \end{DoxyItemize}
 \item v1.\+2 logika ir veikimo principai islike.
-\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md12}{}\doxysubsection{\texorpdfstring{UML klasiu hierarchijos diagrama}{UML klasiu hierarchijos diagrama}}\label{md__r_e_a_d_m_e_autotoc_md12}
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md32}{}\doxysubsubsection{\texorpdfstring{UML klasiu hierarchijos diagrama}{UML klasiu hierarchijos diagrama}}\label{md__r_e_a_d_m_e_autotoc_md32}
 \texorpdfstring{$<$}{<}img src="{}/\+\+Assets/\+v1.\+5/\+\+UML\+\_\+class\+\_\+structure.\+png"{} alt="{}"{}Class Structure UML"{}"{}/\+\texorpdfstring{$>$}{>} ~\newline
-\hypertarget{md__r_e_a_d_m_e_autotoc_md13}{}\doxysubsection{\texorpdfstring{Zmogus -\/ abstrakti klase + rankinis v1.\+2 pagristas testas}{Zmogus -\/ abstrakti klase + rankinis v1.\+2 pagristas testas}}\label{md__r_e_a_d_m_e_autotoc_md13}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md33}{}\doxysubsubsection{\texorpdfstring{Zmogus -\/ abstrakti klase + rankinis v1.\+2 pagristas testas}{Zmogus -\/ abstrakti klase + rankinis v1.\+2 pagristas testas}}\label{md__r_e_a_d_m_e_autotoc_md33}
 \texorpdfstring{$<$}{<}img src="{}/\+\+Assets/\+v1.\+5/\+\+Abstract.\+png"{} alt="{}"{}Abstract.\+png"{}"{}/\+\texorpdfstring{$>$}{>}
 
-\texorpdfstring{$<$}{<}img src="{}/\+\+Assets/\+v1.\+5/\+\+Test.\+png"{} alt="{}"{}Test.\+png"{}/\+\texorpdfstring{$>$}{>}\hypertarget{md__r_e_a_d_m_e_autotoc_md14}{}\doxysection{\texorpdfstring{Testavimas -\/ v0.\+2}{Testavimas -\/ v0.\+2}}\label{md__r_e_a_d_m_e_autotoc_md14}
+\texorpdfstring{$<$}{<}img src="{}/\+\+Assets/\+v1.\+5/\+\+Test.\+png"{} alt="{}"{}Test.\+png"{}/\+$>$  $<$hr$>$  @section autotoc\+\_\+md35 Versija v1.\+2  @subsection autotoc\+\_\+md36 Pakeitimai  -\/ Sukurti Rule of Five metodai Studentas klasei     -\/ Copy Assignment, Move Assignment, Copy C-\/tor, Move C-\/tor, Destruktorius     -\/ Destruktorius paliktas kaip $<$tt$>$default$<$/\+tt$>$, del to kad visoje programoje naudojami STL konteineriai, taciau ateityje gali reiketi -\/ Sukurti I/\+\+O operatoriu overload\textquotesingle{}ai Studentas klasei -\/ Refactor\textquotesingle{}intos kai kurios funkcijos, kad naudotu siuos pakeitimus  $<$hr$>$  @section autotoc\+\_\+md38 Versija v1.\+1  @subsection autotoc\+\_\+md39 Pakeitimai  -\/ Klonuota repozitorija senosios pagrindu -\/ Pereita nuo Studentas struct i Studentas class  $<$hr$>$  @section autotoc\+\_\+md41 Testavimas  -\/ Testavimo rezultatu nuotraukos yra ikeltos $<$a href="{}/\+\+Assets"{} \texorpdfstring{$>$}{>}Assets aplanke\hypertarget{md__r_e_a_d_m_e_autotoc_md42}{}\doxysubsubsection{\texorpdfstring{v0.\+2}{v0.\+2}}\label{md__r_e_a_d_m_e_autotoc_md42}
 Tyrimas buvo atliktas su Visual Studio 2022 /\+\+O2 optimizacijos nustatymais. ~\newline
  Tyrimo 1 failai buvo istrinti pries kiekviena bandyma. ~\newline
- Testavimo metu testavimo sistemoje nebuvo ijungtos jokios kitos programos.\hypertarget{md__r_e_a_d_m_e_autotoc_md15}{}\doxysubsection{\texorpdfstring{Tyrimas 1}{Tyrimas 1}}\label{md__r_e_a_d_m_e_autotoc_md15}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md16}{}\doxysubsubsection{\texorpdfstring{1. Anksciau sugeneruotu failu nuskaitymas:\+}{1. Anksciau sugeneruotu failu nuskaitymas:\+}}\label{md__r_e_a_d_m_e_autotoc_md16}
+ Testavimo metu testavimo sistemoje nebuvo ijungtos jokios kitos programos.\hypertarget{md__r_e_a_d_m_e_autotoc_md43}{}\doxysubsubsection{\texorpdfstring{Tyrimas 1}{Tyrimas 1}}\label{md__r_e_a_d_m_e_autotoc_md43}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md44}{}\doxysubsubsubsection{\texorpdfstring{1. Anksciau sugeneruotu failu nuskaitymas:\+}{1. Anksciau sugeneruotu failu nuskaitymas:\+}}\label{md__r_e_a_d_m_e_autotoc_md44}
 
 \begin{DoxyTable}{4}{}{}{1}
 \SetCell{c,bg=\tableheadbgcolor,font=\bfseries}&\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}1000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}100000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}1000000  \\
@@ -54,11 +215,11 @@ Tyrimas buvo atliktas su Visual Studio 2022 /\+\+O2 optimizacijos nustatymais. ~
 \SetCell{c}5.  &\SetCell{c}0.\+0498s  &\SetCell{c}0.\+640s  &\SetCell{c}2.\+966s  \\
 \SetCell{c}Vid.  &\SetCell{c}0.\+04844s  &\SetCell{c}0.\+623s  &\SetCell{c}2.\+9574s  \\
 \end{DoxyTable}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md17}{}\doxysection{\texorpdfstring{Testavimas -\/ v0.\+4}{Testavimas -\/ v0.\+4}}\label{md__r_e_a_d_m_e_autotoc_md17}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md45}{}\doxysubsubsection{\texorpdfstring{v0.\+4}{v0.\+4}}\label{md__r_e_a_d_m_e_autotoc_md45}
 Tyrimai buvo atlikti su Visual Studio 2022 /\+\+O2 optimizacijos nustatymais. ~\newline
  Tyrimo 1 ir tyrimo 2 failai buvo istrinti pries kiekviena bandyma, isskyrus tyrimo 2 failus, su kuriais buvo testuojamas skaitymo greitis (Tyrimas 2.\+1). ~\newline
- Testavimo metu testavimo sistemoje nebuvo ijungtos jokios kitos programos.\hypertarget{md__r_e_a_d_m_e_autotoc_md18}{}\doxysubsection{\texorpdfstring{Tyrimas 1}{Tyrimas 1}}\label{md__r_e_a_d_m_e_autotoc_md18}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md19}{}\doxysubsubsection{\texorpdfstring{1. Failu generavimas ir uzdarymas:\+}{1. Failu generavimas ir uzdarymas:\+}}\label{md__r_e_a_d_m_e_autotoc_md19}
+ Testavimo metu testavimo sistemoje nebuvo ijungtos jokios kitos programos.\hypertarget{md__r_e_a_d_m_e_autotoc_md46}{}\doxysubsubsection{\texorpdfstring{Tyrimas 1}{Tyrimas 1}}\label{md__r_e_a_d_m_e_autotoc_md46}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md47}{}\doxysubsubsubsection{\texorpdfstring{1. Failu generavimas ir uzdarymas:\+}{1. Failu generavimas ir uzdarymas:\+}}\label{md__r_e_a_d_m_e_autotoc_md47}
 
 \begin{DoxyTable}{6}{}{}{1}
 \SetCell{c,bg=\tableheadbgcolor,font=\bfseries}&\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}1000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}10000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}100000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}1000000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}10000000  \\
@@ -68,10 +229,10 @@ Tyrimai buvo atlikti su Visual Studio 2022 /\+\+O2 optimizacijos nustatymais. ~\
 \SetCell{c}4.  &\SetCell{c}0.\+003s  &\SetCell{c}0.\+04s  &\SetCell{c}0.\+35s  &\SetCell{c}3.\+32s  &\SetCell{c}31.\+7s  \\
 \SetCell{c}Vid.  &\SetCell{c}0.\+0035s  &\SetCell{c}0.\+0325s  &\SetCell{c}0.\+335s  &\SetCell{c}3.\+318s  &\SetCell{c}31.\+625s  \\
 \end{DoxyTable}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md20}{}\doxysubsubsection{\texorpdfstring{Tyrimo 1 output ekrane:\+}{Tyrimo 1 output ekrane:\+}}\label{md__r_e_a_d_m_e_autotoc_md20}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md21}{}\doxysubsection{\texorpdfstring{\texorpdfstring{$<$}{<}img src="{}/\+\+Assets/\+test1\+\_\+1.\+png"{} alt="{}"{}test1\+\_\+1.\+png"{}"{}/\+\texorpdfstring{$>$}{>}}{\texorpdfstring{$<$}{<}img src="{}/\+\+Assets/\+test1\+\_\+1.\+png"{} alt="{}"{}test1\+\_\+1.\+png"{}"{}/\+\texorpdfstring{$>$}{>}}}\label{md__r_e_a_d_m_e_autotoc_md21}
-Kitas nuotraukas galima rasti repozitorijos assets aplanke (v0.\+4/\+\+Assets/\+...).\hypertarget{md__r_e_a_d_m_e_autotoc_md22}{}\doxysubsection{\texorpdfstring{Tyrimas 2}{Tyrimas 2}}\label{md__r_e_a_d_m_e_autotoc_md22}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md23}{}\doxysubsubsection{\texorpdfstring{1. Duomenu nuskaitymas is anksciau sugeneruotu failu:\+}{1. Duomenu nuskaitymas is anksciau sugeneruotu failu:\+}}\label{md__r_e_a_d_m_e_autotoc_md23}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md48}{}\doxysubsubsubsection{\texorpdfstring{Tyrimo 1 output ekrane:\+}{Tyrimo 1 output ekrane:\+}}\label{md__r_e_a_d_m_e_autotoc_md48}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md49}{}\doxysubsubsection{\texorpdfstring{\texorpdfstring{$<$}{<}img src="{}/\+\+Assets/\+test1\+\_\+1.\+png"{} alt="{}"{}test1\+\_\+1.\+png"{}"{}/\+\texorpdfstring{$>$}{>}}{\texorpdfstring{$<$}{<}img src="{}/\+\+Assets/\+test1\+\_\+1.\+png"{} alt="{}"{}test1\+\_\+1.\+png"{}"{}/\+\texorpdfstring{$>$}{>}}}\label{md__r_e_a_d_m_e_autotoc_md49}
+Kitas nuotraukas galima rasti repozitorijos assets aplanke (v0.\+4/\+\+Assets/\+...).\hypertarget{md__r_e_a_d_m_e_autotoc_md50}{}\doxysubsubsection{\texorpdfstring{Tyrimas 2}{Tyrimas 2}}\label{md__r_e_a_d_m_e_autotoc_md50}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md51}{}\doxysubsubsubsection{\texorpdfstring{1. Duomenu nuskaitymas is anksciau sugeneruotu failu:\+}{1. Duomenu nuskaitymas is anksciau sugeneruotu failu:\+}}\label{md__r_e_a_d_m_e_autotoc_md51}
 
 \begin{DoxyTable}{6}{}{}{1}
 \SetCell{c,bg=\tableheadbgcolor,font=\bfseries}&\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}1000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}10000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}100000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}1000000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}10000000  \\
@@ -81,7 +242,7 @@ Kitas nuotraukas galima rasti repozitorijos assets aplanke (v0.\+4/\+\+Assets/\+
 \SetCell{c}4.  &\SetCell{c}0.\+006s  &\SetCell{c}0.\+05s  &\SetCell{c}0.\+47s  &\SetCell{c}4.\+7s  &\SetCell{c}47.\+46s  \\
 \SetCell{c}Vid.  &\SetCell{c}0.\+00575s  &\SetCell{c}0.\+045s  &\SetCell{c}0.\+4675s  &\SetCell{c}4.\+7125s  &\SetCell{c}47.\+5525s  \\
 \end{DoxyTable}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md24}{}\doxysubsubsection{\texorpdfstring{2. Studentu rusiavimas i "{}gerus"{} ir "{}blogus"{} pagal galutini vidurki (\texorpdfstring{$>$}{>}= 5.\+0 -\/ geras, kitaip -\/ blogas):\+}{2. Studentu rusiavimas i "{}gerus"{} ir "{}blogus"{} pagal galutini vidurki (\texorpdfstring{$>$}{>}= 5.\+0 -\/ geras, kitaip -\/ blogas):\+}}\label{md__r_e_a_d_m_e_autotoc_md24}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md52}{}\doxysubsubsubsection{\texorpdfstring{2. Studentu rusiavimas i "{}gerus"{} ir "{}blogus"{} pagal galutini vidurki (\texorpdfstring{$>$}{>}= 5.\+0 -\/ geras, kitaip -\/ blogas):\+}{2. Studentu rusiavimas i "{}gerus"{} ir "{}blogus"{} pagal galutini vidurki (\texorpdfstring{$>$}{>}= 5.\+0 -\/ geras, kitaip -\/ blogas):\+}}\label{md__r_e_a_d_m_e_autotoc_md52}
 
 \begin{DoxyTable}{6}{}{}{1}
 \SetCell{c,bg=\tableheadbgcolor,font=\bfseries}&\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}1000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}10000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}100000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}1000000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}10000000  \\
@@ -91,7 +252,7 @@ Kitas nuotraukas galima rasti repozitorijos assets aplanke (v0.\+4/\+\+Assets/\+
 \SetCell{c}4.  &\SetCell{c}0.\+0003s  &\SetCell{c}0.\+0012s  &\SetCell{c}0.\+01s  &\SetCell{c}0.\+11s  &\SetCell{c}1.\+29s  \\
 \SetCell{c}Vid.  &\SetCell{c}0.\+003s  &\SetCell{c}0.\+0025s  &\SetCell{c}0.\+00975s  &\SetCell{c}0.\+11s  &\SetCell{c}1.\+2525s  \\
 \end{DoxyTable}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md25}{}\doxysubsubsection{\texorpdfstring{3. "{}\+Geru"{} ir "{}blogu"{} studentu atitinkamu failu generavimas:\+}{3. "{}\+Geru"{} ir "{}blogu"{} studentu atitinkamu failu generavimas:\+}}\label{md__r_e_a_d_m_e_autotoc_md25}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md53}{}\doxysubsubsubsection{\texorpdfstring{3. "{}\+Geru"{} ir "{}blogu"{} studentu atitinkamu failu generavimas:\+}{3. "{}\+Geru"{} ir "{}blogu"{} studentu atitinkamu failu generavimas:\+}}\label{md__r_e_a_d_m_e_autotoc_md53}
 
 \begin{DoxyTable}{6}{}{}{1}
 \SetCell{c,bg=\tableheadbgcolor,font=\bfseries}&\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}1000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}10000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}100000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}1000000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}10000000  \\
@@ -101,7 +262,7 @@ Kitas nuotraukas galima rasti repozitorijos assets aplanke (v0.\+4/\+\+Assets/\+
 \SetCell{c}4.  &\SetCell{c}0.\+004s  &\SetCell{c}0.\+03s  &\SetCell{c}0.\+32s  &\SetCell{c}3.\+1s  &\SetCell{c}31.\+04s  \\
 \SetCell{c}Vid.  &\SetCell{c}0.\+017s  &\SetCell{c}0.\+03s  &\SetCell{c}0.\+31s  &\SetCell{c}3.\+3625s  &\SetCell{c}30.\+9625s  \\
 \end{DoxyTable}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md26}{}\doxysubsubsection{\texorpdfstring{4. Visos programos laikas:\+}{4. Visos programos laikas:\+}}\label{md__r_e_a_d_m_e_autotoc_md26}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md54}{}\doxysubsubsubsection{\texorpdfstring{4. Visos programos laikas:\+}{4. Visos programos laikas:\+}}\label{md__r_e_a_d_m_e_autotoc_md54}
 
 \begin{DoxyTable}{6}{}{}{1}
 \SetCell{c,bg=\tableheadbgcolor,font=\bfseries}&\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}1000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}10000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}100000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}1000000  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}10000000  \\
@@ -111,13 +272,13 @@ Kitas nuotraukas galima rasti repozitorijos assets aplanke (v0.\+4/\+\+Assets/\+
 \SetCell{c}4.  &\SetCell{c}0.\+011s  &\SetCell{c}0.\+088s  &\SetCell{c}0.\+81s  &\SetCell{c}7.\+95s  &\SetCell{c}80.\+2s  \\
 \SetCell{c}Vid.  &\SetCell{c}0.\+01525s  &\SetCell{c}0.\+09175s  &\SetCell{c}0.\+8s  &\SetCell{c}8.\+235s  &\SetCell{c}80.\+19s  \\
 \end{DoxyTable}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md27}{}\doxysubsubsection{\texorpdfstring{Tyrimo 2 output ekrane:\+}{Tyrimo 2 output ekrane:\+}}\label{md__r_e_a_d_m_e_autotoc_md27}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md28}{}\doxysubsection{\texorpdfstring{\texorpdfstring{$<$}{<}img src="{}/\+\+Assets/\+test2\+\_\+1.\+png"{} alt="{}"{}test2\+\_\+1.\+png"{}"{}/\+\texorpdfstring{$>$}{>}}{\texorpdfstring{$<$}{<}img src="{}/\+\+Assets/\+test2\+\_\+1.\+png"{} alt="{}"{}test2\+\_\+1.\+png"{}"{}/\+\texorpdfstring{$>$}{>}}}\label{md__r_e_a_d_m_e_autotoc_md28}
-Kitas nuotraukas galima rasti repozitorijos assets aplanke (v0.\+4/\+\+Assets/\+...).\hypertarget{md__r_e_a_d_m_e_autotoc_md29}{}\doxysection{\texorpdfstring{Testavimas -\/ v1.\+0 subrelease}{Testavimas -\/ v1.\+0 subrelease}}\label{md__r_e_a_d_m_e_autotoc_md29}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md55}{}\doxysubsubsubsection{\texorpdfstring{Tyrimo 2 output ekrane:\+}{Tyrimo 2 output ekrane:\+}}\label{md__r_e_a_d_m_e_autotoc_md55}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md56}{}\doxysubsubsection{\texorpdfstring{\texorpdfstring{$<$}{<}img src="{}/\+\+Assets/\+test2\+\_\+1.\+png"{} alt="{}"{}test2\+\_\+1.\+png"{}"{}/\+\texorpdfstring{$>$}{>}}{\texorpdfstring{$<$}{<}img src="{}/\+\+Assets/\+test2\+\_\+1.\+png"{} alt="{}"{}test2\+\_\+1.\+png"{}"{}/\+\texorpdfstring{$>$}{>}}}\label{md__r_e_a_d_m_e_autotoc_md56}
+Kitas nuotraukas galima rasti repozitorijos assets aplanke (v0.\+4/\+\+Assets/\+...).\hypertarget{md__r_e_a_d_m_e_autotoc_md57}{}\doxysubsubsection{\texorpdfstring{v1.\+0 (subrelease)}{v1.\+0 (subrelease)}}\label{md__r_e_a_d_m_e_autotoc_md57}
 Tyrimai buvo atlikti su Visual Studio 2022 /\+\+O2 optimizacijos nustatymais. ~\newline
  Tyrimo 1 failai buvo sukurti viena karta pries bandymu pradzia. ~\newline
  Testavimo metu testavimo sistemoje nebuvo ijungtos jokios kitos programos. ~\newline
-\hypertarget{md__r_e_a_d_m_e_autotoc_md30}{}\doxysubsection{\texorpdfstring{Tyrimas 1 -\/ Aprasas}{Tyrimas 1 -\/ Aprasas}}\label{md__r_e_a_d_m_e_autotoc_md30}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md58}{}\doxysubsubsection{\texorpdfstring{Tyrimas 1 -\/ Aprasas}{Tyrimas 1 -\/ Aprasas}}\label{md__r_e_a_d_m_e_autotoc_md58}
 Atliktas tyrimas su trejais skirtingais STL konteineriais (Vektoriai, Sarasai (list) ir Deque). ~\newline
  Atlikti 3 bandymai kiekvienam konteineriui ir apskaiciuotas vidurkis, kuris pateikiamas kuo tikslesnis (daugiausia 5 simboliai po kablelio). ~\newline
 
@@ -130,22 +291,22 @@ Siame tyrime buvo ismatuota minetu konteineriu sparta, programai:\+ ~\newline
 \item skirstant duomenis pagal galutini vidurki, sukuriant du naujus tokio pat tipo konteinerius ir naudojant move() funkcija, kad perkelti duomenis is originalaus konteinerio.
 \end{DoxyEnumerate}
 
-Rezultatai pateikiami sekundemis, suapvalinti (stengiamasi nevirsyti 3 skaitmenu po kablelio, taciau yra labai mazu duomenu).\hypertarget{md__r_e_a_d_m_e_autotoc_md31}{}\doxysubsection{\texorpdfstring{Aktualus testavimo sistemos parametrai:\+}{Aktualus testavimo sistemos parametrai:\+}}\label{md__r_e_a_d_m_e_autotoc_md31}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md32}{}\doxysubsubsection{\texorpdfstring{CPU}{CPU}}\label{md__r_e_a_d_m_e_autotoc_md32}
+Rezultatai pateikiami sekundemis, suapvalinti (stengiamasi nevirsyti 3 skaitmenu po kablelio, taciau yra labai mazu duomenu).\hypertarget{md__r_e_a_d_m_e_autotoc_md59}{}\doxysubsubsection{\texorpdfstring{Aktualus testavimo sistemos parametrai:\+}{Aktualus testavimo sistemos parametrai:\+}}\label{md__r_e_a_d_m_e_autotoc_md59}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md60}{}\doxysubsubsubsection{\texorpdfstring{CPU}{CPU}}\label{md__r_e_a_d_m_e_autotoc_md60}
 {\bfseries{Specification}}:\+ 12th Gen Intel Core i7-\/12650H ~\newline
  {\bfseries{Core count}}:\+ 10 ~\newline
  {\bfseries{Thread count}}:\+ 16 ~\newline
  {\bfseries{Hyperthreading}}:\+ Not supported ~\newline
-\hypertarget{md__r_e_a_d_m_e_autotoc_md33}{}\doxysubsubsection{\texorpdfstring{RAM}{RAM}}\label{md__r_e_a_d_m_e_autotoc_md33}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md61}{}\doxysubsubsubsection{\texorpdfstring{RAM}{RAM}}\label{md__r_e_a_d_m_e_autotoc_md61}
 {\bfseries{Specification}}:\+ DDR5-\/4800 (2400 MHz) ~\newline
  {\bfseries{Memory slots used}}:\+ 2 out of 2 ~\newline
  {\bfseries{Total memory}}:\+ 16 GB ~\newline
-\hypertarget{md__r_e_a_d_m_e_autotoc_md34}{}\doxysubsubsection{\texorpdfstring{SSD}{SSD}}\label{md__r_e_a_d_m_e_autotoc_md34}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md62}{}\doxysubsubsubsection{\texorpdfstring{SSD}{SSD}}\label{md__r_e_a_d_m_e_autotoc_md62}
 {\bfseries{Specification}}:\+ NVMe SAMSUNG MZVLQ1\+T0\+HBLB-\/00\+B00 ~\newline
  {\bfseries{Read/\+\+Write speed}}:\+ 2300/\+1350 (MB/\+s) ~\newline
  {\bfseries{Total capacity}}:\+ 953 GB ~\newline
-\hypertarget{md__r_e_a_d_m_e_autotoc_md35}{}\doxysubsection{\texorpdfstring{Tyrimas 1 -\/ Rezultatai}{Tyrimas 1 -\/ Rezultatai}}\label{md__r_e_a_d_m_e_autotoc_md35}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md36}{}\doxysubsubsection{\texorpdfstring{STD::\+\+VECTOR}{STD::\+\+VECTOR}}\label{md__r_e_a_d_m_e_autotoc_md36}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md63}{}\doxysubsubsection{\texorpdfstring{Tyrimas 1 -\/ Rezultatai}{Tyrimas 1 -\/ Rezultatai}}\label{md__r_e_a_d_m_e_autotoc_md63}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md64}{}\doxysubsubsubsection{\texorpdfstring{STD::\+\+VECTOR}{STD::\+\+VECTOR}}\label{md__r_e_a_d_m_e_autotoc_md64}
 
 \begin{DoxyTable}{6}{}{}{1}
 \SetCell{bg=\tableheadbgcolor,font=\bfseries}Ivesciu sk.  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Matavimo rodmuo  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Test 1 (s)  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Test 2 (s)  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Test 3 (s)  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Vidurkis (s)  \\
@@ -170,7 +331,7 @@ Rezultatai pateikiami sekundemis, suapvalinti (stengiamasi nevirsyti 3 skaitmenu
 &Skirstymas  &2.\+28  &2.\+45  &2.\+38  &2.\+37  \\
 &{\bfseries{Viskas}}  &{\bfseries{49.\+89}}  &{\bfseries{49.\+92}}  &{\bfseries{50.\+26}}  &{\bfseries{50.\+01}}  \\
 \end{DoxyTable}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md37}{}\doxysubsubsection{\texorpdfstring{STD::\+\+LIST}{STD::\+\+LIST}}\label{md__r_e_a_d_m_e_autotoc_md37}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md65}{}\doxysubsubsubsection{\texorpdfstring{STD::\+\+LIST}{STD::\+\+LIST}}\label{md__r_e_a_d_m_e_autotoc_md65}
 
 \begin{DoxyTable}{6}{}{}{1}
 \SetCell{bg=\tableheadbgcolor,font=\bfseries}Ivesciu sk.  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Matavimo rodmuo  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Test 1 (s)  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Test 2 (s)  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Test 3 (s)  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Vidurkis (s)  \\
@@ -195,7 +356,7 @@ Rezultatai pateikiami sekundemis, suapvalinti (stengiamasi nevirsyti 3 skaitmenu
 &Skirstymas  &5.\+014  &4.\+936  &4.\+968  &4.\+973  \\
 &{\bfseries{Viskas}}  &{\bfseries{60.\+942}}  &{\bfseries{59.\+045}}  &{\bfseries{59.\+790}}  &{\bfseries{59.\+926}}  \\
 \end{DoxyTable}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md38}{}\doxysubsubsection{\texorpdfstring{STD::\+\+DEQUE}{STD::\+\+DEQUE}}\label{md__r_e_a_d_m_e_autotoc_md38}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md66}{}\doxysubsubsubsection{\texorpdfstring{STD::\+\+DEQUE}{STD::\+\+DEQUE}}\label{md__r_e_a_d_m_e_autotoc_md66}
 
 \begin{DoxyTable}{6}{}{}{1}
 \SetCell{bg=\tableheadbgcolor,font=\bfseries}Ivesciu sk.  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Matavimo rodmuo  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Test 1 (s)  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Test 2 (s)  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Test 3 (s)  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Vidurkis (s)  \\
@@ -220,12 +381,11 @@ Rezultatai pateikiami sekundemis, suapvalinti (stengiamasi nevirsyti 3 skaitmenu
 &Skirstymas  &3.\+309  &3.\+179  &3.\+211  &3.\+233  \\
 &{\bfseries{Viskas}}  &{\bfseries{50.\+983}}  &{\bfseries{50.\+902}}  &{\bfseries{53.\+027}}  &{\bfseries{51.\+637}}  \\
 \end{DoxyTable}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md39}{}\doxysubsection{\texorpdfstring{Tyrimo 1 rezultatu interpretacija}{Tyrimo 1 rezultatu interpretacija}}\label{md__r_e_a_d_m_e_autotoc_md39}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md40}{}\doxysection{\texorpdfstring{Testavimas -\/ v1.\+0 optimizacija}{Testavimas -\/ v1.\+0 optimizacija}}\label{md__r_e_a_d_m_e_autotoc_md40}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md67}{}\doxysubsubsection{\texorpdfstring{v1.\+0 (optimizuota)}{v1.\+0 (optimizuota)}}\label{md__r_e_a_d_m_e_autotoc_md67}
 Tyrimai buvo atlikti su Visual Studio 2022 /\+\+O2 optimizacijos nustatymais. ~\newline
  Tyrimo 2 failai buvo sukurti viena karta pries bandymu pradzia. ~\newline
  Testavimo metu testavimo sistemoje nebuvo ijungtos jokios kitos programos. ~\newline
-\hypertarget{md__r_e_a_d_m_e_autotoc_md41}{}\doxysubsection{\texorpdfstring{Tyrimas 2 -\/ Aprasas}{Tyrimas 2 -\/ Aprasas}}\label{md__r_e_a_d_m_e_autotoc_md41}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md68}{}\doxysubsubsection{\texorpdfstring{Tyrimas 2 -\/ Aprasas}{Tyrimas 2 -\/ Aprasas}}\label{md__r_e_a_d_m_e_autotoc_md68}
 Atliktas tyrimas su trejais skirtingais STL konteineriais (Vektoriai, Sarasai (list) ir Deque). ~\newline
  Atlikti 3 bandymai kiekvienam konteineriui ir apskaiciuotas spartos vidurkis. ~\newline
  Kadangi spartos duomenys (skaiciai) buvo gan mazi, nebuvo apvalinta. ~\newline
@@ -238,6 +398,5 @@ Siame tyrime buvo ismatuota minetu konteineriu sparta, programai skirstant duome
 \item Studentu konteinerio duomenu isvedimas i du naujus konteinerius naudojant push\+\_\+back(); ~\newline
 
 \item Studentu konteinerio duomenu isvedimas i viena nauja (\textquotesingle{}blogu\textquotesingle{} studentu) konteineri naudojant std::\+move() ir tuo pat metu istrinimas is originalaus konteinerio, naudojant iteratorius;
-\item 3 strategija, optimizuota naudojant std::\+stable\+\_\+partition() ir std::\+move().
-\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md42}{}\doxysubsection{\texorpdfstring{Tyrimas 2 -\/ Rezultatai}{Tyrimas 2 -\/ Rezultatai}}\label{md__r_e_a_d_m_e_autotoc_md42}
-\hypertarget{md__r_e_a_d_m_e_autotoc_md43}{}\doxysubsection{\texorpdfstring{Tyrimo 2 rezultatu interpretacija}{Tyrimo 2 rezultatu interpretacija}}\label{md__r_e_a_d_m_e_autotoc_md43}
+\item 3 strategija, optimizuota naudojant std::\+stable\+\_\+partition() ir std::\+move(). 
+\end{DoxyEnumerate}
