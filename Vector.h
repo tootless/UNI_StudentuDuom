@@ -30,14 +30,14 @@ public:
 
 	//capacity
 
-	bool empty(); //getter
+	bool empty() const { return size_ == 0; }; //getter
 	size_t size() const { return size_; } //getter
 	size_t capacity() const { return capacity_; } //getter
 	void reserve(size_t new_capacity);
 
 	//modifiers
 
-	void clear();
+	void clear() { size_ = 0; };
 	it insert(const_it pos, T& value);
 };
 
@@ -118,7 +118,8 @@ Vector<T>::it Vector<T>::end() {
 
 template<typename T>
 void Vector<T>::reserve(size_t new_capacity) {
-	if (new_capacity <= capacity_) return;
+	if (new_capacity <= capacity_) 
+		return;
 
 	T* new_data = new T[new_capacity];
 	for (size_t i = 0; i < size_; i++) {
@@ -126,7 +127,6 @@ void Vector<T>::reserve(size_t new_capacity) {
 	}
 	delete[] data_;
 
-	data_ = new T[new_capacity];
 	data_ = new_data;
 	capacity_ = new_capacity;
 }
