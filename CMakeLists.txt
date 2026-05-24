@@ -8,7 +8,7 @@ add_executable(student_program
     main.cpp
     functions.cpp
     Studentas.cpp
- "Vector.cpp" "Vector.h")
+  "Vector.h")
 
 enable_testing()
 
