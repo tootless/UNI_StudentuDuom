@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 template<typename T>
 class Vector {
 private:
@@ -6,7 +8,8 @@ private:
 	size_t capacity_;
 
 public:
-	using ref = T&;
+	using ref = T&; //reference
+	using const_ref = const T&;
 	using it = T*; //iterator
 	using const_it = const T*;
 
@@ -22,6 +25,7 @@ public:
 	//element access
 
 	ref at(size_t pos);
+	const_ref at(size_t pos) const;
 
 	//iterators
 
@@ -37,8 +41,8 @@ public:
 
 	//modifiers
 
-	void clear() { size_ = 0; };
-	it insert(const_it pos, T& value);
+	void clear();
+	it insert(const_it pos, const T& value);
 };
 
 // constructors
@@ -99,19 +103,28 @@ void Vector<T>::assign(size_t count, const T& value) {
 
 template<typename T>
 Vector<T>::ref Vector<T>::at(size_t pos) {
+	if (pos >= size_ || empty()) throw std::out_of_range("Vector::at");
 
+	return data_[pos];
+}
+
+template<typename T>
+Vector<T>::const_ref Vector<T>::at(size_t pos) const {
+	if (pos >= size_ || empty()) throw std::out_of_range("Vector::at");
+	
+	return data_[pos];
 }
 
 // iterators
 
 template<typename T>
 Vector<T>::it Vector<T>::begin() {
-
+	return data_;
 }
 
 template<typename T>
 Vector<T>::it Vector<T>::end() {
-
+	return data_ + size_;
 }
 
 // capacity
@@ -134,6 +147,11 @@ void Vector<T>::reserve(size_t new_capacity) {
 // modifiers
 
 template<typename T>
-Vector<T>::it Vector<T>::insert(const_it pos, T& value) {
+void Vector<T>::clear() {
+	size_ = 0;
+}
 
+template<typename T>
+Vector<T>::it Vector<T>::insert(const_it pos, const T& value) {
+	
 }
