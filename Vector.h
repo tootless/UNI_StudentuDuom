@@ -228,7 +228,10 @@ void Vector<T>::push_back(const T& value)
 
 template<typename T>
 void Vector<T>::push_back(T&& value) {
+	if (size_ == capacity_) reserve(capacity_ == 0 ? 1 : capacity_ * 2);
 
+	data_[size_] = std::move(value);
+	size_++;
 }
 
 template<typename T>
