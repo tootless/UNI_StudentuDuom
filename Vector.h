@@ -50,11 +50,9 @@ public:
 
 	// operators
 
-	Vector& operator=(const Vector& other) {
-		if (this == &other) return this;
+	Vector& operator=(const Vector& other);
 
-
-	}
+	Vector& operator=(Vector&& other);
 };
 
 // constructors
@@ -92,6 +90,41 @@ Vector<T>::Vector(size_t count, const T& value)
 template<typename T>
 Vector<T>::~Vector() {
 	delete[] data_;
+}
+
+//operators
+
+template<typename T>
+Vector<T>& Vector<T>::operator=(const Vector& other) {
+	if (this == &other) return *this;
+	if (capacity_ < other.size_) {
+		delete[] data_;
+		data_ = new T[other.capacity_];
+		capacity_ = other.capacity_;
+	}
+
+	for (size_t i = 0; i < other.size_; i++) {
+		data_[i] = other.data_[i];
+	}
+	size_ = other.size_;
+
+	return *this;
+}
+
+template<typename T>
+Vector<T>& Vector<T>::operator=(Vector&& other) {
+	if (this == &other) return *this;
+
+	delete[] data_;
+	data_ = other.data_;
+	size_ = other.size_;
+	capacity_ = other.capacity_;
+
+	other.data_ = nullptr;
+	other.size_ = 0;
+	other.capacity_ = 0;
+
+	return *this;
 }
 
 // member functions
