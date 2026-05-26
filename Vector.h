@@ -43,6 +43,18 @@ public:
 
 	void clear();
 	it insert(const_it pos, const T& value);
+	it insert(const_it pos, T&& value);
+	void push_back(const T& value);
+	void push_back(T&& value);
+	void pop_back();
+
+	// operators
+
+	Vector& operator=(const Vector& other) {
+		if (this == &other) return this;
+
+
+	}
 };
 
 // constructors
@@ -111,7 +123,7 @@ Vector<T>::ref Vector<T>::at(size_t pos) {
 template<typename T>
 Vector<T>::const_ref Vector<T>::at(size_t pos) const {
 	if (pos >= size_ || empty()) throw std::out_of_range("Vector::at");
-	
+
 	return data_[pos];
 }
 
@@ -131,7 +143,7 @@ Vector<T>::it Vector<T>::end() {
 
 template<typename T>
 void Vector<T>::reserve(size_t new_capacity) {
-	if (new_capacity <= capacity_) 
+	if (new_capacity <= capacity_)
 		return;
 
 	T* new_data = new T[new_capacity];
@@ -153,5 +165,40 @@ void Vector<T>::clear() {
 
 template<typename T>
 Vector<T>::it Vector<T>::insert(const_it pos, const T& value) {
-	
+	size_t index = pos - begin(); //del reserve()
+
+	if (size_ == capacity_) reserve(capacity_ == 0 ? 1 : capacity_ * 2);
+
+	for (size_t i = size_; i > index; --i) {
+		data_[i] = data_[i-1];
+	}
+
+	data_[index] = value;
+	size_++;
+
+	return begin() + index;
+}
+
+template<typename T>
+Vector<T>::it Vector<T>::insert(const_it pos, T&& value) {
+
+}
+
+template<typename T>
+void Vector<T>::push_back(const T& value)
+{
+	if (size_ == capacity_) reserve(capacity_ == 0 ? 1 : capacity_ * 2);
+
+	data_[size_] = value;
+	size_++;
+}
+
+template<typename T>
+void Vector<T>::push_back(T&& value) {
+
+}
+
+template<typename T>
+void Vector<T>::pop_back() {
+	if (!empty()) size_--;
 }
