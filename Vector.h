@@ -147,14 +147,14 @@ void Vector<T>::assign(size_t count, const T& value) {
 // element access 
 
 template<typename T>
-Vector<T>::ref Vector<T>::at(size_t pos) {
+typename Vector<T>::ref Vector<T>::at(size_t pos) {
 	if (pos >= size_ || empty()) throw std::out_of_range("Vector::at");
 
 	return data_[pos];
 }
 
 template<typename T>
-Vector<T>::const_ref Vector<T>::at(size_t pos) const {
+typename Vector<T>::const_ref Vector<T>::at(size_t pos) const {
 	if (pos >= size_ || empty()) throw std::out_of_range("Vector::at");
 
 	return data_[pos];
@@ -163,12 +163,12 @@ Vector<T>::const_ref Vector<T>::at(size_t pos) const {
 // iterators
 
 template<typename T>
-Vector<T>::it Vector<T>::begin() {
+typename Vector<T>::it Vector<T>::begin() {
 	return data_;
 }
 
 template<typename T>
-Vector<T>::it Vector<T>::end() {
+typename Vector<T>::it Vector<T>::end() {
 	return data_ + size_;
 }
 
@@ -197,13 +197,15 @@ void Vector<T>::clear() {
 }
 
 template<typename T>
-Vector<T>::it Vector<T>::insert(const_it pos, const T& value) {
+typename Vector<T>::it Vector<T>::insert(const_it pos, const T& value) {
+	if (pos < begin() || pos > end()) throw std::out_of_range("Vector::insert");
+
 	size_t index = pos - begin(); //del reserve()
 
 	if (size_ == capacity_) reserve(capacity_ == 0 ? 1 : capacity_ * 2);
 
 	for (size_t i = size_; i > index; --i) {
-		data_[i] = data_[i-1];
+		data_[i] = data_[i - 1];
 	}
 
 	data_[index] = value;
@@ -213,8 +215,22 @@ Vector<T>::it Vector<T>::insert(const_it pos, const T& value) {
 }
 
 template<typename T>
-Vector<T>::it Vector<T>::insert(const_it pos, T&& value) {
+typename Vector<T>::it
+Vector<T>::insert(const_it pos, T&& value) {
+	if (pos < begin() || pos > end()) throw std::out_of_range("Vector::insert");
 
+	size_t index = pos - begin();
+
+	if (size_ == capacity_) reserve(capacity_ == 0 ? 1 : capacity_ * 2);
+
+	for (size_t i = size_; i > index; --i) {
+		data_[i] = std::move(data_[i - 1]);
+	}
+
+	data_[index] = std::move(value);
+	size_++;
+
+	return begin() + index;
 }
 
 template<typename T>
