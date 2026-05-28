@@ -355,9 +355,23 @@ typename Vector<T>::it Vector<T>::erase(const_it pos) {
 }
 
 template<typename T>
-Vector<T>::it Vector<T>::erase(const_it first, const_it last)
+typename Vector<T>::it Vector<T>::erase(const_it first, const_it last)
 {
-	return it();
+	if (first < begin() || first > end() ||
+		last < begin() || last > end() ||
+		first > last)
+	{
+		throw std::out_of_range("Vector::erase");
+	}
+
+	size_t start = first - begin();
+	size_t count = last - first;
+
+	std::move(begin() + start + count, end(), begin() + start);
+
+	size_ -= count;
+
+	return begin() + start;
 }
 
 template<typename T>
