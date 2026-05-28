@@ -100,6 +100,13 @@ public:
 	Vector& operator=(const Vector& other);
 
 	Vector& operator=(Vector&& other);
+
+	ref operator[](size_t pos);
+	const_ref operator[](size_t pos) const;
+
+	bool Vector<T>::operator==(const Vector& other) const;
+	bool Vector<T>::operator!=(const Vector& other) const;
+	
 };
 
 // constructors
@@ -174,6 +181,36 @@ Vector<T>& Vector<T>::operator=(Vector&& other) {
 	return *this;
 }
 
+template<typename T>
+Vector<T>::ref Vector<T>::operator[](size_t pos) {
+	return data_[pos];
+}
+
+template<typename T>
+Vector<T>::const_ref Vector<T>::operator[](size_t pos) const{
+	return data_[pos];
+}
+
+template<typename T>
+bool Vector<T>::operator==(const Vector& other) const{
+	if (size_ != other.size_)
+		return false;
+
+	for (size_t i = 0; i < size_; ++i)
+	{
+		if (data_[i] != other.data_[i])
+			return false;
+	}
+
+	return true;
+}
+
+template<typename T>
+bool Vector<T>::operator!=(const Vector& other) const
+{
+	return !(*this == other);
+}
+
 // member functions
 
 template<typename T>
@@ -237,7 +274,15 @@ typename Vector<T>::const_ref Vector<T>::back() const {
 	return *(end() - 1);
 }
 
+template<typename T>
+T* Vector<T>::data() {
+	return data_;
+}
 
+template<typename T>
+const T* Vector<T>::data() const {
+	return data_;
+}
 
 // capacity
 
