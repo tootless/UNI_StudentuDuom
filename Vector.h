@@ -1,6 +1,7 @@
 #include <stdexcept>
 #include <ranges>
 #include <limits>
+#include <algorithm>
 
 template<typename T>
 class Vector {
@@ -14,6 +15,8 @@ public:
 	using const_ref = const T&;
 	using it = T*; //iterator
 	using const_it = const T*;
+	using reverse_it = std::reverse_iterator<it>;
+	using const_reverse_it = std::reverse_iterator<const_it>;
 
 	//member functions
 	Vector();
@@ -31,14 +34,25 @@ public:
 	ref at(size_t pos);
 	const_ref at(size_t pos) const;
 
-	//iterators
+	// iterators
+	it begin() noexcept { return data_; }
+	it end() noexcept { return data_ + size_; }
 
-	it begin();
-	const_it begin() const;
-	const_it cbegin() const;
-	it end();
-	const_it end() const;
-	const_it cend() const;
+	const_it begin() const noexcept { return data_; }
+	const_it end() const noexcept { return data_ + size_; }
+
+	const_it cbegin() const noexcept { return begin(); }
+	const_it cend() const noexcept { return end(); }
+
+	// reverse iterators
+	reverse_it rbegin() noexcept { return reverse_it(end()); }
+	reverse_it rend() noexcept { return reverse_it(begin()); }
+
+	const_reverse_it rbegin() const noexcept { return const_reverse_it(end()); }
+	const_reverse_it rend() const noexcept { return const_reverse_it(begin()); }
+
+	const_reverse_it crbegin() const noexcept { return rbegin(); }
+	const_reverse_it crend() const noexcept { return rend(); }
 
 	//capacity
 
@@ -60,6 +74,7 @@ public:
 	void pop_back();
 	template<class... Args>
 	it emplace(const_it pos, Args&&... args);
+	constexpr void swap(Vector& other) noexcept;
 
 	// operators
 
@@ -183,38 +198,6 @@ typename Vector<T>::const_ref Vector<T>::at(size_t pos) const {
 	return data_[pos];
 }
 
-// iterators
-
-template<typename T>
-typename Vector<T>::it Vector<T>::begin() {
-	return data_;
-}
-
-template<typename T>
-typename Vector<T>::const_it Vector<T>::begin() const {
-	return data_;
-}
-
-template<typename T>
-typename Vector<T>::const_it Vector<T>::cbegin() const{
-	return data_;
-}
-
-template<typename T>
-typename Vector<T>::it Vector<T>::end() {
-	return data_ + size_;
-}
-
-template<typename T>
-typename Vector<T>::const_it Vector<T>::end() const {
-	return data_ + size_;
-}
-
-template<typename T>
-typename Vector<T>::const_it Vector<T>::cend() const {
-	return data_ + size_;
-}
-
 // capacity
 
 template<typename T>
@@ -336,4 +319,11 @@ void Vector<T>::push_back(T&& value) {
 template<typename T>
 void Vector<T>::pop_back() {
 	if (!empty()) size_--;
+}
+
+template<typename T>
+constexpr void Vector<T>::swap (Vector& other) noexcept {
+	std::swap(data_, other.data_);
+	std::swap(size_, other.size_);
+	std::swap(capacity_, other.capacity_);
 }
