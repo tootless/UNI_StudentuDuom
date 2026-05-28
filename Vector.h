@@ -2,15 +2,17 @@
 #include <ranges>
 #include <limits>
 #include <algorithm>
+#include <compare>
 
 template<typename T>
 class Vector {
 private:
 	T* data_;
-	size_t size_;
-	size_t capacity_;
+	size_type size_;
+	size_type capacity_;
 
 public:
+	using size_type = std::size_t;
 	using ref = T&; //reference
 	using const_ref = const T&;
 	using it = T*; //iterator
@@ -20,23 +22,23 @@ public:
 
 	//member functions
 	Vector();
-	Vector(size_t count);
-	Vector(size_t count, const T& value);
+	Vector(size_type count);
+	Vector(size_type count, const T& value);
 
 	~Vector();
 
-	void assign(size_t count, const T& value);
+	void assign(size_type count, const T& value);
 	template<std::ranges::input_range R>
 	void assign_range(R&& rg);
 
 	//element access
 
-	ref at(size_t pos);
-	const_ref at(size_t pos) const;
+	ref at(size_type pos);
+	const_ref at(size_type pos) const;
 
 	ref front();
 	const_ref front() const;
-	
+
 	ref back();
 	const_ref back() const;
 
@@ -68,11 +70,11 @@ public:
 	//capacity
 
 	bool empty() const { return size_ == 0; }; //getter
-	size_t size() const { return size_; } //getter
-	size_t max_size() const { return std::numeric_limits<T>::max() / sizeof(T); } //getter
-	size_t capacity() const { return capacity_; } //getter
+	size_type size() const { return size_; } //getter
+	size_type max_size() const { return std::numeric_limits<size_type>::max(); } //getter
+	size_type capacity() const { return capacity_; } //getter
 
-	void reserve(size_t new_capacity);
+	void reserve(size_type new_capacity);
 	void shrink_to_fit();
 
 	//modifiers
@@ -85,8 +87,8 @@ public:
 	void push_back(const T& value);
 	void push_back(T&& value);
 	void pop_back();
-	void resize(size_t count);
-	void resize(size_t count, const T& value);
+	void resize(size_type count);
+	void resize(size_type count, const T& value);
 	template<class... Args>
 	it emplace(const_it pos, Args&&... args);
 	template<class... Args>
@@ -101,12 +103,8 @@ public:
 
 	Vector& operator=(Vector&& other);
 
-	ref operator[](size_t pos);
-	const_ref operator[](size_t pos) const;
-
-	bool Vector<T>::operator==(const Vector& other) const;
-	bool Vector<T>::operator!=(const Vector& other) const;
-	
+	ref operator[](size_type pos);
+	const_ref operator[](size_type pos) const;
 };
 
 // constructors
@@ -121,7 +119,7 @@ Vector<T>::Vector()
 }
 
 template<typename T>
-Vector<T>::Vector(size_t count)
+Vector<T>::Vector(size_type count)
 	:
 	data_(new T[count]),
 	size_(count),
@@ -130,7 +128,7 @@ Vector<T>::Vector(size_t count)
 }
 
 template<typename T>
-Vector<T>::Vector(size_t count, const T& value)
+Vector<T>::Vector(size_type count, const T& value)
 	:
 	data_(new T[count]),
 	size_(count),
@@ -157,7 +155,7 @@ Vector<T>& Vector<T>::operator=(const Vector& other) {
 		capacity_ = other.capacity_;
 	}
 
-	for (size_t i = 0; i < other.size_; i++) {
+	for (size_type i = 0; i < other.size_; i++) {
 		data_[i] = other.data_[i];
 	}
 	size_ = other.size_;
@@ -182,39 +180,101 @@ Vector<T>& Vector<T>::operator=(Vector&& other) {
 }
 
 template<typename T>
-Vector<T>::ref Vector<T>::operator[](size_t pos) {
+Vector<T>::ref Vector<T>::operator[](size_type pos) {
 	return data_[pos];
 }
 
 template<typename T>
-Vector<T>::const_ref Vector<T>::operator[](size_t pos) const{
+Vector<T>::const_ref Vector<T>::operator[](size_type pos) const {
 	return data_[pos];
 }
 
+//non-member operators
+
 template<typename T>
-bool Vector<T>::operator==(const Vector& other) const{
-	if (size_ != other.size_)
+bool operator==(const Vector<T>& a, const Vector<T>& b)
+{
+	if (a.size() != b.size())
 		return false;
 
-	for (size_t i = 0; i < size_; ++i)
-	{
-		if (data_[i] != other.data_[i])
+	for (size_type i = 0; i < a.size(); ++i)
+		if (!(a[i] == b[i]))
 			return false;
-	}
 
 	return true;
 }
 
 template<typename T>
-bool Vector<T>::operator!=(const Vector& other) const
+bool operator!=(const Vector<T>& a, const Vector<T>& b)
 {
-	return !(*this == other);
+	return !(a == b);
+}
+
+template<typename T>
+bool operator<(const Vector<T>& a, const Vector<T>& b)
+{
+	return std::lexicographical_compare(
+		a.begin(), a.end(),
+		b.begin(), b.end()
+	);
+}
+
+template<typename T>
+bool operator>(const Vector<T>& a, const Vector<T>& b)
+{
+	return b < a;
+}
+
+template<typename T>
+bool operator<=(const Vector<T>& a, const Vector<T>& b)
+{
+	return !(b < a);
+}
+
+template<typename T>
+bool operator>=(const Vector<T>& a, const Vector<T>& b)
+{
+	return !(a < b);
+}
+
+template<typename T>
+std::strong_ordering operator<=>(const Vector<T>& a, const Vector<T>& b)
+{
+	return std::lexicographical_compare_three_way(
+		a.begin(), a.end(),
+		b.begin(), b.end()
+	);
+}
+
+//non-member functions
+
+template<typename T>
+typename Vector<T>::size_type erase(Vector<T>& v, const T& value)
+{
+	auto new_end = std::remove(v.begin(), v.end(), value);
+	size_type removed = v.end() - new_end;
+
+	v.erase(new_end, v.end());
+
+	return removed;
+}
+
+template<typename T, class Pred>
+typename Vector<T>::size_type erase_if(Vector<T>& v, Pred pred)
+{
+	auto new_end = std::remove_if(v.begin(), v.end(), pred);
+
+	size_type removed = v.end() - new_end;
+
+	v.erase(new_end, v.end());
+
+	return removed;
 }
 
 // member functions
 
 template<typename T>
-void Vector<T>::assign(size_t count, const T& value) {
+void Vector<T>::assign(size_type count, const T& value) {
 	if (count > capacity_) {
 		delete[] data_;
 
@@ -222,7 +282,7 @@ void Vector<T>::assign(size_t count, const T& value) {
 		capacity_ = count;
 	}
 
-	for (size_t i = 0; i < count; i++) {
+	for (size_type i = 0; i < count; i++) {
 		data_[i] = value;
 	}
 	size_ = count;
@@ -241,14 +301,14 @@ void Vector<T>::assign_range(R&& rg) {
 // element access 
 
 template<typename T>
-typename Vector<T>::ref Vector<T>::at(size_t pos) {
+typename Vector<T>::ref Vector<T>::at(size_type pos) {
 	if (pos >= size_ || empty()) throw std::out_of_range("Vector::at");
 
 	return data_[pos];
 }
 
 template<typename T>
-typename Vector<T>::const_ref Vector<T>::at(size_t pos) const {
+typename Vector<T>::const_ref Vector<T>::at(size_type pos) const {
 	if (pos >= size_ || empty()) throw std::out_of_range("Vector::at");
 
 	return data_[pos];
@@ -287,12 +347,12 @@ const T* Vector<T>::data() const {
 // capacity
 
 template<typename T>
-void Vector<T>::reserve(size_t new_capacity) {
+void Vector<T>::reserve(size_type new_capacity) {
 	if (new_capacity <= capacity_)
 		return;
 
 	T* new_data = new T[new_capacity];
-	for (size_t i = 0; i < size_; i++) {
+	for (size_type i = 0; i < size_; i++) {
 		new_data[i] = data_[i];
 	}
 	delete[] data_;
@@ -302,20 +362,22 @@ void Vector<T>::reserve(size_t new_capacity) {
 }
 
 template<typename T>
-void Vector<T>::shrink_to_fit() {
+void Vector<T>::shrink_to_fit()
+{
 	if (size_ == capacity_) return;
 
 	T* new_data = nullptr;
-	if (size_ > 0) {
+
+	if (size_ > 0)
+	{
 		new_data = new T[size_];
 
-		for (size_t i = 0; i < size_; i++) {
+		for (size_type i = 0; i < size_; ++i)
 			new_data[i] = std::move(data_[i]);
-		}
 	}
-	delete[] data_;
 
-	new_data = data_;
+	delete[] data_;
+	data_ = new_data;
 	capacity_ = size_;
 }
 
@@ -323,25 +385,18 @@ void Vector<T>::shrink_to_fit() {
 
 template<typename T>
 template<class... Args>
-Vector<T>::it Vector<T>::emplace(const_it pos, Args&&... args) {
-	if (pos < begin() || pos > end()) throw std::out_of_range("Vector::emplace");
+typename Vector<T>::it Vector<T>::emplace(const_it pos, Args&&... args)
+{
+	size_type index = pos - begin();
 
-	size_t index = pos - begin();
+	if (size_ == capacity_)
+		reserve(capacity_ ? capacity_ * 2 : 1);
 
-	if (size_ == capacity_) reserve(capacity_ == 0 ? 1 : capacity_ * 2);
+	std::move_backward(begin() + index, end(), end() + 1);
 
-	T temp_elem(std::forward<Args>(args)...);
-
-	if (index < size_) {
-		std::move_backward(begin() + index, end(), end() + 1);
-		data_[index] = std::move(temp_elem);
-	}
-	else {
-		new (&data_[index]) T(std::move(temp_elem));
-	}
+	data_[index] = T(std::forward<Args>(args)...);
 
 	++size_;
-
 	return begin() + index;
 }
 
@@ -362,11 +417,11 @@ template<typename T>
 typename Vector<T>::it Vector<T>::insert(const_it pos, const T& value) {
 	if (pos < begin() || pos > end()) throw std::out_of_range("Vector::insert");
 
-	size_t index = pos - begin(); //del reserve()
+	size_type index = pos - begin(); //del reserve()
 
 	if (size_ == capacity_) reserve(capacity_ == 0 ? 1 : capacity_ * 2);
 
-	std::move_if_noexcept(begin() + index, end(), end() + 1);
+	std::move_backward(begin() + index, end(), end() + 1);
 
 	data_[index] = value;
 	++size_;
@@ -378,13 +433,11 @@ template<typename T>
 typename Vector<T>::it Vector<T>::insert(const_it pos, T&& value) {
 	if (pos < begin() || pos > end()) throw std::out_of_range("Vector::insert");
 
-	size_t index = pos - begin();
+	size_type index = pos - begin();
 
 	if (size_ == capacity_) reserve(capacity_ == 0 ? 1 : capacity_ * 2);
 
-	for (size_t i = size_; i > index; --i) {
-		data_[i] = std::move(data_[i - 1]);
-	}
+	std::move_backward(begin() + index, end(), end() + 1);
 
 	data_[index] = std::move(value);
 	size_++;
@@ -398,7 +451,7 @@ constexpr typename Vector<T>::it Vector<T>::insert_range(const_it pos, R&& rg) {
 	if (pos < begin() || pos > end())
 		throw std::out_of_range("Vector::insert_range");
 
-	size_t index = pos - begin();
+	size_type index = pos - begin();
 
 	for (auto&& value : rg)
 	{
@@ -432,21 +485,35 @@ void Vector<T>::pop_back() {
 }
 
 template<typename T>
-void Vector<T>::resize(size_t count) {
+void Vector<T>::resize(size_type count)
+{
 	if (count == size_) return;
-	if (size_ > count) {
-		if (count > capacity_) reserve(count);
 
-		for (size_t i = size_; i < count; ++i) {
-			data[i] = T();
-		}
+	if (count > capacity_)
+		reserve(count);
+
+	if (count > size_)
+	{
+		for (size_type i = size_; i < count; ++i)
+			data_[i] = T{};
 	}
-	else if (count < size_) size_ = count;
+
+	size_ = count;
 }
 
 template<typename T>
-void Vector<T>::resize(size_t count, const T& value) {
+void Vector<T>::resize(size_type count, const T& value)
+{
+	if (count > capacity_)
+		reserve(count);
 
+	if (count > size_)
+	{
+		for (size_type i = size_; i < count; ++i)
+			data_[i] = value;
+	}
+
+	size_ = count;
 }
 
 template<typename T>
@@ -454,7 +521,7 @@ typename Vector<T>::it Vector<T>::erase(const_it pos) {
 	if (pos < begin() || pos >= end())
 		throw std::out_of_range("Vector::erase");
 
-	size_t index = pos - begin();
+	size_type index = pos - begin();
 
 	std::move(begin() + index + 1, end(), begin() + index);
 
@@ -473,8 +540,8 @@ typename Vector<T>::it Vector<T>::erase(const_it first, const_it last)
 		throw std::out_of_range("Vector::erase");
 	}
 
-	size_t start = first - begin();
-	size_t count = last - first;
+	size_type start = first - begin();
+	size_type count = last - first;
 
 	std::move(begin() + start + count, end(), begin() + start);
 
