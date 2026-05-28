@@ -1,10 +1,11 @@
 #include <stdexcept>
 #include <ranges>
+#include <limits>
 
 template<typename T>
 class Vector {
 private:
-	T* data_; //pointer to T array
+	T* data_;
 	size_t size_;
 	size_t capacity_;
 
@@ -39,8 +40,11 @@ public:
 
 	bool empty() const { return size_ == 0; }; //getter
 	size_t size() const { return size_; } //getter
+	size_t max_size() const { return std::numeric_limits<T>::max() / sizeof(T); } //getter
 	size_t capacity() const { return capacity_; } //getter
+
 	void reserve(size_t new_capacity);
+	void shrink_to_fit();
 
 	//modifiers
 
@@ -50,6 +54,8 @@ public:
 	void push_back(const T& value);
 	void push_back(T&& value);
 	void pop_back();
+	template<class... Args>
+	it emplace(const_it pos, Args&&... args);
 
 	// operators
 
@@ -202,7 +208,49 @@ void Vector<T>::reserve(size_t new_capacity) {
 	capacity_ = new_capacity;
 }
 
+template<typename T>
+void Vector<T>::shrink_to_fit() {
+	if (size_ == capacity_) return;
+
+	T* new_data = nullptr;
+	if (size_ > 0) {
+		new_data = new T[size_];
+
+		for (size_t i = 0; i < size_; i++) {
+			new_data[i] = std::move(data_[i]);
+		}
+	}
+	delete[] data_;
+
+	new_data = data_;
+	capacity_ = size_;
+}
+
 // modifiers
+
+template<typename T>
+template<class... Args>
+Vector<T>::it Vector<T>::emplace(const_it pos, Args&&... args) {
+	if (pos < begin() || pos > end()) throw std::out_of_range("Vector::emplace");
+
+	size_t index = pos - begin();
+
+	if (size_ == capacity_) reserve(capacity_ == 0 ? 1 : capacity_ * 2);
+
+	T temp_elem(std::forward<Args>(args)...);
+
+	if (index < size_) {
+		std::move_backward(begin() + index, end(), end() + 1);
+		data_[index] = std::move(temp_elem);
+	}
+	else {
+		new (&data_[index]) T(std::move(temp_elem));
+	}
+
+	++size_;
+
+	return begin() + index;
+}
 
 template<typename T>
 void Vector<T>::clear() {
