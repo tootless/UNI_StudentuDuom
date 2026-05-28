@@ -34,7 +34,11 @@ public:
 	//iterators
 
 	it begin();
+	const_it begin() const;
+	const_it cbegin() const;
 	it end();
+	const_it end() const;
+	const_it cend() const;
 
 	//capacity
 
@@ -187,7 +191,27 @@ typename Vector<T>::it Vector<T>::begin() {
 }
 
 template<typename T>
+typename Vector<T>::const_it Vector<T>::begin() const {
+	return data_;
+}
+
+template<typename T>
+typename Vector<T>::const_it Vector<T>::cbegin() const{
+	return data_;
+}
+
+template<typename T>
 typename Vector<T>::it Vector<T>::end() {
+	return data_ + size_;
+}
+
+template<typename T>
+typename Vector<T>::const_it Vector<T>::end() const {
+	return data_ + size_;
+}
+
+template<typename T>
+typename Vector<T>::const_it Vector<T>::cend() const {
 	return data_ + size_;
 }
 
@@ -265,12 +289,10 @@ typename Vector<T>::it Vector<T>::insert(const_it pos, const T& value) {
 
 	if (size_ == capacity_) reserve(capacity_ == 0 ? 1 : capacity_ * 2);
 
-	for (size_t i = size_; i > index; --i) {
-		data_[i] = data_[i - 1];
-	}
+	std::move_if_noexcept(begin() + index, end(), end() + 1);
 
 	data_[index] = value;
-	size_++;
+	++size_;
 
 	return begin() + index;
 }
