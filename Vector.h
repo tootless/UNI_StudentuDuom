@@ -69,6 +69,8 @@ public:
 	void clear();
 	it insert(const_it pos, const T& value);
 	it insert(const_it pos, T&& value);
+	template<std::ranges::input_range R>
+	constexpr it insert_range(const_it pos, R&& rg);
 	void push_back(const T& value);
 	void push_back(T&& value);
 	void pop_back();
@@ -181,7 +183,7 @@ template<std::ranges::input_range R>
 void Vector<T>::assign_range(R&& rg) {
 	clear();
 
-	for (auto&& value : R) {
+	for (auto&& value : rg) {
 		push_back(value);
 	}
 }
@@ -285,8 +287,7 @@ typename Vector<T>::it Vector<T>::insert(const_it pos, const T& value) {
 }
 
 template<typename T>
-typename Vector<T>::it
-Vector<T>::insert(const_it pos, T&& value) {
+typename Vector<T>::it Vector<T>::insert(const_it pos, T&& value) {
 	if (pos < begin() || pos > end()) throw std::out_of_range("Vector::insert");
 
 	size_t index = pos - begin();
@@ -301,6 +302,23 @@ Vector<T>::insert(const_it pos, T&& value) {
 	size_++;
 
 	return begin() + index;
+}
+
+template<typename T>
+template<std::ranges::input_range R>
+constexpr typename Vector<T>::it Vector<T>::insert_range(const_it pos, R&& rg) {
+	if (pos < begin() || pos > end())
+		throw std::out_of_range("Vector::insert_range");
+
+	size_t index = pos - begin();
+
+	for (auto&& value : rg)
+	{
+		insert(begin() + index, value);
+		++index;
+	}
+
+	return begin() + (pos - begin());
 }
 
 template<typename T>
@@ -329,10 +347,13 @@ template<typename T>
 void Vector<T>::resize(size_t count) {
 	if (count == size_) return;
 	if (size_ > count) {
-		for (size_t i = size_; i > count; --i) {
-			data[i]
+		if (count > capacity_) reserve(count);
+
+		for (size_t i = size_; i < count; ++i) {
+			data[i] = T();
 		}
 	}
+	else if (count < size_) size_ = count;
 }
 
 template<typename T>
