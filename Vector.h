@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <ranges>
 
 template<typename T>
 class Vector {
@@ -21,6 +22,8 @@ public:
 	~Vector();
 
 	void assign(size_t count, const T& value);
+	template<std::ranges::input_range R>
+	void assign_range(R&& rg);
 
 	//element access
 
@@ -142,6 +145,16 @@ void Vector<T>::assign(size_t count, const T& value) {
 		data_[i] = value;
 	}
 	size_ = count;
+}
+
+template<typename T>
+template<std::ranges::input_range R>
+void Vector<T>::assign_range(R&& rg) {
+	clear();
+
+	for (auto&& value : R) {
+		push_back(value);
+	}
 }
 
 // element access 
