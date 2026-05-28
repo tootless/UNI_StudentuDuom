@@ -72,8 +72,12 @@ public:
 	void push_back(const T& value);
 	void push_back(T&& value);
 	void pop_back();
+	void resize(size_t count);
+	void resize(size_t count, const T& value);
 	template<class... Args>
 	it emplace(const_it pos, Args&&... args);
+	it erase(const_it pos);
+	it erase(const_it first, const_it last);
 	constexpr void swap(Vector& other) noexcept;
 
 	// operators
@@ -322,7 +326,42 @@ void Vector<T>::pop_back() {
 }
 
 template<typename T>
-constexpr void Vector<T>::swap (Vector& other) noexcept {
+void Vector<T>::resize(size_t count) {
+	if (count == size_) return;
+	if (size_ > count) {
+		for (size_t i = size_; i > count; --i) {
+			data[i]
+		}
+	}
+}
+
+template<typename T>
+void Vector<T>::resize(size_t count, const T& value) {
+
+}
+
+template<typename T>
+typename Vector<T>::it Vector<T>::erase(const_it pos) {
+	if (pos < begin() || pos >= end())
+		throw std::out_of_range("Vector::erase");
+
+	size_t index = pos - begin();
+
+	std::move(begin() + index + 1, end(), begin() + index);
+
+	--size_;
+
+	return begin() + index;
+}
+
+template<typename T>
+Vector<T>::it Vector<T>::erase(const_it first, const_it last)
+{
+	return it();
+}
+
+template<typename T>
+constexpr void Vector<T>::swap(Vector& other) noexcept {
 	std::swap(data_, other.data_);
 	std::swap(size_, other.size_);
 	std::swap(capacity_, other.capacity_);
