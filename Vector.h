@@ -34,6 +34,17 @@ public:
 	ref at(size_t pos);
 	const_ref at(size_t pos) const;
 
+	ref front();
+	const_ref front() const;
+	
+	ref back();
+	const_ref back() const;
+
+	T* data();
+	const T* data() const;
+
+
+
 	// iterators
 	it begin() noexcept { return data_; }
 	it end() noexcept { return data_ + size_; }
@@ -78,6 +89,8 @@ public:
 	void resize(size_t count, const T& value);
 	template<class... Args>
 	it emplace(const_it pos, Args&&... args);
+	template<class... Args>
+	ref emplace_back(Args&&... args);
 	it erase(const_it pos);
 	it erase(const_it first, const_it last);
 	constexpr void swap(Vector& other) noexcept;
@@ -204,6 +217,28 @@ typename Vector<T>::const_ref Vector<T>::at(size_t pos) const {
 	return data_[pos];
 }
 
+template<typename T>
+typename Vector<T>::ref Vector<T>::front() {
+	return *begin();
+}
+
+template<typename T>
+typename Vector<T>::const_ref Vector<T>::front() const {
+	return *begin();
+}
+
+template<typename T>
+typename Vector<T>::ref Vector<T>::back() {
+	return *(end() - 1);
+}
+
+template<typename T>
+typename Vector<T>::const_ref Vector<T>::back() const {
+	return *(end() - 1);
+}
+
+
+
 // capacity
 
 template<typename T>
@@ -263,6 +298,14 @@ Vector<T>::it Vector<T>::emplace(const_it pos, Args&&... args) {
 	++size_;
 
 	return begin() + index;
+}
+
+template<typename T>
+template<class... Args>
+typename Vector<T>::ref Vector<T>::emplace_back(Args&&... args) {
+	emplace(end(), std::forward<Args>(args)...);
+
+	return back();
 }
 
 template<typename T>
