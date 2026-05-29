@@ -18,7 +18,7 @@ add_executable(run_tests
     test_studentas.cpp
     ../Studentas.cpp
     ../functions.cpp
-)
+ "test_vector.cpp")
 
 target_include_directories(run_tests PRIVATE
     ${CMAKE_SOURCE_DIR}

@@ -27,6 +27,8 @@ public:
 	Vector(size_type count);
 	Vector(size_type count, const T& value);
 	Vector(std::initializer_list<T> init);
+	Vector(const Vector& other);
+	Vector(Vector&& other) noexcept;
 
 	~Vector();
 
@@ -107,7 +109,7 @@ public:
 
 	Vector& operator=(const Vector& other);
 
-	Vector& operator=(Vector&& other);
+	Vector& operator=(Vector&& other) noexcept;
 
 	ref operator[](size_type pos);
 	const_ref operator[](size_type pos) const;
@@ -154,6 +156,34 @@ Vector<T>::Vector(std::initializer_list<T> init) {
 		data_[i++] = v;
 }
 
+template<typename T>
+Vector<T>::Vector(const Vector& other)
+	:
+	data_(nullptr),
+	size_(other.size_),
+	capacity_(other.capacity_)
+{
+	if (capacity_ > 0)
+	{
+		data_ = new T[capacity_];
+
+		for (size_type i = 0; i < size_; ++i)
+			data_[i] = other.data_[i];
+	}
+}
+
+template<typename T>
+Vector<T>::Vector(Vector&& other) noexcept
+	:
+	data_(other.data_),
+	size_(other.size_),
+	capacity_(other.capacity_)
+{
+	other.data_ = nullptr;
+	other.size_ = 0;
+	other.capacity_ = 0;
+}
+
 // destructor
 
 template<typename T>
@@ -164,27 +194,38 @@ Vector<T>::~Vector() {
 //operators
 
 template<typename T>
-Vector<T>& Vector<T>::operator=(const Vector& other) {
-	if (this == &other) return *this;
-	if (capacity_ < other.size_) {
-		delete[] data_;
-		data_ = new T[other.capacity_];
-		capacity_ = other.capacity_;
+Vector<T>& Vector<T>::operator=(const Vector& other)
+{
+	if (this == &other)
+		return *this;
+
+	T* new_data = nullptr;
+
+	if (other.capacity_ > 0)
+	{
+		new_data = new T[other.capacity_];
+
+		for (size_type i = 0; i < other.size_; ++i)
+			new_data[i] = other.data_[i];
 	}
 
-	for (size_type i = 0; i < other.size_; i++) {
-		data_[i] = other.data_[i];
-	}
+	delete[] data_;
+
+	data_ = new_data;
 	size_ = other.size_;
+	capacity_ = other.capacity_;
 
 	return *this;
 }
 
 template<typename T>
-Vector<T>& Vector<T>::operator=(Vector&& other) {
-	if (this == &other) return *this;
+Vector<T>& Vector<T>::operator=(Vector&& other) noexcept
+{
+	if (this == &other)
+		return *this;
 
 	delete[] data_;
+
 	data_ = other.data_;
 	size_ = other.size_;
 	capacity_ = other.capacity_;
@@ -426,7 +467,11 @@ typename Vector<T>::ref Vector<T>::emplace_back(Args&&... args) {
 }
 
 template<typename T>
-void Vector<T>::clear() {
+void Vector<T>::clear()
+{
+	for (size_type i = 0; i < size_; ++i)
+		data_[i].~T();
+
 	size_ = 0;
 }
 
@@ -508,11 +553,13 @@ typename Vector<T>::it Vector<T>::insert(const_it pos, std::initializer_list<T> 
 
 template<typename T>
 template<std::ranges::input_range R>
-constexpr typename Vector<T>::it Vector<T>::insert_range(const_it pos, R&& rg) {
+constexpr typename Vector<T>::it Vector<T>::insert_range(const_it pos, R&& rg){
 	if (pos < begin() || pos > end())
 		throw std::out_of_range("Vector::insert_range");
 
 	size_type index = pos - begin();
+
+	size_type original_index = index;
 
 	for (auto&& value : rg)
 	{
@@ -520,7 +567,7 @@ constexpr typename Vector<T>::it Vector<T>::insert_range(const_it pos, R&& rg) {
 		++index;
 	}
 
-	return begin() + (pos - begin());
+	return begin() + original_index;
 }
 
 template<typename T>
