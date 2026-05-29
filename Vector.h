@@ -296,7 +296,7 @@ bool operator>=(const Vector<T>& a, const Vector<T>& b)
 }
 
 template<typename T>
-std::strong_ordering operator<=>(const Vector<T>& a, const Vector<T>& b)
+auto operator<=>(const Vector<T>& a, const Vector<T>& b)
 {
 	return std::lexicographical_compare_three_way(
 		a.begin(), a.end(),
@@ -310,7 +310,7 @@ template<typename T>
 typename Vector<T>::size_type erase(Vector<T>& v, const T& value)
 {
 	auto new_end = std::remove(v.begin(), v.end(), value);
-	size_t removed = v.end() - new_end;
+	auto removed = v.end() - new_end;
 
 	v.erase(new_end, v.end());
 
