@@ -61,7 +61,7 @@ std::ostream& operator<<(std::ostream& out, const Studentas& studentas) {
 	return out;
 }
 
-double Studentas::getGalutinis(double(*calc_funk)(const std::vector<double>&)) const {
+double Studentas::getGalutinis(double(*calc_funk)(const Vector<double>&)) const {
 	double galutinis_rez = 0.4 * calc_funk(paz_) + 0.6 * egzaminas_;
 	return galutinis_rez;
 }
@@ -71,7 +71,7 @@ std::istream& Studentas::read(std::istream& input) {
 
 	double temp_paz;
 
-	std::vector<double> temp_vec;
+	Vector<double> temp_vec;
 
 	while (input >> temp_paz)
 	{
@@ -167,7 +167,7 @@ void Studentas::setRandPazymiai()
 	}
 }
 
-double calc_vidurkis(const std::vector<double>& pazymiai) {
+double calc_vidurkis(const Vector<double>& pazymiai) {
 	if (pazymiai.empty()) return 0.0;
 
 	double suma = 0;
@@ -176,11 +176,11 @@ double calc_vidurkis(const std::vector<double>& pazymiai) {
 	return suma / (double)pazymiai.size();
 }
 
-double calc_mediana(const std::vector<double>& pazymiai) {
+double calc_mediana(const Vector<double>& pazymiai) {
 	if (pazymiai.empty()) return 0.0;
 
-	std::vector<double> sortedPaz = pazymiai;
-	sort(sortedPaz.begin(), sortedPaz.end());
+	Vector<double> sortedPaz = pazymiai;
+	std::sort(sortedPaz.begin(), sortedPaz.end());
 	if (sortedPaz.size() % 2 == 0) {
 		int midLeftElem = sortedPaz.size() / 2 - 1;
 		return (sortedPaz[midLeftElem] + sortedPaz[sortedPaz.size() / 2]) / 2.0;
@@ -217,7 +217,7 @@ void Studentas::egz_input()
 	egzaminas_ = egz;
 }
 
-void split_file_generator(const std::string& filename, std::vector<Studentas>& studentai) {
+void split_file_generator(const std::string& filename, Vector<Studentas>& studentai) {
 	std::ofstream fout(filename);
 	int max_pazSize = studentai[0].getPazymiaiSize(); //didziausias pazymiu skaicius, header'iui, !!siuo metu toks pats visiems studentams
 
@@ -253,7 +253,7 @@ void split_file_generator(const std::string& filename, std::vector<Studentas>& s
 	fout.close();
 }
 
-void student_split(std::string filename, std::vector<Studentas>& studentai) {
+void student_split(std::string filename, Vector<Studentas>& studentai) {
 	//filename input prompt + filename validation;
 
 	//sorting prompt
@@ -263,7 +263,7 @@ void student_split(std::string filename, std::vector<Studentas>& studentai) {
 	choice_sort(studentai, choiceSort);
 
 	//move students to new vectors
-	std::vector<Studentas> studGeri, studBlogi;
+	Vector<Studentas> studGeri, studBlogi;
 
 	for (auto& s : studentai) {
 		if (s.getGalutinis(calc_vidurkis) < 5.0) {
@@ -286,8 +286,8 @@ void student_split(std::string filename, std::vector<Studentas>& studentai) {
 }
 
 //Sort vector
-void vidurkis_sort(std::vector<Studentas>& studentai) { //didejimo tvarka
-	sort(studentai.begin(), studentai.end(),
+void vidurkis_sort(Vector<Studentas>& studentai) { //didejimo tvarka
+	std::sort(studentai.begin(), studentai.end(),
 		[](const Studentas& a, const Studentas& b) -> bool {
 			return a.getGalutinis(calc_vidurkis) < b.getGalutinis(calc_vidurkis);
 		});
@@ -322,7 +322,7 @@ void testing_v04_2(std::string filename) {
 	//read file
 	Timer timer_full;
 	Timer timer;
-	std::vector<Studentas> studentai;
+	Vector<Studentas> studentai;
 
 	read_file(filename, studentai);
 
@@ -331,13 +331,13 @@ void testing_v04_2(std::string filename) {
 	//split file into two new ones
 
 	//sort file by galutinisVid decreasing
-	sort(studentai.begin(), studentai.end(),
+	std::sort(studentai.begin(), studentai.end(),
 		[](Studentas& a, Studentas& b)-> bool {
 			return a.getGalutinis(calc_vidurkis) > b.getGalutinis(calc_vidurkis);
 		});
 
 	//move students to new vectors
-	std::vector<Studentas> studGeri, studBlogi;
+	Vector<Studentas> studGeri, studBlogi;
 
 	Timer timer1;
 	for (auto& s : studentai) {

@@ -4,7 +4,7 @@
 #include "Studentas.h"
 #include "Vector.h"
 
-//Visi duomenu rinkiniai su std::vector
+//Visi duomenu rinkiniai su Vector
 
 void print_container(const Vector<int>& c)
 {
@@ -15,7 +15,7 @@ void print_container(const Vector<int>& c)
 
 int main()
 {
-	std::vector<Studentas> Studentai; //Galutiniai studentu duomenys
+	Vector<Studentas> Studentai; //Galutiniai studentu duomenys
 	int choiceEndStud = 0; //Studentu duomenu ivesties baigties pasirinkimas
 	int choiceMenu = 0; //Programos eigos pasirinkimas
 
@@ -193,9 +193,9 @@ int main()
 		//Spartos analize 2
 		else if (choiceMenu == 8) {
 
-			cout << "\n---STD::VECTOR---\n\n";
-			run_test_containers<std::vector<Studentas>>();
-			cout << "Pabaiga std::vector testavimo\n";
+			cout << "\n---VECTOR---\n\n";
+			run_test_containers<Vector<Studentas>>();
+			cout << "Pabaiga Vector testavimo\n";
 			system("pause");
 			system("cls");
 
@@ -211,9 +211,9 @@ int main()
 			system("pause");
 			system("cls");
 
-			cout << "\n---STD::VECTOR---\n\n";
-			run_test_splitting<std::vector<Studentas>>();
-			cout << "Pabaiga std::vector testavimo\n";
+			cout << "\n---VECTOR---\n\n";
+			run_test_splitting<Vector<Studentas>>();
+			cout << "Pabaiga Vector testavimo\n";
 			system("pause");
 			system("cls");
 

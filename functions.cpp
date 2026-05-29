@@ -11,7 +11,7 @@ void menu(int& choiceMenu) {
 		cout << "Pasirinkite programos eiga\n"
 			<< "\n1 - Viskas ranka,\n2 - Randomizuoti nd. pazymiai ir egz. balas,\n3 - Viskas randomizuota,"
 			<< "\n4 - Baigti darba (Ir isvesti galutinius rezultatus),\n5 - Skaityti visus duomenis is failo,\n6 - Generuoti randomizuotu studentu duomenu failus,"
-			<< "\n7 - Vykdyti spartos analize su std::vector," << "\n8 - Vykdyti spartos analize tarp skirtingu STL konteineriu,"
+			<< "\n7 - Vykdyti spartos analize su std::vector (deprecated)," << "\n8 - Vykdyti spartos analize tarp skirtingu STL konteineriu,"
 			<< "\n9 - Perziureti Vector klases veikima, naudojant std::vector funkciju pavyzdzius,"
 			<< "\n10 - Vykdyti spartos palyginima tarp std::vector ir Vector.";
 		cout << "\n--------\n";
@@ -107,8 +107,6 @@ std::string string_input_validation(std::string optionalPrompt) {
 
 //Generuoti faila su randomizuotais studentu duomenimis
 void student_file_generator(int nStud, int nPaz) {
-
-	//try catch if file exists
 
 	//create file name automatically
 	std::string filename = "studentai";

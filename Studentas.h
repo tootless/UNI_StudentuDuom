@@ -1,8 +1,9 @@
 #pragma once
 #include "mylib.h"
+#include "Vector.h"
 
-double calc_vidurkis(const std::vector<double>&); //Calculate vidurkis
-double calc_mediana(const std::vector<double>&); //Calculate mediana
+double calc_vidurkis(const Vector<double>&); //Calculate vidurkis
+double calc_mediana(const Vector<double>&); //Calculate mediana
 
 class Zmogus {
 protected:
@@ -28,7 +29,7 @@ public:
 
 class Studentas : public Zmogus {
 private:
-	std::vector<double> paz_; // nd pazymiai
+	Vector<double> paz_; // nd pazymiai
 	double egzaminas_ = 0;
 	double galutinis_ = 0;
 
@@ -47,10 +48,10 @@ public:
 	friend std::istream& operator>>(std::istream& in, Studentas& s); //input
 	friend std::ostream& operator<<(std::ostream& out, const Studentas& s); //output
 
-	const std::vector<double>& getPazymiai() const { return paz_; };
+	const Vector<double>& getPazymiai() const { return paz_; };
 	int getPazymiaiSize() const { return paz_.size(); };
 	double getEgzaminas() const { return egzaminas_; };
-	double getGalutinis(double (*)(const std::vector<double>&) = calc_mediana) const; //returns apdorotas galutinis
+	double getGalutinis(double (*)(const Vector<double>&) = calc_mediana) const; //returns apdorotas galutinis
 	std::istream& read(std::istream& input);
 
 	void addPazymys(const double& pazymys) { paz_.push_back(pazymys); };
@@ -118,8 +119,8 @@ void write_studentai(const std::string& filename, StudentaiContainer& studentai)
 	//write to file
 	std::ofstream fout(filename);
 
-	fout << '\n' << std::setw(15) << std::left << "Vardas" << std::setw(15) << std::left << "Pavarde" 
-		<< std::setw(15) << std::left << "Galutinis (Vid.)" << std::setw(15) << std::left << "Galutinis(Med.)" 
+	fout << '\n' << std::setw(15) << std::left << "Vardas" << std::setw(15) << std::left << "Pavarde"
+		<< std::setw(15) << std::left << "Galutinis (Vid.)" << std::setw(15) << std::left << "Galutinis(Med.)"
 		<< std::setw(15) << std::left << "Egz." << '\n';
 	fout << "----------------------------------------------------\n";
 	for (const auto& s : studentai) {
@@ -156,7 +157,7 @@ void choice_sort(StudentaiContainer& studentai, int choice)
 }
 
 //Sort vector
-void vidurkis_sort(std::vector<Studentas>& studentai);
+void vidurkis_sort(Vector<Studentas>& studentai);
 
 //Sort deque
 void vidurkis_sort(std::deque<Studentas>& studentai);
@@ -164,9 +165,9 @@ void vidurkis_sort(std::deque<Studentas>& studentai);
 //Sort list
 void vidurkis_sort(std::list<Studentas>& studentai);
 
-void split_file_generator(const std::string& filename, std::vector<Studentas>& studentai);
+void split_file_generator(const std::string& filename, Vector<Studentas>& studentai);
 
-void student_split(std::string filename, std::vector<Studentas>& studentai);
+void student_split(std::string filename, Vector<Studentas>& studentai);
 
 /// Testavimo funkcijos
 
@@ -179,7 +180,7 @@ void testing_v04_2(std::string filename);
 
 template <typename StudentaiContainer>
 void student_split_strategyold(StudentaiContainer& studentai) {
-	std::vector<Studentas> studGeri, studBlogi;
+	Vector<Studentas> studGeri, studBlogi;
 	for (auto& s : studentai) {
 		if (s.getGalutinis(calc_vidurkis) < 5.0)
 			studBlogi.push_back(std::move(s));
