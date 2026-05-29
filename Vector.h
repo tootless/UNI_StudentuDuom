@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <compare>
 #include <cassert>
+#include "timer.h"
 
 template<typename T>
 class Vector {
@@ -663,4 +664,22 @@ constexpr void Vector<T>::swap(Vector& other) noexcept {
 	std::swap(data_, other.data_);
 	std::swap(size_, other.size_);
 	std::swap(capacity_, other.capacity_);
+}
+
+//Testing 
+template<typename Vec>
+auto measure_push_back(size_t count)
+{
+	Vec v;
+
+	Timer timer;
+
+	for (size_t i = 0; i < count; ++i)
+	{
+		v.push_back(i);
+	}
+
+	volatile auto size = v.size();
+
+	return timer.elapsed();
 }

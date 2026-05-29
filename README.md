@@ -4,7 +4,7 @@
 # Aprasas
 
 Programa skirta studentu duomenu ivedimui, apzvalgai, isvedimui, palyginimui tarpusavy.  
-Programa naudoja C++17.
+Programa naudoja C++20.
 
 Programa kurta VU ISI I kurso studento su tikslu ismokti daugiau apie OOP.  
 
@@ -12,7 +12,7 @@ Programa kurta VU ISI I kurso studento su tikslu ismokti daugiau apie OOP.
 
 ## Reikalavimai
 - CMake v3.10 arba naujesne
-- C++17 palaikantis kompiliatorius (g++, clang++ arba MSVC)
+- C++20 palaikantis kompiliatorius (g++, clang++ arba MSVC)
 - Interneto rysys pirmam paleidimui (GoogleTest parsisiuntimui)
 
 ---

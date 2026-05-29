@@ -367,13 +367,42 @@ int main()
 			system("cls");
 		}
 
+		//Vector klases spartos analize
+		else if (choiceMenu == 10) {
+
+			std::vector<size_t> sizes1 = { 10000, 100000, 1000000, 10000000, 100000000};
+			Vector<size_t> sizes2 = { 10000, 100000, 1000000, 10000000, 100000000};
+
+			cout << "std::vector\n";
+
+			for (auto n : sizes1)
+			{
+				cout << n << " -> "
+					<< measure_push_back<std::vector<int>>(n)
+					<< " ms\n";
+			}
+			system("pause");
+
+			cout << "\nVector\n";
+
+			for (auto n : sizes2)
+			{
+				cout << n << " -> "
+					<< measure_push_back<Vector<int>>(n)
+					<< " ms\n";
+			}
+			system("pause");
+			system("cls");
+		}
+
+
 		if (choiceMenu >= 1 && choiceMenu <= 3) {
 			choiceEndStud = integer_input_validation(0, 1, "\nAr vesite dar vieno studento duomenis? (0 - Taip, 1 - Ne, einame prie galutiniu rezultatu)\n");
 			system("cls");
 		}
 
 		//Reset
-		if (choiceMenu >= 5 && choiceMenu <= 9) {
+		if (choiceMenu >= 5 && choiceMenu <= 10) {
 			Studentai.clear();
 			choiceEndStud = 0;
 		}
@@ -418,7 +447,7 @@ int main()
 			}
 		}
 	}
-	else if (Studentai.empty() && (choiceMenu != 5 && choiceMenu != 6 && choiceMenu != 7 && choiceMenu != 8)) {
+	else if (Studentai.empty() && (choiceMenu <= 10)) {
 		cout << "Darbas baigtas.\n\n";
 	}
 

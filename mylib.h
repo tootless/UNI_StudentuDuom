@@ -10,6 +10,7 @@
 #include <deque>
 #include <sstream>
 #include <filesystem>
+#include <chrono>
 #include "timer.h"
 
 using std::cout;
