@@ -56,6 +56,102 @@ cmake --build .
 
 ---
 
+# Versija v3.0
+
+## Pakeitimai
+- Sukurta pilnai veikianti Vector klase, paremta (teoriskai) std::vector.  
+    - Vector neturi `allocator::traits`, keliu overload'u, taciau StudentDuom atveju tai yra pilnaverte std::vector alternatyva.
+    - Kur std::vector naudoja `new operator` ar `placement new`, Vector naudoja `new T[]`, kad sukurti duomenis. Tai turi trukumu:
+        - Vector is karto sukonstruoja visus objektus, kiek gali (capacity), std::vector alokuoja `raw` atminti.  
+        Tai atveria kelia optimizacijoms - kaip ir minetas `allocator::traits`, kurio Vector negali naudoti.  
+- Visa StudentuDuom programa naudoja Vector. Is dalies patikrinimui ir general produkto palaikymui.
+- Vector ir std::vector klases palygintos sparta su iki 100 mln.  
+    - Rezultatai zemiau bei [Test_Efficiency](/Assets/v3.0/Test_Efficiency/)
+- Atnaujinta dokumentacija, html, LaTeX, .pdf
+- Atlikti Unit Testai su visais Vector metodais. Rezultatai pasiekiami programoje.
+
+---
+# Testavimas - std::vector vs Vector klase
+
+## Vidutinis greitis su duomenimis nuo 1000 iki 100mln.
+
+|  Duom. sk.  | std::vector (ms) | Vector (ms) |
+|:-----------:|:----------------:|:-----------:|
+| 10,000      | 0.0000464        | 0.0000925   |
+| 100,000     | 0.0004062        | 0.0004516   |
+| 1,000,000   | 0.0034007        | 0.0035111   |
+| 10,000,000  | 0.0311443        | 0.0347872   |
+| 100,000,000 | 0.3164716        | 0.3130998   |
+
+## Atminties realokacijos
+- Atmintis su 100 mln. duomenu (`<int>`) buvo peralokuota:
+    - 47 kartus std::vector  
+    - 28 kartus Vector.  
+---
+
+## Testavimo apzvalga
+
+- `std::vector` bei `Vector` klases yra panasios spartos, taciau std::vector yra labiau optimizuota klase.  
+Naudojant `allocator::traits` ir operuojant labiau low-level nei Vector, ji greiciau susidoroja su mazesniais duomenu kiekiais.
+- `std::vector` ir `Vector` klases naudoja kitokius atminties realokacijos principa, Vector alokuoja `2 * capacity`, o std::vector daznai `~1.5 * capacity`.  
+Tai reiskia, kad nors ir std::vector peralokavo atminti 19 kartu daugiau - ji ja alokavo labiau efektyviai.  
+Be to, tai parodo, kad atminties realokacija, kopijavimas, move semantika, tvarkant paprastus tipus (kaip `int`), nera labai brangu.
+
+---
+
+## Atskiru testu rezultatai
+
+### 10 000
+|   Nr.   | std::vector (ms) | Vector (ms) |
+|:-------:|:----------------:|:-----------:|
+| 1       | 0.0000864        | 0.0001092   |
+| 2       | 0.0000462        | 0.0000701   |
+| 3       | 0.0000404        | 0.0001064   |
+| 4       | 0.0000384        | 0.0000611   |
+| 5       | 0.0000414        | 0.0001157   |
+| Vid.    | 0.0000464        | 0.0000925   |
+
+### 100 000
+|   Nr.   | std::vector (ms) | Vector (ms) |
+|:-------:|:----------------:|:-----------:|
+| 1       | 0.0006316        | 0.0006274   |
+| 2       | 0.0003711        | 0.0004005   |
+| 3       | 0.0003387        | 0.0005090   |
+| 4       | 0.0003518        | 0.0003615   |
+| 5       | 0.0003377        | 0.0003597   |
+| Vid.    | 0.0004062        | 0.0004516   |
+
+### 1 000 000
+|   Nr.   | std::vector (ms) | Vector (ms) |
+|:-------:|:----------------:|:-----------:|
+| 1       | 0.0034704        | 0.0040201   |
+| 2       | 0.0040731        | 0.0033310   |
+| 3       | 0.0030384        | 0.0035121   |
+| 4       | 0.0031859        | 0.0032517   |
+| 5       | 0.0036356        | 0.0034405   |
+| Vid.    | 0.0034007        | 0.0035111   |
+
+### 10 000 000
+|   Nr.   | std::vector (ms) | Vector (ms) |
+|:-------:|:----------------:|:-----------:|
+| 1       | 0.0291172        | 0.0352419   |
+| 2       | 0.0328546        | 0.0355669   |
+| 3       | 0.0303506        | 0.0339828   |
+| 4       | 0.0318232        | 0.0349377   |
+| 5       | 0.0313760        | 0.0345071   |
+| Vid.    | 0.0311443        | 0.0347872   |
+
+### 100 000 000
+|   Nr.   | std::vector (ms) | Vector (ms) |
+|:-------:|:----------------:|:-----------:|
+| 1       | 0.321536         | 0.309383    |
+| 2       | 0.315756         | 0.311027    |
+| 3       | 0.315996         | 0.319193    |
+| 4       | 0.313160         | 0.310593    |
+| 5       | 0.315910         | 0.315307    |
+| Vid.    | 0.3164716        | 0.3130998   |
+
+---
 # Versija v2.0
 
 ## Pakeitimai
