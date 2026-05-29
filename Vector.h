@@ -1,15 +1,17 @@
+#pragma once
 #include <stdexcept>
 #include <ranges>
 #include <limits>
 #include <algorithm>
 #include <compare>
+#include <cassert>
 
 template<typename T>
 class Vector {
 private:
 	T* data_;
-	size_type size_;
-	size_type capacity_;
+	size_t size_;
+	size_t capacity_;
 
 public:
 	using size_type = std::size_t;
@@ -24,6 +26,7 @@ public:
 	Vector();
 	Vector(size_type count);
 	Vector(size_type count, const T& value);
+	Vector(std::initializer_list<T> init);
 
 	~Vector();
 
@@ -82,6 +85,9 @@ public:
 	void clear();
 	it insert(const_it pos, const T& value);
 	it insert(const_it pos, T&& value);
+	it insert(const_it pos, std::initializer_list<T> ilist);
+	template<class InputIt>
+	it insert(const_it pos, InputIt first, InputIt last);
 	template<std::ranges::input_range R>
 	constexpr it insert_range(const_it pos, R&& rg);
 	void push_back(const T& value);
@@ -137,7 +143,18 @@ Vector<T>::Vector(size_type count, const T& value)
 	assign(count, value);
 }
 
-// destructors
+template<typename T>
+Vector<T>::Vector(std::initializer_list<T> init) {
+	size_ = init.size();
+	capacity_ = init.size();
+	data_ = new T[capacity_];
+
+	size_type i = 0;
+	for (const auto& v : init)
+		data_[i++] = v;
+}
+
+// destructor
 
 template<typename T>
 Vector<T>::~Vector() {
@@ -197,9 +214,9 @@ bool operator==(const Vector<T>& a, const Vector<T>& b)
 	if (a.size() != b.size())
 		return false;
 
-	for (size_type i = 0; i < a.size(); ++i)
-		if (!(a[i] == b[i]))
-			return false;
+	for (size_t i = 0; i < a.size(); ++i) {
+		if (!(a[i] == b[i])) return false;
+	}
 
 	return true;
 }
@@ -252,7 +269,7 @@ template<typename T>
 typename Vector<T>::size_type erase(Vector<T>& v, const T& value)
 {
 	auto new_end = std::remove(v.begin(), v.end(), value);
-	size_type removed = v.end() - new_end;
+	size_t removed = v.end() - new_end;
 
 	v.erase(new_end, v.end());
 
@@ -264,7 +281,7 @@ typename Vector<T>::size_type erase_if(Vector<T>& v, Pred pred)
 {
 	auto new_end = std::remove_if(v.begin(), v.end(), pred);
 
-	size_type removed = v.end() - new_end;
+	size_t removed = v.end() - new_end;
 
 	v.erase(new_end, v.end());
 
@@ -430,6 +447,29 @@ typename Vector<T>::it Vector<T>::insert(const_it pos, const T& value) {
 }
 
 template<typename T>
+template<class InputIt>
+typename Vector<T>::it
+Vector<T>::insert(const_it pos, InputIt first, InputIt last)
+{
+	size_type index = pos - begin();
+
+	size_type count = std::distance(first, last);
+
+	if (size_ + count > capacity_)
+		reserve(std::max(capacity_ * 2, size_ + count));
+
+	std::move_backward(begin() + index, end(), end() + count);
+
+	size_type i = index;
+	for (auto it = first; it != last; ++it)
+		data_[i++] = *it;
+
+	size_ += count;
+
+	return begin() + index;
+}
+
+template<typename T>
 typename Vector<T>::it Vector<T>::insert(const_it pos, T&& value) {
 	if (pos < begin() || pos > end()) throw std::out_of_range("Vector::insert");
 
@@ -441,6 +481,27 @@ typename Vector<T>::it Vector<T>::insert(const_it pos, T&& value) {
 
 	data_[index] = std::move(value);
 	size_++;
+
+	return begin() + index;
+}
+
+template<typename T>
+typename Vector<T>::it Vector<T>::insert(const_it pos, std::initializer_list<T> ilist) {
+	size_type index = pos - begin();
+	size_type count = ilist.size();
+
+	if (size_ + count > capacity_)
+		reserve(std::max(capacity_ * 2, size_ + count));
+
+	// shift existing elements
+	std::move_backward(begin() + index, end(), end() + count);
+
+	// copy new elements
+	size_type i = index;
+	for (const auto& v : ilist)
+		data_[i++] = v;
+
+	size_ += count;
 
 	return begin() + index;
 }

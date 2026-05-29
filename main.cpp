@@ -2,8 +2,16 @@
 #include "mylib.h"
 #include "functions.h"
 #include "Studentas.h"
+#include "Vector.h"
 
 //Visi duomenu rinkiniai su std::vector
+
+void print_container(const Vector<int>& c)
+{
+	for (int i : c)
+		std::cout << i << ' ';
+	std::cout << '\n';
+}
 
 int main()
 {
@@ -224,13 +232,148 @@ int main()
 
 		}
 
+		// Vector klases testai
+		else if (choiceMenu == 9) {
+			cout << "\nSHRINK_TO_FIT\n\n";
+
+			Vector<int> v;
+			std::cout << "Default-constructed capacity is " << v.capacity() << '\n';
+			v.resize(100);
+			std::cout << "Capacity of a 100-element vector is " << v.capacity() << '\n';
+			v.resize(50);
+			std::cout << "Capacity after resize(50) is " << v.capacity() << '\n';
+			v.shrink_to_fit();
+			std::cout << "Capacity after shrink_to_fit() is " << v.capacity() << '\n';
+			v.clear();
+			std::cout << "Capacity after clear() is " << v.capacity() << '\n';
+			v.shrink_to_fit();
+			std::cout << "Capacity after shrink_to_fit() is " << v.capacity() << '\n';
+			for (int i = 1000; i < 1300; ++i)
+				v.push_back(i);
+			std::cout << "Capacity after adding 300 elements is " << v.capacity() << '\n';
+			v.shrink_to_fit();
+			std::cout << "Capacity after shrink_to_fit() is " << v.capacity() << '\n';
+
+			system("pause");
+			system("cls");
+
+			cout << "\n\nERASE\n";
+
+			Vector<int> c{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+			print_container(c);
+
+			c.erase(c.begin());
+			print_container(c);
+
+			c.erase(c.begin() + 2, c.begin() + 5);
+			print_container(c);
+
+			// Erase all even numbers
+			for (Vector<int>::it it = c.begin(); it != c.end();)
+			{
+				if (*it % 2 == 0)
+					it = c.erase(it);
+				else
+					++it;
+			}
+			print_container(c);
+
+			system("pause");
+			system("cls");
+
+			cout << "\SWAP\n\n";
+
+			Vector<int> a1{ 1, 2, 3 }, a2{ 4, 5 };
+
+			Vector<int>::it it1 = std::next(a1.begin());
+			Vector<int>::it it2 = std::next(a2.begin());
+
+			int& ref1 = a1.front();
+			int& ref2 = a2.front();
+
+			cout << "a1: \n"; print_container(a1); cout << "\n";
+			cout << "a2: \n"; print_container(a2); cout << "\n";
+			std::cout << *it1 << ' ' << *it2 << ' ' << ref1 << ' ' << ref2 << '\n';
+			a1.swap(a2); cout << "SWAPPED\n";
+			cout << "a1: \n"; print_container(a1); cout << "\n";
+			cout << "a2: \n"; print_container(a2); cout << "\n";
+			std::cout << *it1 << ' ' << *it2 << ' ' << ref1 << ' ' << ref2 << '\n';
+
+			system("pause");
+			system("cls");
+
+			cout << "\nINSERT_RANGE\n\n";
+			auto container = Vector{ 1, 2, 3, 4 };
+
+			cout << "start: \n"; print_container(container);
+
+			auto pos = std::next(container.begin(), 2);
+			assert(*pos == 3);
+			const auto rg = std::list{ -1, -2, -3 };
+
+#ifdef __cpp_lib_containers_ranges
+			container.insert_range(pos, rg);
+#else
+			container.insert(pos, rg.cbegin(), rg.cend());
+#endif
+			assert(std::ranges::equal(container, Vector{ 1, 2, -1, -2, -3, 3, 4 }));
+			cout << "range has been added\n";
+
+			print_container(container);
+
+			system("pause");
+			system("cls");
+
+			cout << "\nCOMPARISON OPERATORS\n\n";
+			
+			const Vector
+				a{ 1, 2, 3 },
+				b{ 1, 2, 3 },
+				d{ 7, 8, 9, 10 };
+
+			assert
+			(""
+				"Compare equal containers:" &&
+				(a != b) == false &&
+				(a == b) == true &&
+				(a < b) == false &&
+				(a <= b) == true &&
+				(a > b) == false &&
+				(a >= b) == true &&
+				(a <=> b) != std::weak_ordering::less &&
+				(a <=> b) != std::weak_ordering::greater &&
+				(a <=> b) == std::weak_ordering::equivalent &&
+				(a <=> b) >= 0 &&
+				(a <=> b) <= 0 &&
+				(a <=> b) == 0 &&
+
+				"Compare non equal containers:" &&
+				(a != d) == true &&
+				(a == d) == false &&
+				(a < d) == true &&
+				(a <= d) == true &&
+				(a > d) == false &&
+				(a >= d) == false &&
+				(a <=> d) == std::weak_ordering::less &&
+				(a <=> d) != std::weak_ordering::equivalent &&
+				(a <=> d) != std::weak_ordering::greater &&
+				(a <=> d) < 0 &&
+				(a <=> d) != 0 &&
+				(a <=> d) <= 0 &&
+				"");
+			cout << "test passed under the hood :)";
+
+			system("pause");
+			system("cls");
+		}
+
 		if (choiceMenu >= 1 && choiceMenu <= 3) {
 			choiceEndStud = integer_input_validation(0, 1, "\nAr vesite dar vieno studento duomenis? (0 - Taip, 1 - Ne, einame prie galutiniu rezultatu)\n");
 			system("cls");
 		}
 
 		//Reset
-		if (choiceMenu >= 5 && choiceMenu <= 8) {
+		if (choiceMenu >= 5 && choiceMenu <= 9) {
 			Studentai.clear();
 			choiceEndStud = 0;
 		}
@@ -276,7 +419,7 @@ int main()
 		}
 	}
 	else if (Studentai.empty() && (choiceMenu != 5 && choiceMenu != 6 && choiceMenu != 7 && choiceMenu != 8)) {
-		cout << "Studentu duomenu nera.\n\n";
+		cout << "Darbas baigtas.\n\n";
 	}
 
 	return 0;

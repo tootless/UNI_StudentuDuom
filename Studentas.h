@@ -130,19 +130,26 @@ void write_studentai(const std::string& filename, StudentaiContainer& studentai)
 }
 
 template<typename StudentaiContainer>
-void choice_sort(StudentaiContainer& studentai, int choice) {
-	sort(studentai.begin(), studentai.end(),
-		[choice](const Studentas& a, const Studentas& b) -> bool {
-			if (choice == 1) {
-				if (a.getVardas() != b.getVardas()) return a.getVardas() < b.getVardas();
+void choice_sort(StudentaiContainer& studentai, int choice)
+{
+	std::sort(studentai.begin(), studentai.end(),
+		[choice](const Studentas& a, const Studentas& b)
+		{
+			if (choice == 1)
+			{
+				return a.getVardas() < b.getVardas();
 			}
-			else if (choice == 2) {
-				if (a.getPavarde() != b.getPavarde()) return a.getPavarde() < b.getPavarde();
+			else if (choice == 2)
+			{
+				return a.getPavarde() < b.getPavarde();
 			}
-			else if (choice == 3) {
-				return a.getGalutinis(calc_vidurkis) > b.getGalutinis(calc_vidurkis);
+			else if (choice == 3)
+			{
+				return a.getGalutinis(calc_vidurkis) >
+					b.getGalutinis(calc_vidurkis);
 			}
-			else {
+			else
+			{
 				return a.getGalutinis() > b.getGalutinis();
 			}
 		});

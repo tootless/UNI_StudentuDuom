@@ -3,7 +3,7 @@
 //GLOBALIOS FUNKCIJOS
 //
 void menu(int& choiceMenu) {
-	int choices = 8;
+	int choices = 9;
 
 	do {
 		cout << "\nMENIU\n";
@@ -11,7 +11,8 @@ void menu(int& choiceMenu) {
 		cout << "Pasirinkite programos eiga\n"
 			<< "\n1 - Viskas ranka,\n2 - Randomizuoti nd. pazymiai ir egz. balas,\n3 - Viskas randomizuota,"
 			<< "\n4 - Baigti darba (Ir isvesti galutinius rezultatus),\n5 - Skaityti visus duomenis is failo,\n6 - Generuoti randomizuotu studentu duomenu failus,"
-			<< "\n7 - Vykdyti spartos analize su std::vector." << "\n8 - Vykdyti spartos analize tarp skirtingu STL konteineriu";
+			<< "\n7 - Vykdyti spartos analize su std::vector." << "\n8 - Vykdyti spartos analize tarp skirtingu STL konteineriu"
+			<< "\n9 - Perziureti Vector klases veikima, naudojant std::vector funkciju pavyzdzius.";
 		cout << "\n--------\n";
 
 		choiceMenu = integer_input_validation(1, choices);
