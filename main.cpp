@@ -370,26 +370,21 @@ int main()
 		//Vector klases spartos analize
 		else if (choiceMenu == 10) {
 
-			std::vector<size_t> sizes1 = { 10000, 100000, 1000000, 10000000, 100000000};
-			Vector<size_t> sizes2 = { 10000, 100000, 1000000, 10000000, 100000000};
+			std::vector<int> sizes1 = { 10000, 100000, 1000000, 10000000, 100000000};
+			std::vector<int> sizes2 = { 10000, 100000, 1000000, 10000000, 100000000};
 
 			cout << "std::vector\n";
+			std::vector<int> v;
 
-			for (auto n : sizes1)
-			{
-				cout << n << " -> "
-					<< measure_push_back<std::vector<int>>(n)
-					<< " ms\n";
+			for (auto n : sizes1){
+				cout << n << ": " << measure_push_back<std::vector<int>>(n) << " ms\n\n";
 			}
 			system("pause");
 
-			cout << "\nVector\n";
+			cout << "\nVector\n\n";
 
-			for (auto n : sizes2)
-			{
-				cout << n << " -> "
-					<< measure_push_back<Vector<int>>(n)
-					<< " ms\n";
+			for (auto n : sizes2){
+				cout << n << ": " << measure_push_back<Vector<int>>(n) << " ms\n";
 			}
 			system("pause");
 			system("cls");

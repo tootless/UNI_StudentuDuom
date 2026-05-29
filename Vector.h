@@ -671,15 +671,22 @@ template<typename Vec>
 auto measure_push_back(size_t count)
 {
 	Vec v;
-
+	size_t reallocations = 0;
 	Timer timer;
 
 	for (size_t i = 0; i < count; ++i)
 	{
+		if (count == 100000000 && v.size() == v.capacity())
+		{
+			++reallocations;
+		}
 		v.push_back(i);
 	}
 
-	volatile auto size = v.size();
+	volatile auto size = v.size(); //for compiler just in case it optimizes
+	if(count == 100000000) cout << "\nis viso: " << reallocations << " atminties perskirstymu su 100000000 duomenu\n";
 
-	return timer.elapsed();
+	double res = timer.elapsed();
+
+	return res;
 }
