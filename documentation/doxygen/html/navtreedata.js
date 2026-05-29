@@ -39,64 +39,80 @@ var NAVTREE =
           [ "Windows", "md__r_e_a_d_m_e.html#autotoc_md12", null ]
         ] ]
       ] ],
-      [ "Versija v2.0", "md__r_e_a_d_m_e.html#autotoc_md14", [
+      [ "Versija v3.0", "md__r_e_a_d_m_e.html#autotoc_md14", [
         [ "Pakeitimai", "md__r_e_a_d_m_e.html#autotoc_md15", null ]
       ] ],
-      [ "Unit testai", "md__r_e_a_d_m_e.html#autotoc_md17", [
-        [ "Realizuoti testai", "md__r_e_a_d_m_e.html#autotoc_md18", [
-          [ "Skaiciavimo testai (<span class=\"tt\">CalcTests</span>)", "md__r_e_a_d_m_e.html#autotoc_md19", null ],
-          [ "Studento klases testai (StudentasTests)", "md__r_e_a_d_m_e.html#autotoc_md21", null ],
-          [ "Rule of Five testai (RuleOfFiveTests)", "md__r_e_a_d_m_e.html#autotoc_md23", null ]
-        ] ],
-        [ "Testu paleidimas", "md__r_e_a_d_m_e.html#autotoc_md25", [
-          [ "Paleisti visus testus", "md__r_e_a_d_m_e.html#autotoc_md26", null ]
-        ] ],
-        [ "Tiketinas rezultatas", "md__r_e_a_d_m_e.html#autotoc_md28", null ]
+      [ "Testavimas - std::vector vs Vector klase", "md__r_e_a_d_m_e.html#autotoc_md17", [
+        [ "Vidutinis greitis su duomenimis nuo 1000 iki 100mln.", "md__r_e_a_d_m_e.html#autotoc_md18", null ],
+        [ "Atminties realokacijos", "md__r_e_a_d_m_e.html#autotoc_md19", null ],
+        [ "- 28 kartus Vector.", "md__r_e_a_d_m_e.html#autotoc_md20", null ],
+        [ "Testavimo apzvalga", "md__r_e_a_d_m_e.html#autotoc_md21", null ],
+        [ "Atskiru testu rezultatai", "md__r_e_a_d_m_e.html#autotoc_md23", [
+          [ "10 000", "md__r_e_a_d_m_e.html#autotoc_md24", null ],
+          [ "100 000", "md__r_e_a_d_m_e.html#autotoc_md25", null ],
+          [ "1 000 000", "md__r_e_a_d_m_e.html#autotoc_md26", null ],
+          [ "10 000 000", "md__r_e_a_d_m_e.html#autotoc_md27", null ],
+          [ "100 000 000", "md__r_e_a_d_m_e.html#autotoc_md28", null ]
+        ] ]
       ] ],
-      [ "Versija v1.5", "md__r_e_a_d_m_e.html#autotoc_md30", [
-        [ "Pakeitimai", "md__r_e_a_d_m_e.html#autotoc_md31", null ],
-        [ "UML klasiu hierarchijos diagrama", "md__r_e_a_d_m_e.html#autotoc_md32", null ],
-        [ "Zmogus - abstrakti klase + rankinis v1.2 pagristas testas", "md__r_e_a_d_m_e.html#autotoc_md33", null ]
+      [ "Versija v2.0", "md__r_e_a_d_m_e.html#autotoc_md30", [
+        [ "Pakeitimai", "md__r_e_a_d_m_e.html#autotoc_md31", null ]
       ] ],
-      [ "Versija v1.2", "md__r_e_a_d_m_e.html#autotoc_md35", [
-        [ "Pakeitimai", "md__r_e_a_d_m_e.html#autotoc_md36", null ]
+      [ "Unit testai", "md__r_e_a_d_m_e.html#autotoc_md33", [
+        [ "Realizuoti testai", "md__r_e_a_d_m_e.html#autotoc_md34", [
+          [ "Skaiciavimo testai (<span class=\"tt\">CalcTests</span>)", "md__r_e_a_d_m_e.html#autotoc_md35", null ],
+          [ "Studento klases testai (StudentasTests)", "md__r_e_a_d_m_e.html#autotoc_md37", null ],
+          [ "Rule of Five testai (RuleOfFiveTests)", "md__r_e_a_d_m_e.html#autotoc_md39", null ]
+        ] ],
+        [ "Testu paleidimas", "md__r_e_a_d_m_e.html#autotoc_md41", [
+          [ "Paleisti visus testus", "md__r_e_a_d_m_e.html#autotoc_md42", null ]
+        ] ],
+        [ "Tiketinas rezultatas", "md__r_e_a_d_m_e.html#autotoc_md44", null ]
       ] ],
-      [ "Versija v1.1", "md__r_e_a_d_m_e.html#autotoc_md38", [
-        [ "Pakeitimai", "md__r_e_a_d_m_e.html#autotoc_md39", null ]
+      [ "Versija v1.5", "md__r_e_a_d_m_e.html#autotoc_md46", [
+        [ "Pakeitimai", "md__r_e_a_d_m_e.html#autotoc_md47", null ],
+        [ "UML klasiu hierarchijos diagrama", "md__r_e_a_d_m_e.html#autotoc_md48", null ],
+        [ "Zmogus - abstrakti klase + rankinis v1.2 pagristas testas", "md__r_e_a_d_m_e.html#autotoc_md49", null ]
       ] ],
-      [ "Testavimas", "md__r_e_a_d_m_e.html#autotoc_md41", [
-        [ "v0.2", "md__r_e_a_d_m_e.html#autotoc_md42", null ],
-        [ "Tyrimas 1", "md__r_e_a_d_m_e.html#autotoc_md43", [
-          [ "1. Anksciau sugeneruotu failu nuskaitymas:", "md__r_e_a_d_m_e.html#autotoc_md44", null ]
+      [ "Versija v1.2", "md__r_e_a_d_m_e.html#autotoc_md51", [
+        [ "Pakeitimai", "md__r_e_a_d_m_e.html#autotoc_md52", null ]
+      ] ],
+      [ "Versija v1.1", "md__r_e_a_d_m_e.html#autotoc_md54", [
+        [ "Pakeitimai", "md__r_e_a_d_m_e.html#autotoc_md55", null ]
+      ] ],
+      [ "Testavimas", "md__r_e_a_d_m_e.html#autotoc_md57", [
+        [ "v0.2", "md__r_e_a_d_m_e.html#autotoc_md58", null ],
+        [ "Tyrimas 1", "md__r_e_a_d_m_e.html#autotoc_md59", [
+          [ "1. Anksciau sugeneruotu failu nuskaitymas:", "md__r_e_a_d_m_e.html#autotoc_md60", null ]
         ] ],
-        [ "v0.4", "md__r_e_a_d_m_e.html#autotoc_md45", null ],
-        [ "Tyrimas 1", "md__r_e_a_d_m_e.html#autotoc_md46", [
-          [ "1. Failu generavimas ir uzdarymas:", "md__r_e_a_d_m_e.html#autotoc_md47", null ],
-          [ "Tyrimo 1 output ekrane:", "md__r_e_a_d_m_e.html#autotoc_md48", null ]
+        [ "v0.4", "md__r_e_a_d_m_e.html#autotoc_md61", null ],
+        [ "Tyrimas 1", "md__r_e_a_d_m_e.html#autotoc_md62", [
+          [ "1. Failu generavimas ir uzdarymas:", "md__r_e_a_d_m_e.html#autotoc_md63", null ],
+          [ "Tyrimo 1 output ekrane:", "md__r_e_a_d_m_e.html#autotoc_md64", null ]
         ] ],
-        [ "&lt;img src=\"/Assets/test1_1.png\" alt=\"\"test1_1.png\"\"/&gt;", "md__r_e_a_d_m_e.html#autotoc_md49", null ],
-        [ "Tyrimas 2", "md__r_e_a_d_m_e.html#autotoc_md50", [
-          [ "1. Duomenu nuskaitymas is anksciau sugeneruotu failu:", "md__r_e_a_d_m_e.html#autotoc_md51", null ],
-          [ "2. Studentu rusiavimas i \"gerus\" ir \"blogus\" pagal galutini vidurki (&gt;= 5.0 - geras, kitaip - blogas):", "md__r_e_a_d_m_e.html#autotoc_md52", null ],
-          [ "3. \"Geru\" ir \"blogu\" studentu atitinkamu failu generavimas:", "md__r_e_a_d_m_e.html#autotoc_md53", null ],
-          [ "4. Visos programos laikas:", "md__r_e_a_d_m_e.html#autotoc_md54", null ],
-          [ "Tyrimo 2 output ekrane:", "md__r_e_a_d_m_e.html#autotoc_md55", null ]
+        [ "&lt;img src=\"/Assets/test1_1.png\" alt=\"\"test1_1.png\"\"/&gt;", "md__r_e_a_d_m_e.html#autotoc_md65", null ],
+        [ "Tyrimas 2", "md__r_e_a_d_m_e.html#autotoc_md66", [
+          [ "1. Duomenu nuskaitymas is anksciau sugeneruotu failu:", "md__r_e_a_d_m_e.html#autotoc_md67", null ],
+          [ "2. Studentu rusiavimas i \"gerus\" ir \"blogus\" pagal galutini vidurki (&gt;= 5.0 - geras, kitaip - blogas):", "md__r_e_a_d_m_e.html#autotoc_md68", null ],
+          [ "3. \"Geru\" ir \"blogu\" studentu atitinkamu failu generavimas:", "md__r_e_a_d_m_e.html#autotoc_md69", null ],
+          [ "4. Visos programos laikas:", "md__r_e_a_d_m_e.html#autotoc_md70", null ],
+          [ "Tyrimo 2 output ekrane:", "md__r_e_a_d_m_e.html#autotoc_md71", null ]
         ] ],
-        [ "&lt;img src=\"/Assets/test2_1.png\" alt=\"\"test2_1.png\"\"/&gt;", "md__r_e_a_d_m_e.html#autotoc_md56", null ],
-        [ "v1.0 (subrelease)", "md__r_e_a_d_m_e.html#autotoc_md57", null ],
-        [ "Tyrimas 1 - Aprasas", "md__r_e_a_d_m_e.html#autotoc_md58", null ],
-        [ "Aktualus testavimo sistemos parametrai:", "md__r_e_a_d_m_e.html#autotoc_md59", [
-          [ "CPU", "md__r_e_a_d_m_e.html#autotoc_md60", null ],
-          [ "RAM", "md__r_e_a_d_m_e.html#autotoc_md61", null ],
-          [ "SSD", "md__r_e_a_d_m_e.html#autotoc_md62", null ]
+        [ "&lt;img src=\"/Assets/test2_1.png\" alt=\"\"test2_1.png\"\"/&gt;", "md__r_e_a_d_m_e.html#autotoc_md72", null ],
+        [ "v1.0 (subrelease)", "md__r_e_a_d_m_e.html#autotoc_md73", null ],
+        [ "Tyrimas 1 - Aprasas", "md__r_e_a_d_m_e.html#autotoc_md74", null ],
+        [ "Aktualus testavimo sistemos parametrai:", "md__r_e_a_d_m_e.html#autotoc_md75", [
+          [ "CPU", "md__r_e_a_d_m_e.html#autotoc_md76", null ],
+          [ "RAM", "md__r_e_a_d_m_e.html#autotoc_md77", null ],
+          [ "SSD", "md__r_e_a_d_m_e.html#autotoc_md78", null ]
         ] ],
-        [ "Tyrimas 1 - Rezultatai", "md__r_e_a_d_m_e.html#autotoc_md63", [
-          [ "STD::VECTOR", "md__r_e_a_d_m_e.html#autotoc_md64", null ],
-          [ "STD::LIST", "md__r_e_a_d_m_e.html#autotoc_md65", null ],
-          [ "STD::DEQUE", "md__r_e_a_d_m_e.html#autotoc_md66", null ]
+        [ "Tyrimas 1 - Rezultatai", "md__r_e_a_d_m_e.html#autotoc_md79", [
+          [ "STD::VECTOR", "md__r_e_a_d_m_e.html#autotoc_md80", null ],
+          [ "STD::LIST", "md__r_e_a_d_m_e.html#autotoc_md81", null ],
+          [ "STD::DEQUE", "md__r_e_a_d_m_e.html#autotoc_md82", null ]
         ] ],
-        [ "v1.0 (optimizuota)", "md__r_e_a_d_m_e.html#autotoc_md67", null ],
-        [ "Tyrimas 2 - Aprasas", "md__r_e_a_d_m_e.html#autotoc_md68", null ]
+        [ "v1.0 (optimizuota)", "md__r_e_a_d_m_e.html#autotoc_md83", null ],
+        [ "Tyrimas 2 - Aprasas", "md__r_e_a_d_m_e.html#autotoc_md84", null ]
       ] ]
     ] ],
     [ "Klasės", "annotated.html", [

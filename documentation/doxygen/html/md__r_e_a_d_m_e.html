@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('md__r_e_a_d_m_
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
 Aprasas</h1>
 <p>Programa skirta studentu duomenu ivedimui, apzvalgai, isvedimui, palyginimui tarpusavy. <br  />
- Programa naudoja C++17.</p>
+ Programa naudoja C++20.</p>
 <p>Programa kurta VU ISI I kurso studento su tikslu ismokti daugiau apie OOP. <br  />
 </p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
@@ -132,7 +132,7 @@ Instaliavimas / paleidimas</h1>
 Reikalavimai</h2>
 <ul>
 <li>CMake v3.10 arba naujesne</li>
-<li>C++17 palaikantis kompiliatorius (g++, clang++ arba MSVC)</li>
+<li>C++20 palaikantis kompiliatorius (g++, clang++ arba MSVC)</li>
 <li>Interneto rysys pirmam paleidimui (GoogleTest parsisiuntimui)</li>
 </ul>
 <hr  />
@@ -159,8 +159,166 @@ Windows</h3>
 <div class="fragment"><div class="line">.\Debug\student_program.exe</div>
 </div><!-- fragment --><hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
-Versija v2.0</h1>
+Versija v3.0</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
+Pakeitimai</h2>
+<ul>
+<li>Sukurta pilnai veikianti <a class="el" href="class_vector.html">Vector</a> klase, paremta (teoriskai) std::vector. <br  />
+<ul>
+<li><a class="el" href="class_vector.html">Vector</a> neturi <span class="tt">allocator::traits</span>, keliu overload'u, taciau StudentDuom atveju tai yra pilnaverte std::vector alternatyva.</li>
+<li>Kur std::vector naudoja <span class="tt">new operator</span> ar <span class="tt">placement new</span>, <a class="el" href="class_vector.html">Vector</a> naudoja <span class="tt">new T[]</span>, kad sukurti duomenis. Tai turi trukumu:<ul>
+<li><a class="el" href="class_vector.html">Vector</a> is karto sukonstruoja visus objektus, kiek gali (capacity), std::vector alokuoja <span class="tt">raw</span> atminti. <br  />
+ Tai atveria kelia optimizacijoms - kaip ir minetas <span class="tt">allocator::traits</span>, kurio <a class="el" href="class_vector.html">Vector</a> negali naudoti. <br  />
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Visa StudentuDuom programa naudoja <a class="el" href="class_vector.html">Vector</a>. Is dalies patikrinimui ir general produkto palaikymui.</li>
+<li><a class="el" href="class_vector.html">Vector</a> ir std::vector klases palygintos sparta su iki 100 mln. <br  />
+<ul>
+<li>Rezultatai zemiau bei <a href="/Assets/v3.0/Test_Efficiency/">Test_Efficiency</a></li>
+</ul>
+</li>
+<li>Atnaujinta dokumentacija, html, LaTeX, .pdf</li>
+<li>Atlikti Unit Testai su visais <a class="el" href="class_vector.html">Vector</a> metodais. Rezultatai pasiekiami programoje.</li>
+</ul>
+<hr  />
+ <h1 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+Testavimas - std::vector vs Vector klase</h1>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
+Vidutinis greitis su duomenimis nuo 1000 iki 100mln.</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Duom. sk.  </th><th class="markdownTableHeadCenter">std::vector (ms)  </th><th class="markdownTableHeadCenter"><a class="el" href="class_vector.html">Vector</a> (ms)  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">10,000  </td><td class="markdownTableBodyCenter">0.0000464  </td><td class="markdownTableBodyCenter">0.0000925  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">100,000  </td><td class="markdownTableBodyCenter">0.0004062  </td><td class="markdownTableBodyCenter">0.0004516  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">1,000,000  </td><td class="markdownTableBodyCenter">0.0034007  </td><td class="markdownTableBodyCenter">0.0035111  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">10,000,000  </td><td class="markdownTableBodyCenter">0.0311443  </td><td class="markdownTableBodyCenter">0.0347872  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">100,000,000  </td><td class="markdownTableBodyCenter">0.3164716  </td><td class="markdownTableBodyCenter">0.3130998  </td></tr>
+</table>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+Atminties realokacijos</h2>
+<ul>
+<li>Atmintis su 100 mln. duomenu (<span class="tt">&lt;int&gt;</span>) buvo peralokuota:<ul>
+<li>47 kartus std::vector <br  />
+ </li>
+</ul>
+</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
+- 28 kartus Vector.</h2>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+Testavimo apzvalga</h2>
+<ul>
+<li><span class="tt">std::vector</span> bei <span class="tt"><a class="el" href="class_vector.html">Vector</a></span> klases yra panasios spartos, taciau std::vector yra labiau optimizuota klase. <br  />
+ Naudojant <span class="tt">allocator::traits</span> ir operuojant labiau low-level nei <a class="el" href="class_vector.html">Vector</a>, ji greiciau susidoroja su mazesniais duomenu kiekiais.</li>
+<li><span class="tt">std::vector</span> ir <span class="tt"><a class="el" href="class_vector.html">Vector</a></span> klases naudoja kitokius atminties realokacijos principa, <a class="el" href="class_vector.html">Vector</a> alokuoja <span class="tt">2 * capacity</span>, o std::vector daznai <span class="tt">~1.5 * capacity</span>. <br  />
+ Tai reiskia, kad nors ir std::vector peralokavo atminti 19 kartu daugiau - ji ja alokavo labiau efektyviai. <br  />
+ Be to, tai parodo, kad atminties realokacija, kopijavimas, move semantika, tvarkant paprastus tipus (kaip <span class="tt">int</span>), nera labai brangu.</li>
+</ul>
+<hr  />
+<h2 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
+Atskiru testu rezultatai</h2>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
+10 000</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Nr.  </th><th class="markdownTableHeadCenter">std::vector (ms)  </th><th class="markdownTableHeadCenter"><a class="el" href="class_vector.html">Vector</a> (ms)  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">1  </td><td class="markdownTableBodyCenter">0.0000864  </td><td class="markdownTableBodyCenter">0.0001092  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">2  </td><td class="markdownTableBodyCenter">0.0000462  </td><td class="markdownTableBodyCenter">0.0000701  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">3  </td><td class="markdownTableBodyCenter">0.0000404  </td><td class="markdownTableBodyCenter">0.0001064  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">4  </td><td class="markdownTableBodyCenter">0.0000384  </td><td class="markdownTableBodyCenter">0.0000611  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">5  </td><td class="markdownTableBodyCenter">0.0000414  </td><td class="markdownTableBodyCenter">0.0001157  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">Vid.  </td><td class="markdownTableBodyCenter">0.0000464  </td><td class="markdownTableBodyCenter">0.0000925  </td></tr>
+</table>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
+100 000</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Nr.  </th><th class="markdownTableHeadCenter">std::vector (ms)  </th><th class="markdownTableHeadCenter"><a class="el" href="class_vector.html">Vector</a> (ms)  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">1  </td><td class="markdownTableBodyCenter">0.0006316  </td><td class="markdownTableBodyCenter">0.0006274  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">2  </td><td class="markdownTableBodyCenter">0.0003711  </td><td class="markdownTableBodyCenter">0.0004005  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">3  </td><td class="markdownTableBodyCenter">0.0003387  </td><td class="markdownTableBodyCenter">0.0005090  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">4  </td><td class="markdownTableBodyCenter">0.0003518  </td><td class="markdownTableBodyCenter">0.0003615  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">5  </td><td class="markdownTableBodyCenter">0.0003377  </td><td class="markdownTableBodyCenter">0.0003597  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">Vid.  </td><td class="markdownTableBodyCenter">0.0004062  </td><td class="markdownTableBodyCenter">0.0004516  </td></tr>
+</table>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
+1 000 000</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Nr.  </th><th class="markdownTableHeadCenter">std::vector (ms)  </th><th class="markdownTableHeadCenter"><a class="el" href="class_vector.html">Vector</a> (ms)  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">1  </td><td class="markdownTableBodyCenter">0.0034704  </td><td class="markdownTableBodyCenter">0.0040201  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">2  </td><td class="markdownTableBodyCenter">0.0040731  </td><td class="markdownTableBodyCenter">0.0033310  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">3  </td><td class="markdownTableBodyCenter">0.0030384  </td><td class="markdownTableBodyCenter">0.0035121  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">4  </td><td class="markdownTableBodyCenter">0.0031859  </td><td class="markdownTableBodyCenter">0.0032517  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">5  </td><td class="markdownTableBodyCenter">0.0036356  </td><td class="markdownTableBodyCenter">0.0034405  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">Vid.  </td><td class="markdownTableBodyCenter">0.0034007  </td><td class="markdownTableBodyCenter">0.0035111  </td></tr>
+</table>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
+10 000 000</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Nr.  </th><th class="markdownTableHeadCenter">std::vector (ms)  </th><th class="markdownTableHeadCenter"><a class="el" href="class_vector.html">Vector</a> (ms)  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">1  </td><td class="markdownTableBodyCenter">0.0291172  </td><td class="markdownTableBodyCenter">0.0352419  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">2  </td><td class="markdownTableBodyCenter">0.0328546  </td><td class="markdownTableBodyCenter">0.0355669  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">3  </td><td class="markdownTableBodyCenter">0.0303506  </td><td class="markdownTableBodyCenter">0.0339828  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">4  </td><td class="markdownTableBodyCenter">0.0318232  </td><td class="markdownTableBodyCenter">0.0349377  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">5  </td><td class="markdownTableBodyCenter">0.0313760  </td><td class="markdownTableBodyCenter">0.0345071  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">Vid.  </td><td class="markdownTableBodyCenter">0.0311443  </td><td class="markdownTableBodyCenter">0.0347872  </td></tr>
+</table>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
+100 000 000</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Nr.  </th><th class="markdownTableHeadCenter">std::vector (ms)  </th><th class="markdownTableHeadCenter"><a class="el" href="class_vector.html">Vector</a> (ms)  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">1  </td><td class="markdownTableBodyCenter">0.321536  </td><td class="markdownTableBodyCenter">0.309383  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">2  </td><td class="markdownTableBodyCenter">0.315756  </td><td class="markdownTableBodyCenter">0.311027  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">3  </td><td class="markdownTableBodyCenter">0.315996  </td><td class="markdownTableBodyCenter">0.319193  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">4  </td><td class="markdownTableBodyCenter">0.313160  </td><td class="markdownTableBodyCenter">0.310593  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">5  </td><td class="markdownTableBodyCenter">0.315910  </td><td class="markdownTableBodyCenter">0.315307  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">Vid.  </td><td class="markdownTableBodyCenter">0.3164716  </td><td class="markdownTableBodyCenter">0.3130998  </td></tr>
+</table>
+<hr  />
+ <h1 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
+Versija v2.0</h1>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md31"></a>
 Pakeitimai</h2>
 <ul>
 <li>Doxygen automatiskai sugeneruota dokumentacija (html bei LaTeX) <br  />
@@ -179,7 +337,7 @@ Pakeitimai</h2>
 </li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md33"></a>
 Unit testai</h1>
 <p>Projektui realizuoti Unit Testai naudojant <b>GoogleTest</b> framework'a.</p>
 <p>Testai skirti patikrinti:</p><ul>
@@ -192,9 +350,9 @@ Unit testai</h1>
 <li>Rule of Five realizacija <br  />
 </li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md34"></a>
 Realizuoti testai</h2>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md35"></a>
 Skaiciavimo testai (<span class="tt">CalcTests</span>)</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -207,7 +365,7 @@ Skaiciavimo testai (<span class="tt">CalcTests</span>)</h3>
 <td class="markdownTableBodyNone"><span class="tt">MedianaEvenTest</span>  </td><td class="markdownTableBodyNone">Patikrina mediana su lyginiu pazymiu kiekiu  </td></tr>
 </table>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md37"></a>
 Studento klases testai (StudentasTests)</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -220,7 +378,7 @@ Studento klases testai (StudentasTests)</h3>
 <td class="markdownTableBodyNone"><span class="tt">OutputOperatorTest</span>  </td><td class="markdownTableBodyNone">Patikrina <span class="tt">operator&lt;&lt;</span>  </td></tr>
 </table>
 <hr  />
-<h3 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md39"></a>
 Rule of Five testai (RuleOfFiveTests)</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -235,9 +393,9 @@ Rule of Five testai (RuleOfFiveTests)</h3>
 <td class="markdownTableBodyNone"><span class="tt">MoveAssignmentTest</span>  </td><td class="markdownTableBodyNone">Patikrina Move Assignment operator  </td></tr>
 </table>
 <hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md41"></a>
 Testu paleidimas</h2>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
 Paleisti visus testus</h3>
 <p>Windows:</p>
 <div class="fragment"><div class="line">.\tests\Debug\run_tests.exe</div>
@@ -248,7 +406,7 @@ Paleisti visus testus</h3>
 </div><!-- fragment --><p>arba:</p>
 <div class="fragment"><div class="line">ctest</div>
 </div><!-- fragment --><hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
 Tiketinas rezultatas</h2>
 <div class="fragment"><div class="line">[==========] Running 10 tests from 3 test suites.</div>
 <div class="line">[----------] 3 tests from CalcTests</div>
@@ -257,9 +415,9 @@ Tiketinas rezultatas</h2>
 <div class="line"> </div>
 <div class="line">[  PASSED  ] 10 tests.</div>
 </div><!-- fragment --><hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md46"></a>
 Versija v1.5</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md31"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md47"></a>
 Pakeitimai</h2>
 <ul>
 <li>Klase <a class="el" href="class_studentas.html">Studentas</a> pakeista i Studentas::Zmogus, prideta abstrakti klase <a class="el" href="class_zmogus.html">Zmogus</a>. <br  />
@@ -276,20 +434,20 @@ Pakeitimai</h2>
 </li>
 <li>v1.2 logika ir veikimo principai islike.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md32"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md48"></a>
 UML klasiu hierarchijos diagrama</h2>
 <p>&lt;img src="/Assets/v1.5/UML_class_structure.png" alt=""Class Structure UML""/&gt; <br  />
 </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md33"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md49"></a>
 Zmogus - abstrakti klase + rankinis v1.2 pagristas testas</h2>
 <p>&lt;img src="/Assets/v1.5/Abstract.png" alt=""Abstract.png""/&gt;</p>
 <p>&lt;img src="/Assets/v1.5/Test.png" alt=""Test.png"/&gt;
 
 &lt;hr&gt;
 
-@section autotoc_md35 Versija v1.2
+@section autotoc_md51 Versija v1.2
 
-@subsection autotoc_md36 Pakeitimai
+@subsection autotoc_md52 Pakeitimai
 
 - Sukurti Rule of Five metodai Studentas klasei
     - Copy Assignment, Move Assignment, Copy C-tor, Move C-tor, Destruktorius
@@ -299,26 +457,26 @@ Zmogus - abstrakti klase + rankinis v1.2 pagristas testas</h2>
 
 &lt;hr&gt;
 
-@section autotoc_md38 Versija v1.1
+@section autotoc_md54 Versija v1.1
 
-@subsection autotoc_md39 Pakeitimai
+@subsection autotoc_md55 Pakeitimai
 
 - Klonuota repozitorija senosios pagrindu
 - Pereita nuo Studentas struct i Studentas class
 
 &lt;hr&gt;
 
-@section autotoc_md41 Testavimas
+@section autotoc_md57 Testavimas
 
 - Testavimo rezultatu nuotraukos yra ikeltos &lt;a href="/Assets" &gt;Assets aplanke</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md58"></a>
 v0.2</h2>
 <p>Tyrimas buvo atliktas su Visual Studio 2022 /O2 optimizacijos nustatymais. <br  />
  Tyrimo 1 failai buvo istrinti pries kiekviena bandyma. <br  />
  Testavimo metu testavimo sistemoje nebuvo ijungtos jokios kitos programos.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md59"></a>
 Tyrimas 1</h2>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md60"></a>
 1. Anksciau sugeneruotu failu nuskaitymas:</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -336,14 +494,14 @@ Tyrimas 1</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyCenter">Vid.  </td><td class="markdownTableBodyCenter">0.04844s  </td><td class="markdownTableBodyCenter">0.623s  </td><td class="markdownTableBodyCenter">2.9574s  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md61"></a>
 v0.4</h2>
 <p>Tyrimai buvo atlikti su Visual Studio 2022 /O2 optimizacijos nustatymais. <br  />
  Tyrimo 1 ir tyrimo 2 failai buvo istrinti pries kiekviena bandyma, isskyrus tyrimo 2 failus, su kuriais buvo testuojamas skaitymo greitis (Tyrimas 2.1). <br  />
  Testavimo metu testavimo sistemoje nebuvo ijungtos jokios kitos programos.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md46"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md62"></a>
 Tyrimas 1</h2>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md47"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md63"></a>
 1. Failu generavimas ir uzdarymas:</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -359,14 +517,14 @@ Tyrimas 1</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyCenter">Vid.  </td><td class="markdownTableBodyCenter">0.0035s  </td><td class="markdownTableBodyCenter">0.0325s  </td><td class="markdownTableBodyCenter">0.335s  </td><td class="markdownTableBodyCenter">3.318s  </td><td class="markdownTableBodyCenter">31.625s  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md48"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md64"></a>
 Tyrimo 1 output ekrane:</h3>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md49"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md65"></a>
 &lt;img src="/Assets/test1_1.png" alt=""test1_1.png""/&gt;</h2>
 <p>Kitas nuotraukas galima rasti repozitorijos assets aplanke (v0.4/Assets/...).</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md50"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md66"></a>
 Tyrimas 2</h2>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md51"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md67"></a>
 1. Duomenu nuskaitymas is anksciau sugeneruotu failu:</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -382,7 +540,7 @@ Tyrimas 2</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyCenter">Vid.  </td><td class="markdownTableBodyCenter">0.00575s  </td><td class="markdownTableBodyCenter">0.045s  </td><td class="markdownTableBodyCenter">0.4675s  </td><td class="markdownTableBodyCenter">4.7125s  </td><td class="markdownTableBodyCenter">47.5525s  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md52"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md68"></a>
 2. Studentu rusiavimas i "gerus" ir "blogus" pagal galutini vidurki (&gt;= 5.0 - geras, kitaip - blogas):</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -398,7 +556,7 @@ Tyrimas 2</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyCenter">Vid.  </td><td class="markdownTableBodyCenter">0.003s  </td><td class="markdownTableBodyCenter">0.0025s  </td><td class="markdownTableBodyCenter">0.00975s  </td><td class="markdownTableBodyCenter">0.11s  </td><td class="markdownTableBodyCenter">1.2525s  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md53"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md69"></a>
 3. "Geru" ir "blogu" studentu atitinkamu failu generavimas:</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -414,7 +572,7 @@ Tyrimas 2</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyCenter">Vid.  </td><td class="markdownTableBodyCenter">0.017s  </td><td class="markdownTableBodyCenter">0.03s  </td><td class="markdownTableBodyCenter">0.31s  </td><td class="markdownTableBodyCenter">3.3625s  </td><td class="markdownTableBodyCenter">30.9625s  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md54"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md70"></a>
 4. Visos programos laikas:</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -430,18 +588,18 @@ Tyrimas 2</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyCenter">Vid.  </td><td class="markdownTableBodyCenter">0.01525s  </td><td class="markdownTableBodyCenter">0.09175s  </td><td class="markdownTableBodyCenter">0.8s  </td><td class="markdownTableBodyCenter">8.235s  </td><td class="markdownTableBodyCenter">80.19s  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md55"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md71"></a>
 Tyrimo 2 output ekrane:</h3>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md56"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md72"></a>
 &lt;img src="/Assets/test2_1.png" alt=""test2_1.png""/&gt;</h2>
 <p>Kitas nuotraukas galima rasti repozitorijos assets aplanke (v0.4/Assets/...).</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md57"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md73"></a>
 v1.0 (subrelease)</h2>
 <p>Tyrimai buvo atlikti su Visual Studio 2022 /O2 optimizacijos nustatymais. <br  />
  Tyrimo 1 failai buvo sukurti viena karta pries bandymu pradzia. <br  />
  Testavimo metu testavimo sistemoje nebuvo ijungtos jokios kitos programos. <br  />
 </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md58"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md74"></a>
 Tyrimas 1 - Aprasas</h2>
 <p>Atliktas tyrimas su trejais skirtingais STL konteineriais (Vektoriai, Sarasai (list) ir Deque). <br  />
  Atlikti 3 bandymai kiekvienam konteineriui ir apskaiciuotas vidurkis, kuris pateikiamas kuo tikslesnis (daugiausia 5 simboliai po kablelio). <br  />
@@ -453,30 +611,30 @@ Tyrimas 1 - Aprasas</h2>
 <li>skirstant duomenis pagal galutini vidurki, sukuriant du naujus tokio pat tipo konteinerius ir naudojant move() funkcija, kad perkelti duomenis is originalaus konteinerio.</li>
 </ol>
 <p>Rezultatai pateikiami sekundemis, suapvalinti (stengiamasi nevirsyti 3 skaitmenu po kablelio, taciau yra labai mazu duomenu).</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md59"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md75"></a>
 Aktualus testavimo sistemos parametrai:</h2>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md60"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md76"></a>
 CPU</h3>
 <p><b>Specification</b>: 12th Gen Intel Core i7-12650H <br  />
  <b>Core count</b>: 10 <br  />
  <b>Thread count</b>: 16 <br  />
  <b>Hyperthreading</b>: Not supported <br  />
 </p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md61"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md77"></a>
 RAM</h3>
 <p><b>Specification</b>: DDR5-4800 (2400 MHz) <br  />
  <b>Memory slots used</b>: 2 out of 2 <br  />
  <b>Total memory</b>: 16 GB <br  />
 </p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md62"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md78"></a>
 SSD</h3>
 <p><b>Specification</b>: NVMe SAMSUNG MZVLQ1T0HBLB-00B00 <br  />
  <b>Read/Write speed</b>: 2300/1350 (MB/s) <br  />
  <b>Total capacity</b>: 953 GB <br  />
 </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md63"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md79"></a>
 Tyrimas 1 - Rezultatai</h2>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md64"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md80"></a>
 STD::VECTOR</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -522,7 +680,7 @@ STD::VECTOR</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft"><b>Viskas</b>  </td><td class="markdownTableBodyLeft"><b>49.89</b>  </td><td class="markdownTableBodyLeft"><b>49.92</b>  </td><td class="markdownTableBodyLeft"><b>50.26</b>  </td><td class="markdownTableBodyLeft"><b>50.01</b>  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md65"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md81"></a>
 STD::LIST</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -568,7 +726,7 @@ STD::LIST</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft"><b>Viskas</b>  </td><td class="markdownTableBodyLeft"><b>60.942</b>  </td><td class="markdownTableBodyLeft"><b>59.045</b>  </td><td class="markdownTableBodyLeft"><b>59.790</b>  </td><td class="markdownTableBodyLeft"><b>59.926</b>  </td></tr>
 </table>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md66"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md82"></a>
 STD::DEQUE</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -614,13 +772,13 @@ STD::DEQUE</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft"><b>Viskas</b>  </td><td class="markdownTableBodyLeft"><b>50.983</b>  </td><td class="markdownTableBodyLeft"><b>50.902</b>  </td><td class="markdownTableBodyLeft"><b>53.027</b>  </td><td class="markdownTableBodyLeft"><b>51.637</b>  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md67"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md83"></a>
 v1.0 (optimizuota)</h2>
 <p>Tyrimai buvo atlikti su Visual Studio 2022 /O2 optimizacijos nustatymais. <br  />
  Tyrimo 2 failai buvo sukurti viena karta pries bandymu pradzia. <br  />
  Testavimo metu testavimo sistemoje nebuvo ijungtos jokios kitos programos. <br  />
 </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md68"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md84"></a>
 Tyrimas 2 - Aprasas</h2>
 <p>Atliktas tyrimas su trejais skirtingais STL konteineriais (Vektoriai, Sarasai (list) ir Deque). <br  />
  Atlikti 3 bandymai kiekvienam konteineriui ir apskaiciuotas spartos vidurkis. <br  />
